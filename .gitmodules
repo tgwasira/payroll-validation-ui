@@ -1,0 +1,3 @@
+[submodule "src/react-ui-library"]
+	path = src/react-ui-library
+	url = https://github.com/Algion-Co/react-ui-library.git
