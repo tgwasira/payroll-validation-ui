@@ -1,0 +1,21 @@
+{
+  "topbar": {
+    "search_placeholder": "Search for anything"
+  },
+  "sidebar": {
+    "validation_jobs_tab_label": "Validation Jobs",
+    "validation_rules_tab_label": "Validation Rules"
+  },
+  "validation_jobs": {
+    "validation_jobs_page_title": "Validation Jobs",
+    "new_validation_job_button_label": "New Validation Job",
+    "validation_jobs_table_toolbar": {
+      "search_validation_jobs_placeholder": "Search validation jobs"
+    },
+    "validation_jobs_table": {
+      "data_sources_column_heading": "Data Sources",
+      "validation_rules_column_heading": "Validation Rules",
+      "status_column_heading": "Status"
+    }
+  }
+}

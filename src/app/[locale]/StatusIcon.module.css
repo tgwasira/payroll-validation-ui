@@ -1,0 +1,20 @@
+.StatusIconContainer {
+  display: inline-flex;
+  align-items: center;
+}
+
+.SuccessIcon {
+  color: var(--color-success);
+}
+
+.ValidationErrorIcon {
+  color: var(--color-error);
+}
+
+.ValidationWarningIcon {
+  color: var(--color-warning);
+}
+
+.CancelledIcon {
+  color: var(--color-cancelled);
+}

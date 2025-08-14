@@ -1,0 +1,6 @@
+.PaginationContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--padding-table-cell-tb) var(--padding-table-cell-lr);
+}
