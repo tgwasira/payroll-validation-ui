@@ -35,7 +35,7 @@ export default function StatusIcon({ status }) {
 
   return (
     <div className={styles.StatusIconContainer}>
-      <Icon weight="fill" className={`icon-base ${className}`} />
+      <Icon weight="fill" className={`icon-large ${className}`} />
     </div>
   );
 }

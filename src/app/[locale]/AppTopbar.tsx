@@ -1,9 +1,14 @@
 import { useTranslations } from "next-intl";
 import React from "react";
 
-import Searchbar from "@/react-ui-library/components/searchbar/Searchbar";
-import Topbar from "@/react-ui-library/components/topbar/Topbar";
+import SearchInput from "@/react-ui-library/components/inputs/search-input/SearchInput";
+import SidebarBranding from "@/react-ui-library/components/sidebar/SidebarBranding";
+import SidebarHeader from "@/react-ui-library/components/sidebar/sidebar-header/SidebarHeader";
+import Topbar, {
+  TopbarMainContent,
+} from "@/react-ui-library/components/topbar/Topbar";
 
+import logogram from "../../../public/logogram.png";
 import styles from "./AppTopbar.module.css";
 
 export default function AppTopbar() {
@@ -11,10 +16,13 @@ export default function AppTopbar() {
 
   return (
     <Topbar>
-      <Searchbar
-        placeholder={t("search_placeholder")}
-        className={styles.AppTopbar__Searchbar}
-      />
+      <SidebarHeader logogram={logogram} name={"Algion"} />
+      <TopbarMainContent>
+        <SearchInput
+          placeholder={t("search_placeholder")}
+          className={styles.AppTopbar__Searchbar}
+        />
+      </TopbarMainContent>
     </Topbar>
   );
 }

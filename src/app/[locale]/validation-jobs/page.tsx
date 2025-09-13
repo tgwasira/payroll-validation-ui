@@ -5,16 +5,20 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
+import routes from "@/app/routes";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";
 import PageContent from "@/react-ui-library/components/containers/page-content/PageContent";
 import PageSection from "@/react-ui-library/components/containers/page-section/PageSection";
-import TextInput from "@/react-ui-library/components/inputs/text-input/TextInput";
-import PageHeader from "@/react-ui-library/components/page-header/PageHeader";
-import Searchbar from "@/react-ui-library/components/searchbar/Searchbar";
+import PageHeader from "@/react-ui-library/components/headers/page-header/PageHeader";
+import Input from "@/react-ui-library/components/inputs/Input";
+import SearchInput from "@/react-ui-library/components/inputs/search-input/SearchInput";
+import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
 import Table from "@/react-ui-library/components/tables/table/Table";
 import TableSearchbar from "@/react-ui-library/components/tables/table-searchbar/TableSearchbar";
 import TableToolbar from "@/react-ui-library/components/tables/table-toolbar/TableToolbar";
+import getActionsColumn from "@/react-ui-library/components/tables/utils/getActionsColumn";
+import getCheckboxColumn from "@/react-ui-library/components/tables/utils/getCheckboxColumn";
 import Tag from "@/react-ui-library/components/tags/tag/Tag";
 import TagGroup from "@/react-ui-library/components/tags/tag-group/TagGroup";
 import PageTitle from "@/react-ui-library/components/text/page-title/PageTitle";
@@ -31,8 +35,8 @@ type Person = {
   progress: number;
 };
 
-export default function ValidationJobs() {
-  const t = useTranslations("validation_jobs");
+export default function ValidationJobsList() {
+  const t = useTranslations();
 
   const defaultData: Person[] = [
     {
@@ -75,49 +79,29 @@ export default function ValidationJobs() {
   const dataSourceIcons = {};
 
   const columns = [
-    // TODO: Move to utility
-    columnHelper.display({
-      id: "checkbox",
-      header: (info) => (
-        <Checkbox
-          id={`validationJobsTableHeaderCheckbox`}
-          checked={info.table.getIsAllRowsSelected()}
-          indeterminate={info.table.getIsSomeRowsSelected()}
-          onChange={info.table.getToggleAllRowsSelectedHandler()}
-        />
-      ),
-      cell: (info) => (
-        <Checkbox
-          id={`validationJobsTableBodyCheckbox-${info.row.index}`}
-          checked={info.row.getIsSelected()}
-          disabled={!info.row.getCanSelect()}
-          onChange={info.row.getToggleSelectedHandler()}
-        />
-      ),
-      meta: {
-        // If width of all other columns sums up to 100%, the width of the
-        // current column will just wrap the content
-        style: { paddingLeft: "16px", paddingRight: "16px" },
-      },
-    }),
+    getCheckboxColumn("checkbox", columnHelper),
     columnHelper.accessor("dataSources", {
-      header: t("validation_jobs_table.data_sources_column_heading"),
+      header: t(
+        "validation_jobs.validation_jobs_list.validation_jobs_table.data_sources_column_heading"
+      ),
       cell: (info) => {
         const dataSources = info.getValue();
 
         return dataSources.map((dataSource) => (
-          <div key={dataSource.id} className="icon-base-and-text-container">
-            <MSExcelIcon className="icon-base" />
+          <div key={dataSource.id} className="icon-large-and-text-container">
+            <MSExcelIcon className="icon-large" />
             {dataSource.name}
           </div>
         ));
       },
       meta: {
-        style: { width: "45%" },
+        style: { width: "40%" },
       },
     }),
     columnHelper.accessor("validationRules", {
-      header: t("validation_jobs_table.validation_rules_column_heading"),
+      header: t(
+        "validation_jobs.validation_jobs_list.validation_jobs_table.validation_rules_column_heading"
+      ),
       cell: (info) => {
         const validationRules = info.getValue();
 
@@ -126,7 +110,7 @@ export default function ValidationJobs() {
             {validationRules.map((validationRule) => (
               <Tag key={validationRule.id}>
                 {validationRule.type === "validation-rule-group" && (
-                  <StackIcon className="icon-small" />
+                  <StackIcon className="icon-medium" />
                 )}
                 {validationRule.name}
               </Tag>
@@ -135,11 +119,13 @@ export default function ValidationJobs() {
         );
       },
       meta: {
-        style: { width: "45%" },
+        style: { width: "40%" },
       },
     }),
     columnHelper.accessor("status", {
-      header: t("validation_jobs_table.status_column_heading"),
+      header: t(
+        "validation_jobs.validation_jobs_list.validation_jobs_table.status_column_heading"
+      ),
       cell: (info) => {
         const status = info.getValue();
 
@@ -148,58 +134,76 @@ export default function ValidationJobs() {
       meta: {
         style: {
           textAlign: "center",
-          // This is actually max-width = 10% and min-width = wrap content
-          width: "10%",
+          // This is actually max-width = 20% and min-width = wrap content
+          width: "20%",
         },
       },
     }),
-
-    // columnHelper.accessor("dataSources", {
-    //   header: t("validation_jobs_table.data_sources_column_heading"),
-    //   cell: (info) => info.getValue(),
-    //   footer: (info) => info.column.id,
-    // }),
-    // columnHelper.accessor((row) => row.lastName, {
-    //   id: "lastName",
-    //   cell: (info) => <i>{info.getValue()}</i>,
-    //   header: () => <span>Last Name</span>,
-    //   footer: (info) => info.column.id,
-    // }),
-    // columnHelper.accessor("age", {
-    //   header: () => "Age",
-    //   cell: (info) => info.renderValue(),
-    //   footer: (info) => info.column.id,
-    // }),
-    // columnHelper.accessor("visits", {
-    //   header: () => <span>Visits</span>,
-    //   footer: (info) => info.column.id,
-    // }),
-    // columnHelper.accessor("status", {
-    //   header: "Status",
-    //   footer: (info) => info.column.id,
-    // }),
-    // columnHelper.accessor("progress", {
-    //   header: "Profile Progress",
-    //   footer: (info) => info.column.id,
-    // }),
+    getActionsColumn("actions", columnHelper, () => (
+      <MenuItemsList
+        options={[
+          {
+            id: "edit",
+            label: "Edit",
+            onClick: (option) => {
+              console.log(option);
+            },
+          },
+          {
+            id: "delete",
+            label: "Delete",
+            onClick: (option) => {
+              console.log(option);
+            },
+          },
+        ]}
+        padded={true}
+      />
+    )),
   ];
 
-  const [data, _setData] = useState(() => [...defaultData]);
+  const filterOptions = [
+    {
+      label: t(
+        "validation_jobs.validation_jobs_list.validation_jobs_table_toolbar.filter_options.all_filter_option_label"
+      ),
+      onClick: () => {
+        console.log("All clicked");
+      },
+    },
+    {
+      label: t(
+        "validation_jobs.validation_jobs_list.validation_jobs_table_toolbar.filter_options.successful_filter_option_label"
+      ),
+      onClick: () => {
+        console.log("Successful clicked");
+      },
+    },
+  ];
+
+  const [data, setData] = useState(() => [...defaultData]);
 
   return (
     <PageContent>
       <PageHeader>
-        <PageTitle>{t("validation_jobs_page_title")}</PageTitle>
-        <Button>
-          <div className="text-icon-base">+</div>
-          {t("new_validation_job_button_label")}
+        <PageTitle>
+          {t(
+            "validation_jobs.validation_jobs_list.validation_jobs_list_page_title"
+          )}
+        </PageTitle>
+        <Button href={routes.validationJobs.newValidationJob}>
+          <div className="text-as-icon-large">+</div>
+          {t(
+            "validation_jobs.validation_jobs_list.new_validation_job_button_label"
+          )}
         </Button>
       </PageHeader>
       <PageSection>
         {/* Table Toolbar */}
         <TableToolbar
+          filterOptions={filterOptions}
           searchbarPlaceholder={t(
-            "validation_jobs_table_toolbar.search_validation_jobs_placeholder"
+            "validation_jobs.validation_jobs_list.validation_jobs_table_toolbar.search_validation_jobs_placeholder"
           )}
         />
 

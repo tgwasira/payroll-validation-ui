@@ -5,9 +5,12 @@ import {
 import { useTranslations } from "next-intl";
 import React from "react";
 
+import BrandingLight from "@/components/BrandingLight";
 import Sidebar from "@/react-ui-library/components/sidebar/Sidebar";
+import SidebarBranding from "@/react-ui-library/components/sidebar/SidebarBranding";
 import SidebarTabGroup from "@/react-ui-library/components/sidebar/SidebarTabGroup";
 
+import routes from "../routes";
 import styles from "./AppSidebar.module.css";
 
 /**
@@ -21,26 +24,25 @@ export default function AppSidebar() {
     {
       id: "validation-jobs", // do not use numbers as they are difficult to manage
       label: t("validation_jobs_tab_label"),
-      icon: <FileMagnifyingGlassIcon className="icon-base" />, // instantiate here to pass any props specific to the icon
-      href: "/en",
-      sidebarSecondaryTabs: [
-        {
-          id: "validation-jobs-history",
-          label: "Validation Jobs History",
-          href: "/en",
-        },
-        {
-          id: "validation-jobs-create",
-          label: "Create Validation Job",
-          href: "/",
-        },
-      ],
+      icon: <FileMagnifyingGlassIcon className="icon-large" />, // instantiate here to pass any props specific to the icon
+      href: routes.validationJobs.validationJobsList,
     },
     {
-      id: "validation-rules",
-      label: t("validation_rules_tab_label"),
-      icon: <ListChecksIcon className="icon-base" />,
-      // href: '',
+      id: "validation-rules-and-rule-groups",
+      label: t("validation_rules_and_rule_groups_tab_label"),
+      icon: <ListChecksIcon className="icon-large" />,
+      sidebarSecondaryTabs: [
+        {
+          id: "validation-rule-groups",
+          label: t("validation_rule_groups_tab_label"),
+          href: routes.validationRuleGroups.validationRuleGroupsList,
+        },
+        {
+          id: "validation-rules",
+          label: t("validation_rules_tab_label"),
+          href: routes.validationRules.validationRulesList,
+        },
+      ],
     },
   ];
 

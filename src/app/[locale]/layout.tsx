@@ -6,10 +6,12 @@ import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "next-themes";
+import { Bounce } from "react-toastify";
 
 import AppSidebar from "@/app/[locale]/AppSidebar";
 import { routing } from "@/i18n/routing";
-import Searchbar from "@/react-ui-library/components/searchbar/Searchbar";
+import SearchInput from "@/react-ui-library/components/inputs/search-input/SearchInput";
+import { Toaster } from "@/react-ui-library/components/toasts/Toaster";
 import Topbar from "@/react-ui-library/components/topbar/Topbar";
 
 import AppTopbar from "./AppTopbar";
@@ -39,11 +41,12 @@ export default async function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <NextIntlClientProvider>
           <ThemeProvider>
-            <div className="page-wrapper">
-              <AppSidebar />
-              <div className="page-content">
-                <AppTopbar />
-                {children}
+            <div className="body-wrapper">
+              <AppTopbar />
+              <div className="page-wrapper">
+                <AppSidebar />
+                <div className="page-content">{children}</div>
+                <Toaster />
               </div>
             </div>
           </ThemeProvider>
