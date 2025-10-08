@@ -2,9 +2,7 @@ import ApiClient from "@/react-ui-library/api/clients";
 
 export const validationServiceApi = new ApiClient({
   baseURL: "http://127.0.0.1:8000",
-  headers: {
-    "Content-Type": "application/json",
-  },
+  headers: {}, // Do not define Content-Type here because for multipart, the browser sets it including boundary
   interceptors: {
     // request: async (options) => {
     //   // Add auth token if available
@@ -32,5 +30,8 @@ export const validationServiceApi = new ApiClient({
     //   }
     //   return response.json();
     // },
+  },
+  endpoints: {
+    validationJobs: "/validation-jobs",
   },
 });

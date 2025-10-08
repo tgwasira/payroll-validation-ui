@@ -25,7 +25,7 @@ export default function AppSidebar() {
       id: "validation-jobs", // do not use numbers as they are difficult to manage
       label: t("validation_jobs_tab_label"),
       icon: <FileMagnifyingGlassIcon className="icon-large" />, // instantiate here to pass any props specific to the icon
-      href: routes.validationJobs.validationJobsList,
+      href: routes.validationJobs.list,
     },
     {
       id: "validation-rules-and-rule-groups",
@@ -35,12 +35,12 @@ export default function AppSidebar() {
         {
           id: "validation-rule-groups",
           label: t("validation_rule_groups_tab_label"),
-          href: routes.validationRuleGroups.validationRuleGroupsList,
+          href: routes.validationRuleGroups.list,
         },
         {
           id: "validation-rules",
           label: t("validation_rules_tab_label"),
-          href: routes.validationRules.validationRulesList,
+          href: routes.validationRules.list,
         },
       ],
     },

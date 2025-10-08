@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { useValidationRuleMutations } from "@/hooks/api/useValidationService";
+import { useValidationRuleMutations } from "@/hooks/api/validation-service/useValidationRules";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import ButtonGroup from "@/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
 import {
@@ -17,7 +17,7 @@ import {
   DialogTitle,
 } from "@/react-ui-library/components/dialogs/Dialog";
 import DialogFooterButtonGroup from "@/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
-import FileUpload from "@/react-ui-library/components/file-upload/FileUpload";
+import FileUpload from "@/react-ui-library/components/file-upload/FileUpload_";
 import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
 import TextInputField from "@/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
 import { Form } from "@/react-ui-library/components/forms/Forms";
@@ -30,7 +30,7 @@ import {
   TabPanels,
 } from "@/react-ui-library/components/tabs/Tabs";
 
-import styles from "./DataSourceDialog.module.css";
+import styles from "./ValidationDataSourceDialog.module.css";
 
 export default function ValidationRulesDialog({
   validationRulesDialogOpen,

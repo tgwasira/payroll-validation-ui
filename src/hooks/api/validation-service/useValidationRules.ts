@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { useApi } from "@/react-ui-library/hooks/useApi";
 import type { ValidationRule } from "@/types/validationServiceTypes";
 
-import { validationServiceApi } from "../../../apiConfig";
+import { validationServiceApi } from "../../../../apiConfig";
 
 export function useValidationRules(options = {}) {
   const api = useApi(validationServiceApi, "/validation-rules");
@@ -16,7 +16,7 @@ export function useValidationRules(options = {}) {
       _limit: limit,
     };
     const result = await api.get(params);
-    console.log(result);
+
     return result as ValidationRule[];
   }, [page, limit, api]);
 

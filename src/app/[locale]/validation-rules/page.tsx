@@ -6,13 +6,13 @@ import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
 import routes from "@/app/routes";
-import { useValidationRules } from "@/hooks/api/useValidationService";
+import { useValidationRules } from "@/hooks/api/validation-service/useValidationRules";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";
 import PageContent from "@/react-ui-library/components/containers/page-content/PageContent";
 import PageSection from "@/react-ui-library/components/containers/page-section/PageSection";
 import ScrollContainer from "@/react-ui-library/components/containers/scroll-container/ScrollContainer";
-import PageHeader from "@/react-ui-library/components/headers/page-header/PageHeader";
+import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
 import Input from "@/react-ui-library/components/inputs/Input";
 import SearchInput from "@/react-ui-library/components/inputs/search-input/SearchInput";
 import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";

@@ -2,18 +2,21 @@
 
 import { StackIcon } from "@phosphor-icons/react/dist/ssr";
 import { createColumnHelper } from "@tanstack/react-table";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import routes from "@/app/routes";
+import ValidationRuleTag from "@/components/validation-rule-tag/ValidationRuleTag";
+import { useValidationJobs } from "@/hooks/api/validation-service/useValidationJobs";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";
 import PageContent from "@/react-ui-library/components/containers/page-content/PageContent";
 import PageSection from "@/react-ui-library/components/containers/page-section/PageSection";
-import PageHeader from "@/react-ui-library/components/headers/page-header/PageHeader";
 import Input from "@/react-ui-library/components/inputs/Input";
 import SearchInput from "@/react-ui-library/components/inputs/search-input/SearchInput";
 import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
+import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
 import Table from "@/react-ui-library/components/tables/table/Table";
 import TableSearchbar from "@/react-ui-library/components/tables/table-searchbar/TableSearchbar";
 import TableToolbar from "@/react-ui-library/components/tables/table-toolbar/TableToolbar";
@@ -22,12 +25,14 @@ import getCheckboxColumn from "@/react-ui-library/components/tables/utils/getChe
 import Tag from "@/react-ui-library/components/tags/tag/Tag";
 import TagGroup from "@/react-ui-library/components/tags/tag-group/TagGroup";
 import PageTitle from "@/react-ui-library/components/text/page-title/PageTitle";
+import MSExcelFileIcon from "@/react-ui-library/icons/MSExcelFileIcon";
 import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
+import { getFileExtension } from "@/react-ui-library/utils/fileUtils";
 
 import StatusIcon from "./StatusIscon";
 
 type Person = {
-  dataSources: any[];
+  validationDataSources: any[];
   validationRules: any[];
   age: number;
   visits: number;
@@ -38,94 +43,82 @@ type Person = {
 export default function ValidationJobsList() {
   const t = useTranslations();
 
-  const defaultData: Person[] = [
-    {
-      dataSources: [{ id: 1, type: "ms-excel", name: "File 1.xls" }],
-      validationRules: [
-        { id: 1, name: "id-is-required", type: "validation-rule" },
-      ],
-      status: "validation-error",
-      age: 24,
-      visits: 100,
-      // status: "In Relationship",
-      progress: 50,
-    },
-    {
-      dataSources: [{ id: 20, type: "ms-excel", name: "File 2.xls" }],
-      validationRules: [
-        { id: 2, name: "id-is-required", type: "validation-rule" },
-      ],
-      status: "validation-warning",
-    },
-    {
-      dataSources: [{ id: 2, type: "ms-excel", name: "File 2.xls" }],
-      validationRules: [
-        { id: 2, name: "id-is-required", type: "validation-rule" },
-      ],
-      status: "cancelled",
-    },
-    {
-      dataSources: [{ id: 3, type: "ms-excel", name: "File 3.xls" }],
-      validationRules: [
-        { id: 3, name: "id-is-unique", type: "validation-rule-group" },
-        { id: 30, name: "id-is-unique", type: "validation-rule" },
-      ],
-      status: "success",
-    },
-  ];
-
+  // === Table ===
   const columnHelper = createColumnHelper<Person>();
-
-  const dataSourceIcons = {};
 
   const columns = [
     getCheckboxColumn("checkbox", columnHelper),
-    columnHelper.accessor("dataSources", {
-      header: t(
-        "validation_jobs.validation_jobs_list.validation_jobs_table.data_sources_column_heading"
-      ),
+    columnHelper.accessor("validationDataSources", {
+      header: t("validation_jobs.list.table.data_sources_column_heading"),
       cell: (info) => {
-        const dataSources = info.getValue();
+        const validationDataSources = info.getValue();
+        console.log(validationDataSources);
 
-        return dataSources.map((dataSource) => (
-          <div key={dataSource.id} className="icon-large-and-text-container">
-            <MSExcelIcon className="icon-large" />
-            {dataSource.name}
+        return validationDataSources.map((validationDataSource) => (
+          <div
+            key={validationDataSource.id}
+            className="icon-large-and-text-container"
+          >
+            {validationDataSource.type === "file" &&
+              (() => {
+                const fileExtension = getFileExtension(
+                  validationDataSource.validationFileRecord.filename
+                );
+
+                if (fileExtension === "xlsx" || fileExtension === "xls") {
+                  return (
+                    <>
+                      <MSExcelFileIcon className="icon-large" />
+                      {validationDataSource.validationFileRecord.filename}
+                    </>
+                  );
+                } else if (fileExtension === "csv") {
+                  return (
+                    <>{validationDataSource.validationFileRecord.filename}</>
+                  );
+                } else {
+                  return (
+                    <>{validationDataSource.validationFileRecord.filename}</>
+                  );
+                }
+              })()}
           </div>
         ));
       },
       meta: {
-        style: { width: "40%" },
+        style: { width: "30%" },
       },
     }),
     columnHelper.accessor("validationRules", {
-      header: t(
-        "validation_jobs.validation_jobs_list.validation_jobs_table.validation_rules_column_heading"
-      ),
+      header: t("validation_jobs.list.table.validation_rules_column_heading"),
       cell: (info) => {
         const validationRules = info.getValue();
 
         return (
           <TagGroup>
             {validationRules.map((validationRule) => (
-              <Tag key={validationRule.id}>
-                {validationRule.type === "validation-rule-group" && (
-                  <StackIcon className="icon-medium" />
-                )}
-                {validationRule.name}
-              </Tag>
+              <ValidationRuleTag
+                key={validationRule.id}
+                name={validationRule.name}
+                type={validationRule.type}
+              />
             ))}
           </TagGroup>
         );
       },
       meta: {
-        style: { width: "40%" },
+        style: { width: "30%" },
+      },
+    }),
+    // TODO: Change to last run
+    columnHelper.accessor("createdAt", {
+      header: t("validation_jobs.list.table.created_at_column_heading"),
+      meta: {
+        style: { width: "30%" },
       },
     }),
     columnHelper.accessor("status", {
-      header: t(
-        "validation_jobs.validation_jobs_list.validation_jobs_table.status_column_heading"
-      ),
+      header: t("validation_jobs.list.table.status_column_heading"),
       cell: (info) => {
         const status = info.getValue();
 
@@ -135,28 +128,42 @@ export default function ValidationJobsList() {
         style: {
           textAlign: "center",
           // This is actually max-width = 20% and min-width = wrap content
-          width: "20%",
+          width: "10%",
         },
       },
     }),
     getActionsColumn("actions", columnHelper, () => (
       <MenuItemsList
-        options={[
+        sections={[
           {
-            id: "edit",
-            label: "Edit",
-            onClick: (option) => {
-              console.log(option);
-            },
-          },
-          {
-            id: "delete",
-            label: "Delete",
-            onClick: (option) => {
-              console.log(option);
-            },
+            options: [
+              {
+                id: "edit",
+                label: "Edit",
+                props: {
+                  as: Link,
+                  href: "/",
+                },
+              },
+            ],
           },
         ]}
+        // options={[
+        //   {
+        //     id: "edit",
+        //     label: "Edit",
+        //     onClick: (option) => {
+        //       console.log(option);
+        //     },
+        //   },
+        //   {
+        //     id: "delete",
+        //     label: "Delete",
+        //     onClick: (option) => {
+        //       console.log(option);
+        //     },
+        //   },
+        // ]}
         padded={true}
       />
     )),
@@ -165,7 +172,7 @@ export default function ValidationJobsList() {
   const filterOptions = [
     {
       label: t(
-        "validation_jobs.validation_jobs_list.validation_jobs_table_toolbar.filter_options.all_filter_option_label"
+        "validation_jobs.list.validation_jobs_table_toolbar.filter_options.all_filter_option_label"
       ),
       onClick: () => {
         console.log("All clicked");
@@ -173,7 +180,7 @@ export default function ValidationJobsList() {
     },
     {
       label: t(
-        "validation_jobs.validation_jobs_list.validation_jobs_table_toolbar.filter_options.successful_filter_option_label"
+        "validation_jobs.list.validation_jobs_table_toolbar.filter_options.successful_filter_option_label"
       ),
       onClick: () => {
         console.log("Successful clicked");
@@ -181,34 +188,43 @@ export default function ValidationJobsList() {
     },
   ];
 
-  const [data, setData] = useState(() => [...defaultData]);
+  // === Data ===
+  const { loading, error, validationJobs, getValidationJobs } =
+    useValidationJobs();
+
+  // Fetch validation jobs on component mount
+  useEffect(() => {
+    getValidationJobs();
+  }, []);
 
   return (
     <PageContent>
       <PageHeader>
         <PageTitle>
-          {t(
-            "validation_jobs.validation_jobs_list.validation_jobs_list_page_title"
-          )}
+          {t("validation_jobs.list.validation_jobs_list_page_title")}
         </PageTitle>
-        <Button href={routes.validationJobs.newValidationJob}>
+        <Button href={routes.validationJobs.new}>
           <div className="text-as-icon-large">+</div>
-          {t(
-            "validation_jobs.validation_jobs_list.new_validation_job_button_label"
-          )}
+          {t("validation_jobs.list.new_validation_job_button_label")}
         </Button>
       </PageHeader>
-      <PageSection>
+      <PageSection padding={"none"}>
         {/* Table Toolbar */}
         <TableToolbar
           filterOptions={filterOptions}
           searchbarPlaceholder={t(
-            "validation_jobs.validation_jobs_list.validation_jobs_table_toolbar.search_validation_jobs_placeholder"
+            "validation_jobs.list.validation_jobs_table_toolbar.search_validation_jobs_placeholder"
           )}
         />
 
         {/* Validation Jobs Table */}
-        <Table data={data} columns={columns} />
+        <Table
+          data={validationJobs}
+          columns={columns}
+          getHref={(row) =>
+            `${routes.validationJobs.base}/${row.original["slug"]}`
+          }
+        />
 
         {/* Pagination */}
         {/* <Pagination /> */}

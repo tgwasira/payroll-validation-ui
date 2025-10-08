@@ -10,7 +10,7 @@ import Button from "@/react-ui-library/components/buttons/button/Button";
 import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";
 import PageContent from "@/react-ui-library/components/containers/page-content/PageContent";
 import PageSection from "@/react-ui-library/components/containers/page-section/PageSection";
-import PageHeader from "@/react-ui-library/components/headers/page-header/PageHeader";
+import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
 import Input from "@/react-ui-library/components/inputs/Input";
 import SearchInput from "@/react-ui-library/components/inputs/search-input/SearchInput";
 import Table from "@/react-ui-library/components/tables/table/Table";

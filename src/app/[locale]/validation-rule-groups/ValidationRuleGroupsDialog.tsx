@@ -17,13 +17,13 @@ import {
   DialogTitle,
 } from "@/react-ui-library/components/dialogs/Dialog";
 import DialogFooterButtonGroup from "@/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
-import FileUpload from "@/react-ui-library/components/file-upload/FileUpload";
+import FileUpload from "@/react-ui-library/components/file-upload/FileUpload_";
 import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
 import TextInputField from "@/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
 import {
   Form,
   FormSection,
-  FormSectionTitle,
+  FormPageSectionTitle,
 } from "@/react-ui-library/components/forms/Forms";
 import ControlledSelect from "@/react-ui-library/components/inputs/select-inputs/ControlledSelect";
 import Select from "@/react-ui-library/components/inputs/select-inputs/Select";
@@ -105,11 +105,11 @@ export default function ValidationRuleGroupsDialog({
 
             <FormSection>
               <DialogPaddingLR>
-                <FormSectionTitle>
+                <FormPageSectionTitle>
                   {t(
                     "validation_rule_groups.new.validation_rules_form_section_title"
                   )}
-                </FormSectionTitle>
+                </FormPageSectionTitle>
               </DialogPaddingLR>
               <ValidationRuleItems />
             </FormSection>

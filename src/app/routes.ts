@@ -1,16 +1,23 @@
+function makeRoutes(base, extra = {}) {
+  return {
+    base,
+    list: base,
+    ...Object.fromEntries(
+      Object.entries(extra).map(([key, sub]) => [key, `${base}${sub}`])
+    ),
+  };
+}
+
 const routes = {
-  validationJobs: {
-    validationJobsList: "/en/validation-jobs",
-    newValidationJob: "/en/validation-jobs/new",
-  },
-  validationRuleGroups: {
-    validationRuleGroupsList: "/en/validation-rule-groups",
-    newValidationRuleGroup: "/en/validation-rule-groups/new",
-  },
-  validationRules: {
-    validationRulesList: "/en/validation-rules",
-    newValidationRule: "/en/validation-rules/new",
-  },
+  validationJobs: makeRoutes("/en/validation-jobs", {
+    new: "/new",
+  }),
+  validationRuleGroups: makeRoutes("/en/validation-rule-groups", {
+    new: "/new",
+  }),
+  validationRules: makeRoutes("/en/validation-rules", {
+    new: "/new",
+  }),
 };
 
 export default routes;
