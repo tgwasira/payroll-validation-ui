@@ -10,7 +10,7 @@ import { Bounce } from "react-toastify";
 
 import AppSidebar from "@/app/[locale]/AppSidebar";
 import { routing } from "@/i18n/routing";
-import SearchInput from "@/react-ui-library/components/inputs/search-input/SearchInput";
+import SearchInput from "@/react-ui-library/components/forms/inputs/search-input/SearchInput";
 import { Toaster } from "@/react-ui-library/components/toasts/Toaster";
 import Topbar from "@/react-ui-library/components/topbar/Topbar";
 

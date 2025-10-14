@@ -5,7 +5,7 @@ import React from "react";
 
 import Avatar from "@/react-ui-library/components/avatars/Avatar";
 import Button from "@/react-ui-library/components/buttons/button/Button";
-import SearchInput from "@/react-ui-library/components/inputs/search-input/SearchInput";
+import SearchInput from "@/react-ui-library/components/forms/inputs//search-input/SearchInput";
 import { Menu } from "@/react-ui-library/components/menu/Menu";
 import { MenuButton } from "@/react-ui-library/components/menu/MenuButton";
 import { MenuDropdown } from "@/react-ui-library/components/menu/MenuDropdown";

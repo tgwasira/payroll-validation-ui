@@ -13,8 +13,8 @@ import PageContent from "@/react-ui-library/components/containers/page-content/P
 import PageSection from "@/react-ui-library/components/containers/page-section/PageSection";
 import ScrollContainer from "@/react-ui-library/components/containers/scroll-container/ScrollContainer";
 import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
-import Input from "@/react-ui-library/components/inputs/Input";
-import SearchInput from "@/react-ui-library/components/inputs/search-input/SearchInput";
+import Input from "@/react-ui-library/components/forms/inputs/Input";
+import SearchInput from "@/react-ui-library/components/forms/inputs/search-input/SearchInput";
 import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
 import Table from "@/react-ui-library/components/tables/table/Table";
 import TableSearchbar from "@/react-ui-library/components/tables/table-searchbar/TableSearchbar";

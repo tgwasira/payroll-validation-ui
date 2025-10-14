@@ -33,5 +33,6 @@ export const validationServiceApi = new ApiClient({
   },
   endpoints: {
     validationJobs: "/validation-jobs",
+    downloadFile: "/files/download",
   },
 });

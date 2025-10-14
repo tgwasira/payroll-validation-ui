@@ -1,0 +1,52 @@
+/* TODO: Check if this is working */
+.ValidationRulesListPaddingLR,
+.ValidationRulesList {
+  padding-right: (var(--line-height-body) + 6px);
+}
+
+.ValidationRulesListPaddingLR {
+  /* line-height = 21px. Need fixed sizes to know margins to put on items without button */
+  padding-left: calc(var(--line-height-body) + 6px);
+}
+
+.ValidationRulesList {
+  padding-left: 2px;
+}
+
+.ValidationRule {
+  margin-bottom: 8px;
+}
+
+.ValidationRuleListRow {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.DropdownButton {
+  min-height: var(
+    --line-height-body
+  ); /* line-height = 21px. Need fixed sizes to know margins to put on items without button */
+}
+
+.ValidationRuleSingleWrapper {
+  /* Width of dropwdown button + gap + space for stack icon + 2px */
+  margin-left: calc(var(--line-height-body) + 0.875rem + 6px);
+  border-left: var(--border-element);
+}
+
+.ValidationRuleSingleWrapperNoDisclosure {
+  /* Width of dropwdown button + gap */
+  margin-left: calc(var(--line-height-body) + 4px);
+}
+
+.HorizontalSeparator {
+  height: 1px;
+  width: 15px;
+  background-color: var(--color-border);
+  margin-right: 4px;
+}
+
+.ValidationRuleSinglesList .ValidationRuleListRow:last-child .ValidationRule {
+  margin-bottom: 0;
+}

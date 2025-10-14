@@ -25,8 +25,8 @@ import {
   FormSection,
   FormPageSectionTitle,
 } from "@/react-ui-library/components/forms/Forms";
-import ControlledSelect from "@/react-ui-library/components/inputs/select-inputs/ControlledSelect";
-import Select from "@/react-ui-library/components/inputs/select-inputs/Select";
+import ControlledSelect from "@/react-ui-library/components/forms/inputs/select-forms/inputs/ControlledSelect";
+import Select from "@/react-ui-library/components/forms/inputs/select-forms/inputs/Select";
 import { List, ListItem } from "@/react-ui-library/components/lists/List";
 import Tab1 from "@/react-ui-library/components/tabs/Tab1/Tab1";
 import {

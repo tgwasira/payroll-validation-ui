@@ -1,14 +1,27 @@
 import { useTranslations } from "next-intl";
 import React from "react";
 
-import PageSection from "@/react-ui-library/components/containers/page-section/PageSection";
+import ValidationRulesList, {
+  ValidationRulesListPaddingLR,
+} from "@/components/validation-rules-list/ValidationRulesList";
+import PageSection, {
+  PageSectionPadding,
+} from "@/react-ui-library/components/containers/page-section/PageSection";
 import PageSectionHeader from "@/react-ui-library/components/containers/page-section/PageSectionHeader";
+import FileCard from "@/react-ui-library/components/data-source-cards/file-card/FileCard";
+import {
+  Dd,
+  Dl,
+  Dt,
+} from "@/react-ui-library/components/description-list/DescriptionList";
 import PageSectionTitle from "@/react-ui-library/components/text/page-section-title/PageSectionTitle";
 
+import { validationServiceApi } from "../../../../../apiConfig";
 import styles from "./ValidationJobDetailsSection.module.css";
 
-export default function ValidationJobDetailsSection() {
+export default function ValidationJobDetailsSection({ validationJob }) {
   const t = useTranslations();
+  console.log(validationJob);
 
   return (
     <div className="grid grid-cols-12 gap-6">
@@ -20,20 +33,50 @@ export default function ValidationJobDetailsSection() {
               {t("validation_jobs.detail.details.overview.title")}
             </PageSectionTitle>
           </PageSectionHeader>
-          <dl className={styles.OverviewGrid}>
-            <dt className={styles.OverviewLabel}>
-              {t("validation_jobs.detail.details.overview.id")}
-            </dt>
-            <dd className={styles.OverviewValue}>Validation Job 1</dd>
-            <dt className={styles.OverviewLabel}>
+          <Dl columns={2}>
+            <Dt>{t("validation_jobs.detail.details.overview.id")}</Dt>
+            <Dd>{validationJob?.slug}</Dd>
+            <Dt className={styles.OverviewLabel}>
               {t("validation_jobs.detail.details.overview.description")}
-            </dt>
-            <dd className={styles.OverviewValue}>Lorem ipsum dolor sit amet</dd>
-          </dl>
+            </Dt>
+            <Dd className={styles.OverviewValue}>
+              {validationJob?.description}
+            </Dd>
+            <Dt>{t("validation_jobs.detail.details.overview.last_run")}</Dt>
+            <Dd>{validationJob?.validationJobStatus?.createdAt}</Dd>
+            <Dt>{t("validation_jobs.detail.details.overview.status")}</Dt>
+            <Dd>Success</Dd>
+          </Dl>
         </PageSection>
 
         {/* General Information Section */}
-        <PageSection>Hi</PageSection>
+        <PageSection>
+          <PageSectionHeader>
+            <PageSectionTitle>
+              {t("validation_jobs.detail.details.data_sources.title")}
+            </PageSectionTitle>
+          </PageSectionHeader>
+          <ul>
+            {validationJob?.validationDataSources.map((dataSource) => {
+              if (dataSource.type === "file") {
+                return (
+                  <FileCard
+                    as="li"
+                    fileName={dataSource?.validationFileRecord?.fileName}
+                    fileSize={dataSource?.validationFileRecord?.fileSize}
+                    key={dataSource.id}
+                    downloadHref={
+                      validationServiceApi.baseURL +
+                      validationServiceApi.endpoints.downloadFile +
+                      "/" +
+                      dataSource?.validationFileRecord?.filePath
+                    }
+                  />
+                );
+              }
+            })}
+          </ul>
+        </PageSection>
       </div>
 
       {/* Validation Rules Section */}
@@ -41,7 +84,25 @@ export default function ValidationJobDetailsSection() {
        * Wrap page section in div because outer div will take height of
        * tallest column
        */}
-      <div className="col-span-4">Hi</div>
+      <div className="col-span-4">
+        <PageSection padding="none">
+          <PageSectionPadding padding="top">
+            <ValidationRulesListPaddingLR>
+              <PageSectionHeader>
+                <PageSectionTitle>
+                  {t("validation_jobs.detail.details.validation_rules.title")}
+                </PageSectionTitle>
+              </PageSectionHeader>
+            </ValidationRulesListPaddingLR>
+          </PageSectionPadding>
+
+          <PageSectionPadding padding="bottom">
+            <ValidationRulesList
+              validationRules={validationJob.validationRules}
+            />
+          </PageSectionPadding>
+        </PageSection>
+      </div>
     </div>
   );
 }

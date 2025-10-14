@@ -28,7 +28,7 @@
       }
     },
     "detail": {
-      "page_title": "Validation Job: {slug}",
+      "page_title": "Job ID: {slug}",
       "tabs": {
         "results": "Results",
         "details": "Details"
@@ -59,8 +59,16 @@
       "details": {
         "overview": {
           "title": "Overview",
-          "id": "Job ID",
-          "description": "Description"
+          "id": "ID",
+          "description": "Description",
+          "last_run": "Last Run",
+          "status": "Status"
+        },
+        "data_sources": {
+          "title": "Data Sources"
+        },
+        "validation_rules": {
+          "title": "Validation Rules"
         }
       }
     },
@@ -121,7 +129,12 @@
       "name_field_label": "Name",
       "description_field_label": "Description",
       "range_field_label": "Range",
-      "formula_field_label": "Formula"
+      "formula_field_label": "Formula",
+      "type_field_label": "Type",
+      "type_field_options": {
+        "formula": "Formula",
+        "prompt": "Prompt"
+      }
     }
   }
 }

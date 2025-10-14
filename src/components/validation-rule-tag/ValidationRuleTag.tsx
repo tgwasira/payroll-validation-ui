@@ -3,13 +3,22 @@ import React from "react";
 
 import Tag from "@/react-ui-library/components/tags/tag/Tag";
 
-export default function ValidationRuleTag({ name, type }) {
+import styles from "./ValidationRuleTag.module.css";
+
+export default function ValidationRuleTag({
+  as = "div",
+  name,
+  type = "single",
+  className = "",
+}) {
   return (
-    <Tag>
-      {type === "validation-rule-group" && (
-        <StackIcon className="icon-medium" />
+    <Tag as={as} className={`${styles.ValidationRuleTag} ${className}`}>
+      {type === "group" && (
+        <div>
+          <StackIcon className="icon-base" />
+        </div>
       )}
-      {name}
+      <div>{name}</div>
     </Tag>
   );
 }

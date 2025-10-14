@@ -24,7 +24,7 @@ import PageTitleAndBackButton from "@/react-ui-library/components/text/page-titl
 import ValidationJobDetailsSection from "./ValidationJobDetailsSection";
 import ValidationResultsTable from "./ValidationResultsTable";
 
-export default function ValidationJobDetail({ validationJobSlug }) {
+export default function ValidationJobPage({ validationJobSlug }) {
   const t = useTranslations();
   const { loading, error, validationJob, getValidationJob } =
     useValidationJob();
@@ -36,32 +36,37 @@ export default function ValidationJobDetail({ validationJobSlug }) {
   }, []);
 
   return (
-    <PageContent>
-      <PageHeader marginBottom="tabs">
-        <PageTitleAndBackButton
-          title={t("validation_jobs.detail.page_title", {
-            slug: validationJobSlug,
-          })}
-        />
-      </PageHeader>
-      <PageTabGroup>
-        <PageTabList>
-          <Tab2>{t("validation_jobs.detail.tabs.results")}</Tab2>
-          <Tab2>{t("validation_jobs.detail.tabs.details")}</Tab2>
-        </PageTabList>
-        <TabPanels>
-          <TabPanel>
-            <PageSection padding="none">
-              <ValidationResultsTable
-                validationResult={validationJob?.validationResult}
-              />
-            </PageSection>
-          </TabPanel>
-          <TabPanel>
-            <ValidationJobDetailsSection />
-          </TabPanel>
-        </TabPanels>
-      </PageTabGroup>
-    </PageContent>
+    <>
+      <PageContent>
+        <PageHeader marginBottom="tabs">
+          <PageTitleAndBackButton
+            title={t("validation_jobs.detail.page_title", {
+              slug: validationJobSlug,
+            })}
+          />
+        </PageHeader>
+      </PageContent>
+
+      <PageContent>
+        <PageTabGroup>
+          <PageTabList>
+            <Tab2>{t("validation_jobs.detail.tabs.results")}</Tab2>
+            <Tab2>{t("validation_jobs.detail.tabs.details")}</Tab2>
+          </PageTabList>
+          <TabPanels>
+            <TabPanel>
+              <PageSection padding="none">
+                <ValidationResultsTable
+                  validationResult={validationJob?.validationResult}
+                />
+              </PageSection>
+            </TabPanel>
+            <TabPanel>
+              <ValidationJobDetailsSection validationJob={validationJob} />
+            </TabPanel>
+          </TabPanels>
+        </PageTabGroup>
+      </PageContent>
+    </>
   );
 }

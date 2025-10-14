@@ -1,6 +1,6 @@
 import React from "react";
 
-import ValidationJobDetail from "./ValidationJobDetail";
+import ValidationJobPage from "./ValidationJobPage";
 
 /**
  * A detail page for a specific validation job.
@@ -11,5 +11,5 @@ export default async function ValidationJobDetailPage({
   params: Promise<{ validationJobSlug: string }>;
 }) {
   const { validationJobSlug } = await params;
-  return <ValidationJobDetail validationJobSlug={validationJobSlug} />;
+  return <ValidationJobPage validationJobSlug={validationJobSlug} />;
 }

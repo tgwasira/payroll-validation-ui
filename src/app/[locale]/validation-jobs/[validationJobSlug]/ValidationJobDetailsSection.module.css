@@ -1,9 +1,0 @@
-.OverviewGrid {
-  display: grid;
-  grid-template-columns: 140px 1fr; /* label column + value column */
-  row-gap: 8px;
-}
-
-.OverviewLabel {
-  font-weight: var(--font-weight-medium);
-}
