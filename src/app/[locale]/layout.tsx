@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "next-themes";
+import { SkeletonTheme } from "react-loading-skeleton";
 import { Bounce } from "react-toastify";
 
 import AppSidebar from "@/app/[locale]/AppSidebar";
@@ -41,14 +42,19 @@ export default async function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <NextIntlClientProvider>
           <ThemeProvider>
-            <div className="body-wrapper">
-              <AppTopbar />
-              <div className="page-wrapper">
-                <AppSidebar />
-                <div className="page-content">{children}</div>
-                <Toaster />
+            <SkeletonTheme
+              baseColor="var(--color-skeleton-base)"
+              highlightColor="var(--color-skeleton-highlight)"
+            >
+              <div className="body-wrapper">
+                <AppTopbar />
+                <div className="page-wrapper">
+                  <AppSidebar />
+                  <div className="page-content">{children}</div>
+                  <Toaster />
+                </div>
               </div>
-            </div>
+            </SkeletonTheme>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

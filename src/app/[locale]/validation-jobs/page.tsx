@@ -62,23 +62,23 @@ export default function ValidationJobsList() {
             {validationDataSource.type === "file" &&
               (() => {
                 const fileExtension = getFileExtension(
-                  validationDataSource.validationFileRecord.filename
+                  validationDataSource.validationFileRecord.fileName
                 );
 
                 if (fileExtension === "xlsx" || fileExtension === "xls") {
                   return (
                     <>
                       <MSExcelFileIcon className="icon-large" />
-                      {validationDataSource.validationFileRecord.filename}
+                      {validationDataSource.validationFileRecord.fileName}
                     </>
                   );
                 } else if (fileExtension === "csv") {
                   return (
-                    <>{validationDataSource.validationFileRecord.filename}</>
+                    <>{validationDataSource.validationFileRecord.fileName}</>
                   );
                 } else {
                   return (
-                    <>{validationDataSource.validationFileRecord.filename}</>
+                    <>{validationDataSource.validationFileRecord.fileName}</>
                   );
                 }
               })()}

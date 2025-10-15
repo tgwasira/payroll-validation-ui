@@ -1,21 +1,25 @@
 "use client";
 
+import "react-loading-skeleton/dist/skeleton.css";
+
 import { StackIcon } from "@phosphor-icons/react/dist/ssr";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import routes from "@/app/routes";
+import NewValidationRuleButton from "@/components/buttons/NewValidationRuleButton";
 import { useValidationRules } from "@/hooks/api/validation-service/useValidationRules";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";
 import PageContent from "@/react-ui-library/components/containers/page-content/PageContent";
 import PageSection from "@/react-ui-library/components/containers/page-section/PageSection";
 import ScrollContainer from "@/react-ui-library/components/containers/scroll-container/ScrollContainer";
-import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
 import Input from "@/react-ui-library/components/forms/inputs/Input";
 import SearchInput from "@/react-ui-library/components/forms/inputs/search-input/SearchInput";
 import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
+import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
 import Table from "@/react-ui-library/components/tables/table/Table";
 import TableSearchbar from "@/react-ui-library/components/tables/table-searchbar/TableSearchbar";
 import TableToolbar from "@/react-ui-library/components/tables/table-toolbar/TableToolbar";
@@ -36,23 +40,24 @@ import ValidationRulesDialog from "./ValidationRulesDialog";
 export default function ValidationRules() {
   const t = useTranslations();
 
+  const handleNewValidationRuleButtonClick = () => {
+    setValidationRulesDialogOpen(true);
+  };
+
   // --- Tables ---
   // Validation rules table
   const columnHelper = createColumnHelper<ValidationRule>();
   const columns = [
     getCheckboxColumn("checkbox", columnHelper),
     columnHelper.accessor("name", {
-      header: t(
-        "validation_rules.list.validation_rules_table.name_column_label"
-      ),
+      header: t("validation_rules.list.table.name_column_label"),
       meta: {
+        loadingCell: () => <Skeleton width={"85%"} />,
         style: { width: "30%" },
       },
     }),
     columnHelper.accessor("description", {
-      header: t(
-        "validation_rules.list.validation_rules_table.description_column_label"
-      ),
+      header: t("validation_rules.list.table.description_column_label"),
       meta: {
         style: { width: "70%" },
       },
@@ -118,10 +123,7 @@ export default function ValidationRules() {
     >
       <PageHeader>
         <PageTitle>{t("validation_rules.list.list_page_title")}</PageTitle>
-        <Button onClick={() => setValidationRulesDialogOpen(true)}>
-          <div className="text-as-icon-large">+</div>
-          {t("validation_rules.list.new_validation_rule_button_label")}
-        </Button>
+        <NewValidationRuleButton onClick={handleNewValidationRuleButtonClick} />
       </PageHeader>
       {/* <div
         style={{
@@ -141,6 +143,7 @@ export default function ValidationRules() {
           }}
         > */}
       <PageSection
+        padding="none"
         style={{
           //maxHeight: "200px", // needs height for scroll container to work
           // background: "yellow",
@@ -181,6 +184,21 @@ export default function ValidationRules() {
         <Table
           data={validationRules}
           columns={columns}
+          emptyStateHeading={t(
+            "validation_rules.list.table.empty_state_heading"
+          )}
+          emptyStateSupportingText={t(
+            "validation_rules.list.table.empty_state_supporting_text"
+          )}
+          renderButton1={() => (
+            <NewValidationRuleButton
+              onClick={handleNewValidationRuleButtonClick}
+            />
+          )}
+          //
+          loading={loading}
+          loadingRows={5}
+          error={error}
           scrollable={true}
           scrollTableWrapperStyle={{
             maxHeight: "100%",

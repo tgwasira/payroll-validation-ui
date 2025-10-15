@@ -118,10 +118,12 @@
       "list_page_title": "Validation Rules",
       "new_validation_rule_button_label": "New Validation Rule",
       "validation_rules_search_placeholder": "Search validation rules",
-      "validation_rules_table": {
+      "table": {
         "name_column_label": "Name",
         "description_column_label": "Description",
-        "validation_rules_column_label": "Validation Rules"
+        "validation_rules_column_label": "Validation Rules",
+        "empty_state_heading": "No validation rules available",
+        "empty_state_supporting_text": "Begin by creating a new validation rule."
       }
     },
     "new": {
