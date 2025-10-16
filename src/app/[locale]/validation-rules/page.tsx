@@ -52,13 +52,13 @@ export default function ValidationRules() {
     columnHelper.accessor("name", {
       header: t("validation_rules.list.table.name_column_label"),
       meta: {
-        loadingCell: () => <Skeleton width={"85%"} />,
         style: { width: "30%" },
       },
     }),
     columnHelper.accessor("description", {
       header: t("validation_rules.list.table.description_column_label"),
       meta: {
+        // loadingCell: () => <Skeleton count={2} />,
         style: { width: "70%" },
       },
     }),
@@ -145,9 +145,10 @@ export default function ValidationRules() {
       <PageSection
         padding="none"
         style={{
+          height: "auto",
           //maxHeight: "200px", // needs height for scroll container to work
           // background: "yellow",
-          height: "auto",
+
           // height: "100%",
           // maxHeight: "100%",
           // backgroundColor: "blue",
@@ -181,6 +182,7 @@ export default function ValidationRules() {
 
         {/* Validation Jobs Table */}
         {/* <ScrollContainer ref={childRef}> */}
+        {/* <div style={{ height: "200px" }}> */}
         <Table
           data={validationRules}
           columns={columns}
@@ -197,26 +199,27 @@ export default function ValidationRules() {
           )}
           //
           loading={loading}
-          loadingRows={5}
+          loadingRows={40}
           error={error}
           scrollable={true}
-          scrollTableWrapperStyle={{
-            maxHeight: "100%",
-            // backgroundColor: "green",
-            // height: "100%",
-            // flexGrow: 1,
-            // height: "100%",
-            // flexGrow: 1,
-            // position: "absolute",
-            // height: "100%",
-            // width: "100%",
-          }}
+          // scrollTableWrapperStyle={{
+          //   maxHeight: "100%",
+          // backgroundColor: "green",
+          // height: "100%",
+          // flexGrow: 1,
+          // height: "100%",
+          // flexGrow: 1,
+          // position: "absolute",
+          // height: "100%",
+          // width: "100%",
+          // }}
         />
         {/* </div> */}
         {/* Pagination */}
         {/* <Pagination /> */}
         {/* </div> */}
         {/* </ScrollContainer> */}
+        {/* </div> */}
       </PageSection>
       {/* </div> */}
       {/* </div> */}

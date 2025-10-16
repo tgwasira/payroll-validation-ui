@@ -26,7 +26,7 @@ export function useValidationRules(options = {}) {
 
   return {
     validationRules: (api.data as ValidationRule[] | null) ?? [],
-    loading: api.loading,
+    loading: api.loading === null ? true : api.loading,
     error: api.error,
     fetchValidationRules,
   };
