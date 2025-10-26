@@ -19,7 +19,7 @@ export function ValidationRulesListPaddingLR({ children }) {
 
 export default function ValidationRulesList({ validationRules }) {
   return (
-    <ul className={styles.ValidationRulesList}>
+    <ul className={`${styles.ValidationRulesList}`}>
       {validationRules?.map((item, index) => {
         return (
           <li key={item.id}>

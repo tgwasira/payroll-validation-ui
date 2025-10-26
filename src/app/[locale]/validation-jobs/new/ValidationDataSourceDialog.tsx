@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import React, { useCallback, useState } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { set, useFieldArray, useFormContext } from "react-hook-form";
 
 import { useValidationDataSourceMutations } from "@/hooks/api/validation-service/useValidationDataSourceMutations";
 import { useValidationJobFileMutations } from "@/hooks/api/validation-service/useValidationFileRecordMutations";
@@ -10,11 +10,13 @@ import ScrollContainer from "@/react-ui-library/components/containers/scroll-con
 import {
   Dialog,
   DialogBody,
+  DialogBodyPadding,
   DialogCloseButton,
   DialogFooter,
   DialogHeader,
   DialogPaddingLR,
   DialogPanel,
+  DialogTabList,
   DialogTitle,
 } from "@/react-ui-library/components/dialogs/Dialog";
 import DialogFooterButtonGroup from "@/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
@@ -30,9 +32,10 @@ import {
   TabPanel,
   TabPanels,
 } from "@/react-ui-library/components/tabs/Tabs";
+import { Tab3 } from "@/react-ui-library/components/tabs/tabs3/Tabs3";
 import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
 
-import FilesList from "./FilesList";
+import FileList from "../../../../react-ui-library/components/files/file-list/FileList";
 import styles from "./ValidationDataSourceDialog.module.css";
 
 export default function ValidationDataSourceDialog({
@@ -43,6 +46,7 @@ export default function ValidationDataSourceDialog({
   appendValidationDataSource,
 }) {
   const t = useTranslations();
+  const { setValue } = useFormContext();
 
   const { createValidationFileRecord, loading: uploading } =
     useValidationJobFileMutations();
@@ -57,6 +61,14 @@ export default function ValidationDataSourceDialog({
 
   const closeDialog = () => {
     setDataSourceDialogOpen(false);
+
+    // Reset selected files
+    setSelectedFiles([]);
+
+    // Reset successfully created validation data sources
+    // TODO: Rename variable to something a bit more specific
+    setValidationDataSources([]);
+
     /**
      * FIXME: Ideally, the reset should wait a bit until animation for closing
      * dialog is completed. However, just using
@@ -149,7 +161,11 @@ export default function ValidationDataSourceDialog({
   );
 
   // === Event Handlers ===
+  // This is only called when submit button is clicked to commit the changes.
+  // Cancelling should not add data sources to the main form.
   const handleAddDataSources = () => {
+    // TODO: Still, I think these functions can be wrapped into another function
+    // in the parent.
     // Add the created validation data sources to the table data
     setValidationDataSourcesTableData((prev) => [
       ...prev,
@@ -176,7 +192,47 @@ export default function ValidationDataSourceDialog({
           <DialogCloseButton onClick={closeDialog} />
         </DialogHeader>
 
-        <DialogBody>
+        <DialogBody padding="top">
+          {/* No padding bottom as we want it to disappear behind footer */}
+          <ScrollContainer>
+            <DialogBodyPadding padding="bottom left right">
+              <TabGroup>
+                <DialogTabList className={styles.DialogTabList}>
+                  <Tab3 onClick={() => setValue("type", "file")}>
+                    {t(
+                      "validation_jobs.new.data_sources_dialog.files_tab_label"
+                    )}
+                  </Tab3>
+                  <Tab3 onClick={() => setValue("type", "api")}>
+                    {t(
+                      "validation_jobs.new.data_sources_dialog.apis_tab_label"
+                    )}
+                  </Tab3>
+                </DialogTabList>
+
+                <TabPanels>
+                  <TabPanel>
+                    <FileUpload
+                      instructionsLine1Text={t(
+                        "validation_jobs.new.data_sources_dialog.file_upload_formats"
+                      )}
+                      instructionsLine2Text={t(
+                        "validation_jobs.new.data_sources_dialog.file_upload_max_file_size"
+                      )}
+                      marginBottom={true}
+                      multiple={true}
+                      accept={".csv, application/vnd.ms-excel"}
+                      onFileChange={addUploads}
+                    />
+                    <FileList files={selectedFiles} />
+                  </TabPanel>
+                </TabPanels>
+              </TabGroup>
+            </DialogBodyPadding>
+          </ScrollContainer>
+        </DialogBody>
+
+        {/* <DialogBody>
           <TabGroup>
             <DialogPaddingLR>
               <TabList className={styles.TabList}>
@@ -188,7 +244,7 @@ export default function ValidationDataSourceDialog({
             <TabPanels>
               <TabPanel>
                 {/* TODO: Fix this */}
-                <ScrollContainer style={{ maxHeight: "100%" }}>
+        {/* <ScrollContainer style={{ maxHeight: "100%" }}>
                   <DialogPaddingLR>
                     <FileUpload
                       instructionsLine1Text={t(
@@ -207,8 +263,8 @@ export default function ValidationDataSourceDialog({
                 </ScrollContainer>
               </TabPanel>
             </TabPanels>
-          </TabGroup>
-        </DialogBody>
+          </TabGroup> */}
+        {/*</DialogBody> */}
 
         <DialogFooter>
           <DialogFooterButtonGroup>

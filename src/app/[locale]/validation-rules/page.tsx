@@ -21,6 +21,7 @@ import SearchInput from "@/react-ui-library/components/forms/inputs/search-input
 import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
 import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
 import Table from "@/react-ui-library/components/tables/table/Table";
+import TablePagination from "@/react-ui-library/components/tables/table-pagination/TablePagination";
 import TableSearchbar from "@/react-ui-library/components/tables/table-searchbar/TableSearchbar";
 import TableToolbar from "@/react-ui-library/components/tables/table-toolbar/TableToolbar";
 import getActionsColumn from "@/react-ui-library/components/tables/utils/getActionsColumn";
@@ -30,6 +31,7 @@ import TagGroup from "@/react-ui-library/components/tags/tag-group/TagGroup";
 import PageTitle from "@/react-ui-library/components/text/page-title/PageTitle";
 import { useApi } from "@/react-ui-library/hooks/useApi";
 import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
+import { capitalize } from "@/react-ui-library/utils/stringUtils";
 import type { ValidationRule } from "@/types/validationServiceTypes";
 
 import ValidationRulesDialog from "./ValidationRulesDialog";
@@ -59,7 +61,31 @@ export default function ValidationRules() {
       header: t("validation_rules.list.table.description_column_label"),
       meta: {
         // loadingCell: () => <Skeleton count={2} />,
-        style: { width: "70%" },
+        style: { width: "40%" },
+      },
+    }),
+    columnHelper.accessor("level", {
+      header: t("validation_rules.list.table.level_column_label"),
+      //No need to style the value because it's not actually showing a status
+      cell: (info) => capitalize(info.getValue()),
+      // const types = {
+      //   info: "normal",
+      //   error: "danger",
+      //   warning: "warning",
+      // };
+      // const values = {
+      //   info: t("validation_rules.level_options.info"),
+      //   error: t("validation_rules.level_options.error"),
+      //   warning: t("validation_rules.level_options.warning"),
+      // };
+      // return (
+      //   <Tag type={types[info.getValue() as keyof typeof types] || "normal"}>
+      //     {values[info.getValue() as keyof typeof values] || info.getValue()}
+      //   </Tag>
+      // );
+      meta: {
+        // loadingCell: () => <Skeleton count={2} />,
+        style: { width: "30%" },
       },
     }),
     getActionsColumn("actions", columnHelper, () => (
@@ -142,8 +168,12 @@ export default function ValidationRules() {
             overflow: "hidden",
           }}
         > */}
+      {/* //TODO Consider making a page section for table or a table wrapper with all these styles. TableContainer? Shouldpotentially be includable in a PageSection. Then you can have different styling options for it as standalone. Or consider using as prop to render it as a page section or a sub section */}
       <PageSection
         padding="none"
+        // Important to set flex and flexDirection here because scroll container sets its height to 100% which needs flex to not take parent's height when other siblings are present.
+        flex={true}
+        flexDirection="column"
         style={{
           height: "auto",
           //maxHeight: "200px", // needs height for scroll container to work
@@ -183,6 +213,7 @@ export default function ValidationRules() {
         {/* Validation Jobs Table */}
         {/* <ScrollContainer ref={childRef}> */}
         {/* <div style={{ height: "200px" }}> */}
+        {/* TODO: Text is disappearing at bottom. Seems to need some padding or something. */}
         <Table
           data={validationRules}
           columns={columns}
@@ -199,7 +230,8 @@ export default function ValidationRules() {
           )}
           //
           loading={loading}
-          loadingRows={40}
+          // TODO: Make this a variable
+          loadingRows={15}
           error={error}
           scrollable={true}
           // scrollTableWrapperStyle={{
@@ -220,6 +252,8 @@ export default function ValidationRules() {
         {/* </div> */}
         {/* </ScrollContainer> */}
         {/* </div> */}
+
+        <TablePagination />
       </PageSection>
       {/* </div> */}
       {/* </div> */}

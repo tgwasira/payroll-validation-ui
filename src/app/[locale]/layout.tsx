@@ -10,6 +10,7 @@ import { SkeletonTheme } from "react-loading-skeleton";
 import { Bounce } from "react-toastify";
 
 import AppSidebar from "@/app/[locale]/AppSidebar";
+import { WebSocketProvider } from "@/contexts/WebSocketContext";
 import { routing } from "@/i18n/routing";
 import SearchInput from "@/react-ui-library/components/forms/inputs/search-input/SearchInput";
 import { Toaster } from "@/react-ui-library/components/toasts/Toaster";
@@ -40,23 +41,25 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
-        <NextIntlClientProvider>
-          <ThemeProvider>
-            <SkeletonTheme
-              baseColor="var(--color-skeleton-base)"
-              highlightColor="var(--color-skeleton-highlight)"
-            >
-              <div className="body-wrapper">
-                <AppTopbar />
-                <div className="page-wrapper">
-                  <AppSidebar />
-                  <div className="page-content">{children}</div>
-                  <Toaster />
+        <WebSocketProvider>
+          <NextIntlClientProvider>
+            <ThemeProvider>
+              <SkeletonTheme
+                baseColor="var(--color-skeleton-base)"
+                highlightColor="var(--color-skeleton-highlight)"
+              >
+                <div className="body-wrapper">
+                  <AppTopbar />
+                  <div className="page-wrapper">
+                    <AppSidebar />
+                    <div className="page-content">{children}</div>
+                    <Toaster />
+                  </div>
                 </div>
-              </div>
-            </SkeletonTheme>
-          </ThemeProvider>
-        </NextIntlClientProvider>
+              </SkeletonTheme>
+            </ThemeProvider>
+          </NextIntlClientProvider>
+        </WebSocketProvider>
       </body>
     </html>
   );

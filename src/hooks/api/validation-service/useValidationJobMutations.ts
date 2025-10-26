@@ -10,7 +10,7 @@ export default function useValidationJobMutations() {
 
   const createValidationJob = useCallback(
     async (data: Partial<ValidationJob>) => {
-      console.log(data);
+      // console.log(data);
       const promise = api.post(data);
 
       const result = await toast.promise(promise, {

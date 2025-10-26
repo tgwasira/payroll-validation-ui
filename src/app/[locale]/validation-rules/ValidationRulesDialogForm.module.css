@@ -1,0 +1,8 @@
+/* .ValidationRulesDialogPanel {
+  height: 80vh;
+} */
+
+.DialogTabList {
+  position: sticky;
+  top: 0;
+}

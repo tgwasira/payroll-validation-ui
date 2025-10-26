@@ -5,7 +5,10 @@ import { useApi } from "@/react-ui-library/hooks/useApi";
 import { validationServiceApi } from "../../../../apiConfig";
 
 export function useValidationJobFileMutations() {
-  const api = useApi(validationServiceApi, "/uploads/validation-file-records");
+  const api = useApi(
+    validationServiceApi,
+    validationServiceApi.endpoints.validationFileRecords
+  );
 
   const createValidationFileRecord = useCallback(
     async (file: File, extraData?: Record<string, any>) => {

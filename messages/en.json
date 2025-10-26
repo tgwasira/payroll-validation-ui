@@ -12,6 +12,8 @@
     "list": {
       "validation_jobs_list_page_title": "Validation Jobs",
       "new_validation_job_button_label": "New Validation Job",
+      "empty_state_item_name": "validation job",
+      "empty_state_item_name_plural": "validation jobs",
       "validation_jobs_table_toolbar": {
         "filter_options": {
           "all_filter_option_label": "All",
@@ -21,19 +23,20 @@
         "search_validation_jobs_placeholder": "Search validation jobs"
       },
       "table": {
+        "id_column_heading": "ID",
         "data_sources_column_heading": "Data Sources",
         "validation_rules_column_heading": "Validation Rules",
-        "created_at_column_heading": "Created",
+        "last_run_column_heading": "Last Run",
         "status_column_heading": "Status"
       }
     },
     "detail": {
-      "page_title": "Job ID: {slug}",
+      "page_title": "{slug}",
       "tabs": {
-        "results": "Results",
+        "issues": "Issues",
         "details": "Details"
       },
-      "results": {
+      "issues": {
         "table": {
           "toolbar": {
             "filter_options": {
@@ -73,6 +76,7 @@
       }
     },
     "new": {
+      "id_field_label": "ID",
       "description_field_label": "Description",
       "description_field_placeholder": "Enter a description for the validation job",
       "submit_button_label": "Run Validation",
@@ -81,15 +85,22 @@
       "data_sources_section_title": "Data Sources",
       "add_data_source_button_label": "Add Data Source",
       "validation_rules_section_title": "Validation Rules",
+      "data_sources_page_section": {
+        "empty_state_heading": "No data sources added yet"
+      },
       "data_sources_table": {
         "data_source_column_heading": "Data Source"
       },
       "data_sources_dialog": {
         "data_sources_dialog_title": "Add Data Sources",
-        "files_tab_title": "Files",
+        "files_tab_label": "Files",
         "file_upload_formats": "Accepted file formats: .csv, .xls, .xlsx",
         "file_upload_max_file_size": "Maximum file size: 100MB",
-        "submit_button_label": "Add Data Sources"
+        "apis_tab_label": "APIs",
+        "submit_button_label": "Done"
+      },
+      "validation_rules_page_section": {
+        "empty_state_heading": "No validation rules added yet"
       }
     }
   },
@@ -121,6 +132,7 @@
       "table": {
         "name_column_label": "Name",
         "description_column_label": "Description",
+        "level_column_label": "Issue Level",
         "validation_rules_column_label": "Validation Rules",
         "empty_state_heading": "No validation rules available",
         "empty_state_supporting_text": "Begin by creating a new validation rule."
@@ -133,10 +145,30 @@
       "range_field_label": "Range",
       "formula_field_label": "Formula",
       "type_field_label": "Type",
-      "type_field_options": {
-        "formula": "Formula",
-        "prompt": "Prompt"
-      }
+      "formula_based_tab_label": "Formula-Based",
+      "prompt_based_tab_label": "Prompt-Based",
+      "data_type_field_label": "Data Type",
+      "data_type_field_options": {
+        "number": "Number",
+        "string": "String",
+        "date": "Date"
+      },
+      "criteria_field_label": "Criteria",
+      "criteria_field_options": {
+        "is_equal_to": "Is equal to",
+        "is_greater_than": "Is greater than",
+        "is_greater_than_or_equal_to": "Is greater than of equal to",
+        "is_less_than": "Is less than",
+        "is_less_than_or_equal_to": "Is less than or equal to",
+        "custom_formula": "Custom Formula"
+      },
+      "level_field_label": "Issue Level",
+      "message_field_label": "Message"
+    },
+    "level_options": {
+      "info": "Info",
+      "warning": "Warning",
+      "error": "Error"
     }
   }
 }

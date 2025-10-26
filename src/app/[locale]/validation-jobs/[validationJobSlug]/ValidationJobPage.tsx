@@ -50,7 +50,7 @@ export default function ValidationJobPage({ validationJobSlug }) {
       <PageContent>
         <PageTabGroup>
           <PageTabList>
-            <Tab2>{t("validation_jobs.detail.tabs.results")}</Tab2>
+            <Tab2>{t("validation_jobs.detail.tabs.issues")}</Tab2>
             <Tab2>{t("validation_jobs.detail.tabs.details")}</Tab2>
           </PageTabList>
           <TabPanels>

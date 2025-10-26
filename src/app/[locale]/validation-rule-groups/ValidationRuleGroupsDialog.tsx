@@ -22,8 +22,8 @@ import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-
 import TextInputField from "@/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
 import {
   Form,
-  FormSection,
   FormPageSectionTitle,
+  FormSection,
 } from "@/react-ui-library/components/forms/Forms";
 import ControlledSelect from "@/react-ui-library/components/forms/inputs/select-forms/inputs/ControlledSelect";
 import Select from "@/react-ui-library/components/forms/inputs/select-forms/inputs/Select";
@@ -68,7 +68,7 @@ export default function ValidationRuleGroupsDialog({
     >
       <Form
         onSubmit={(data) => {
-          console.log(data);
+          // console.log(data);
         }}
       >
         <DialogPanel>

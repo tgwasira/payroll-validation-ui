@@ -1,8 +1,0 @@
-.IconNameAndSize {
-  display: flex;
-  gap: var(--gap-file-list-item-icon-and-text);
-}
-
-.Size {
-  color: var(--color-fg-secondary);
-}

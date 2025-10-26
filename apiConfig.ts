@@ -2,6 +2,7 @@ import ApiClient from "@/react-ui-library/api/clients";
 
 export const validationServiceApi = new ApiClient({
   baseURL: "http://127.0.0.1:8000",
+  webSocketURL: "ws://127.0.0.1:8000/ws/01K8G9R4S6MKRVJT4EEYW73JQD",
   headers: {}, // Do not define Content-Type here because for multipart, the browser sets it including boundary
   interceptors: {
     // request: async (options) => {
@@ -33,6 +34,7 @@ export const validationServiceApi = new ApiClient({
   },
   endpoints: {
     validationJobs: "/validation-jobs",
+    validationFileRecords: "/validation-file-records",
     downloadFile: "/files/download",
   },
 });

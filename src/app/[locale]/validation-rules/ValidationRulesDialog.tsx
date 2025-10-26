@@ -52,6 +52,10 @@ export default function ValidationRulesDialog({
   //   }
   // }, [loading]);
 
+  const closeDialog = () => {
+    setValidationRulesDialogOpen(false);
+  };
+
   useEffect(() => {
     if (validationRule) {
       // toast.dismiss();
@@ -72,8 +76,9 @@ export default function ValidationRulesDialog({
       {/* Form needs to be within Dialog otherwise submit button will not work */}
       <Form
         onSubmit={(data) => {
+          // console.log(data);
           createValidationRule(data);
-          // closeDialog();
+          closeDialog();
         }}
       >
         <ValidationRulesDialogForm

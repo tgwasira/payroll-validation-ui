@@ -18,6 +18,7 @@ import SearchInput from "@/react-ui-library/components/forms/inputs/search-input
 import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
 import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
 import Table from "@/react-ui-library/components/tables/table/Table";
+import TablePagination from "@/react-ui-library/components/tables/table-pagination/TablePagination";
 import TableSearchbar from "@/react-ui-library/components/tables/table-searchbar/TableSearchbar";
 import TableToolbar from "@/react-ui-library/components/tables/table-toolbar/TableToolbar";
 import getActionsColumn from "@/react-ui-library/components/tables/utils/getActionsColumn";
@@ -48,11 +49,16 @@ export default function ValidationJobsList() {
 
   const columns = [
     getCheckboxColumn("checkbox", columnHelper),
+    columnHelper.accessor("slug", {
+      header: t("validation_jobs.list.table.id_column_heading"),
+      meta: {
+        style: { width: "20%" },
+      },
+    }),
     columnHelper.accessor("validationDataSources", {
       header: t("validation_jobs.list.table.data_sources_column_heading"),
       cell: (info) => {
         const validationDataSources = info.getValue();
-        console.log(validationDataSources);
 
         return validationDataSources.map((validationDataSource) => (
           <div
@@ -69,16 +75,29 @@ export default function ValidationJobsList() {
                   return (
                     <>
                       <MSExcelFileIcon className="icon-large" />
-                      {validationDataSource.validationFileRecord.fileName}
+                      {
+                        validationDataSource.validationFileRecord
+                          .originalFileName
+                      }
                     </>
                   );
                 } else if (fileExtension === "csv") {
                   return (
-                    <>{validationDataSource.validationFileRecord.fileName}</>
+                    <>
+                      {
+                        validationDataSource.validationFileRecord
+                          .originalFileName
+                      }
+                    </>
                   );
                 } else {
                   return (
-                    <>{validationDataSource.validationFileRecord.fileName}</>
+                    <>
+                      {
+                        validationDataSource.validationFileRecord
+                          .originalFileName
+                      }
+                    </>
                   );
                 }
               })()}
@@ -86,7 +105,7 @@ export default function ValidationJobsList() {
         ));
       },
       meta: {
-        style: { width: "30%" },
+        style: { width: "25%" },
       },
     }),
     columnHelper.accessor("validationRules", {
@@ -107,14 +126,15 @@ export default function ValidationJobsList() {
         );
       },
       meta: {
-        style: { width: "30%" },
+        style: { width: "25%" },
       },
     }),
     // TODO: Change to last run
-    columnHelper.accessor("createdAt", {
-      header: t("validation_jobs.list.table.created_at_column_heading"),
+    columnHelper.accessor((row) => row.updatedAt || row.createdAt, {
+      id: "lastRun",
+      header: t("validation_jobs.list.table.last_run_column_heading"),
       meta: {
-        style: { width: "30%" },
+        style: { width: "20%" },
       },
     }),
     columnHelper.accessor("status", {
@@ -224,8 +244,22 @@ export default function ValidationJobsList() {
           getHref={(row) =>
             `${routes.validationJobs.base}/${row.original["slug"]}`
           }
+          emptyStateHeading={t("common.tables.empty_state_default_heading", {
+            item_name_plural: t(
+              "validation_jobs.list.empty_state_item_name_plural"
+            ),
+          })}
+          emptyStateSupportingText={t(
+            "common.tables.empty_state_default_supporting_text",
+            { item_name: t("validation_jobs.list.empty_state_item_name") }
+          )}
+          emptyStateRenderButton1={() => (
+            <Button href={routes.validationJobs.new} variant="primary">
+              {t("validation_jobs.list.new_validation_job_button_label")}
+            </Button>
+          )}
         />
-
+        <TablePagination />
         {/* Pagination */}
         {/* <Pagination /> */}
       </PageSection>

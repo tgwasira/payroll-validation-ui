@@ -8,20 +8,22 @@ import React, { useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import routes from "@/app/routes";
+import { useWebSocket } from "@/contexts/WebSocketContext";
 import useValidationJobMutations from "@/hooks/api/validation-service/useValidationJobMutations";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import ButtonGroup from "@/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
 import PageContent from "@/react-ui-library/components/containers/page-content/PageContent";
 import PageSection, {
-  PageSectionPadding,
-  // PageSectionPadding,
-  PageSectionPaddingLR,
-  PageSectionPaddingTB,
+  PageSectionSpacing,
+  // PageSectionSpacing,
+  PageSectionSpacingLR,
+  PageSectionSpacingTB,
 } from "@/react-ui-library/components/containers/page-section/PageSection";
 import PageSectionHeader from "@/react-ui-library/components/containers/page-section/PageSectionHeader";
 import PageSubsection from "@/react-ui-library/components/containers/page-subsection/PageSubsection";
 import RightAlignedContent from "@/react-ui-library/components/containers/right-aligned-content/RightAlignedContent";
 import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
+import TextInputField from "@/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
 import { Form } from "@/react-ui-library/components/forms/Forms";
 import { Menu } from "@/react-ui-library/components/menu/Menu";
 import { MenuButton } from "@/react-ui-library/components/menu/MenuButton";
@@ -37,7 +39,8 @@ import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
 import PlusIcon from "@/react-ui-library/icons/PlusIcon";
 
 import ValidationDataSourceDialog from "./ValidationDataSourceDialog";
-import ValidationDataSourcesTableSection from "./ValidationDataSourcesTableSection";
+import ValidationDataSourcesTableSection from "./ValidationDataSourcesSection";
+import ValidationDataSourcesSection from "./ValidationDataSourcesSection";
 import ValidationRulesFormSection from "./ValidationRulesFormSection";
 
 export default function NewValidationJob() {
@@ -48,6 +51,7 @@ export default function NewValidationJob() {
   const [dataSourcesTableData, setValidationDataSourcesTableData] = useState(
     []
   );
+  const { isConnected, subscribe, send } = useWebSocket();
 
   // === Data ===
   const { createValidationJob } = useValidationJobMutations();
@@ -55,6 +59,7 @@ export default function NewValidationJob() {
   return (
     <Form
       onSubmit={async (data) => {
+        // console.log(data);
         // TODO: Put IDs directly in form
         // Extract validationRuleIds from validationRules and remove
         // validationRules
@@ -69,14 +74,17 @@ export default function NewValidationJob() {
         // If validation job was created successfully, redirect to validation
         // jobs page
         if (validationJob) {
-          redirect(routes.validationJobs.validationJobsList);
+          console.log("Job ID:", validationJob.id);
+          // Run validation job via websocket
+          send("start_validation", { id: validationJob.id });
+          redirect(routes.validationJobs.list);
         }
       }}
     >
       {({ control }) => {
         const {
           fields: validationDataSourceFields,
-          append: appendValidationDataSource,
+          append: appendValidationDataSource, // TODO: The field should store IDs. // TODO: Pass handler that does the appending and setting of the data state for the list
           remove: removeValidationDataSource,
         } = useFieldArray({
           name: "validationDataSourceIds",
@@ -100,6 +108,22 @@ export default function NewValidationJob() {
                 <div className="col-span-8">
                   {/* General Information Section */}
                   <PageSection>
+                    <TextInputField
+                      name="slug"
+                      label={t("validation_jobs.new.id_field_label")}
+                      rules={{
+                        required: {
+                          value: true,
+                          message: t(
+                            "common.forms.validation.required_error_message_specific",
+                            {
+                              field: t("validation_jobs.new.id_field_label"),
+                            }
+                          ),
+                        },
+                      }}
+                    />
+
                     <TextAreaField
                       name="description"
                       label={t("validation_jobs.new.description_field_label")}
@@ -109,9 +133,8 @@ export default function NewValidationJob() {
                   </PageSection>
 
                   {/* Data Sources Section */}
-                  <ValidationDataSourcesTableSection
+                  <ValidationDataSourcesSection
                     setDataSourceDialogOpen={setDataSourceDialogOpen}
-                    uploadedFiles={uploadedFiles}
                     dataSourcesTableData={dataSourcesTableData}
                   />
                 </div>

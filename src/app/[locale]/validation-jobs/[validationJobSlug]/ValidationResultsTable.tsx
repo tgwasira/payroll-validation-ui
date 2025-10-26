@@ -22,7 +22,7 @@ export default function ValidationResultsTable({ validationResult }) {
       (row) => toSpreadsheetRange(row.rowIndex, row.columnIndex),
       {
         id: "range",
-        header: t("validation_jobs.detail.results.table.range_column_heading"),
+        header: t("validation_jobs.detail.issues.table.range_column_heading"),
         meta: {
           style: { width: "20%" },
         },
@@ -30,7 +30,7 @@ export default function ValidationResultsTable({ validationResult }) {
     ),
     columnHelper.accessor((row) => row.validationRule.name, {
       id: "rule",
-      header: t("validation_jobs.detail.results.table.rule_column_heading"),
+      header: t("validation_jobs.detail.issues.table.rule_column_heading"),
       meta: {
         className: "truncate-overflow",
         style: { width: "40%" },
@@ -38,26 +38,26 @@ export default function ValidationResultsTable({ validationResult }) {
     }),
     columnHelper.accessor((row) => row.validationRule.level, {
       id: "issue",
-      header: t("validation_jobs.detail.results.table.issue_column_heading"),
+      header: t("validation_jobs.detail.issues.table.issue_column_heading"),
       cell: (info) => {
         const level = info.getValue();
 
         if (level === "info")
           return (
             <Tag type="info">
-              {t("validation_jobs.detail.results.table.level.info")}
+              {t("validation_jobs.detail.issues.table.level.info")}
             </Tag>
           );
         else if (level === "warning")
           return (
             <Tag type={"warning"}>
-              {t("validation_jobs.detail.results.table.level.warning")}
+              {t("validation_jobs.detail.issues.table.level.warning")}
             </Tag>
           );
         else if (level === "error")
           return (
             <Tag type={"error"}>
-              {t("validation_jobs.detail.results.table.level.error")}
+              {t("validation_jobs.detail.issues.table.level.error")}
             </Tag>
           );
         else return <></>;
@@ -67,14 +67,14 @@ export default function ValidationResultsTable({ validationResult }) {
       },
     }),
     columnHelper.accessor("value", {
-      header: t("validation_jobs.detail.results.table.value_column_heading"),
+      header: t("validation_jobs.detail.issues.table.value_column_heading"),
       meta: {
         style: { width: "20%" },
       },
     }),
     // columnHelper.display({
     //   header: t(
-    //     "validation_jobs.detail.results.table.correction_column_heading"
+    //     "validation_jobs.detail.issues.table.correction_column_heading"
     //   ),
     //   meta: {
     //     style: { width: "30%" },
@@ -108,7 +108,7 @@ export default function ValidationResultsTable({ validationResult }) {
   const filterOptions = [
     {
       label: t(
-        "validation_jobs.detail.results.table.toolbar.filter_options.all_filter_option_label"
+        "validation_jobs.detail.issues.table.toolbar.filter_options.all_filter_option_label"
       ),
       onClick: () => {
         console.log("All clicked");
@@ -116,7 +116,7 @@ export default function ValidationResultsTable({ validationResult }) {
     },
     {
       label: t(
-        "validation_jobs.detail.results.table.toolbar.filter_options.infos_filter_option_label"
+        "validation_jobs.detail.issues.table.toolbar.filter_options.infos_filter_option_label"
       ),
       onClick: () => {
         console.log("Info clicked");
@@ -124,7 +124,7 @@ export default function ValidationResultsTable({ validationResult }) {
     },
     {
       label: t(
-        "validation_jobs.detail.results.table.toolbar.filter_options.warnings_filter_option_label"
+        "validation_jobs.detail.issues.table.toolbar.filter_options.warnings_filter_option_label"
       ),
       onClick: () => {
         console.log("Warning clicked");
@@ -132,7 +132,7 @@ export default function ValidationResultsTable({ validationResult }) {
     },
     {
       label: t(
-        "validation_jobs.detail.results.table.toolbar.filter_options.errors_filter_option_label"
+        "validation_jobs.detail.issues.table.toolbar.filter_options.errors_filter_option_label"
       ),
       onClick: () => {
         console.log("Error clicked");
@@ -159,7 +159,7 @@ export default function ValidationResultsTable({ validationResult }) {
       <TableToolbar
         filterOptions={filterOptions}
         searchbarPlaceholder={t(
-          "validation_jobs.detail.results.table.search_placeholder"
+          "validation_jobs.detail.issues.table.search_placeholder"
         )}
       />
       <Table data={validationIssues} columns={columns} />

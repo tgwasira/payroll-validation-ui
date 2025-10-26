@@ -1,10 +1,11 @@
 import { useTranslations } from "next-intl";
-import React from "react";
-import { useWatch } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import { useValidationRuleMutations } from "@/hooks/api/validation-service/useValidationRules";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import ButtonGroup from "@/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
+import ScrollContainer from "@/react-ui-library/components/containers/scroll-container/ScrollContainer";
 import {
   Dialog,
   DialogBody,
@@ -13,6 +14,8 @@ import {
   DialogHeader,
   DialogPaddingLR,
   DialogPanel,
+  DialogTabGroup,
+  DialogTabList,
   DialogTitle,
 } from "@/react-ui-library/components/dialogs/Dialog";
 import DialogFooterButtonGroup from "@/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
@@ -22,6 +25,7 @@ import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-
 import TextInputField from "@/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
 import { Form } from "@/react-ui-library/components/forms/Forms";
 import ControlledSelectInput from "@/react-ui-library/components/forms/inputs/select-inputs/ControlledSelectInput";
+import SelectInput from "@/react-ui-library/components/forms/inputs/select-inputs/SelectInput";
 import Tab1 from "@/react-ui-library/components/tabs/Tab1/Tab1";
 import {
   Tab,
@@ -30,12 +34,15 @@ import {
   TabPanel,
   TabPanels,
 } from "@/react-ui-library/components/tabs/Tabs";
+import { Tab3, TabList3 } from "@/react-ui-library/components/tabs/tabs3/Tabs3";
+
+import styles from "./ValidationRulesDialogForm.module.css";
 
 export default function ValidationRulesDialogForm({
   setValidationRulesDialogOpen,
 }) {
   const t = useTranslations();
-  //   const formMethods = useFormContext();
+  const { setValue } = useFormContext();
 
   const closeDialog = () => {
     setValidationRulesDialogOpen(false);
@@ -51,7 +58,51 @@ export default function ValidationRulesDialogForm({
     // resetVariantForm();
   };
 
-  const type = useWatch({ name: "type" });
+  // const type = useWatch({ name: "type" });
+  const [dataType, setDataType] = useState(null);
+  console.log(dataType);
+  const [criteria, setCriteria] = useState(null);
+
+  const criteriaOptionsMap = {
+    number: [
+      {
+        id: "is_equal_to",
+        value: "is_equal_to",
+        label: t("validation_rules.new.criteria_field_options.is_equal_to"),
+      },
+      {
+        id: "is_greater_than",
+        value: "is_greater_than",
+        label: t("validation_rules.new.criteria_field_options.is_greater_than"),
+      },
+      {
+        id: "is_greater_than_or_equal_to",
+        value: "is_greater_than_or_equal_to",
+        label: t(
+          "validation_rules.new.criteria_field_options.is_greater_than_or_equal_to"
+        ),
+      },
+      {
+        id: "is_less_than",
+        value: "is_less_than",
+        label: t("validation_rules.new.criteria_field_options.is_less_than"),
+      },
+      {
+        id: "is_less_than_or_equal_to",
+        value: "is_less_than_or_equal_to",
+        label: t(
+          "validation_rules.new.criteria_field_options.is_less_than_or_equal_to"
+        ),
+      },
+    ],
+    string: [],
+    date: [],
+  };
+
+  useEffect(() => {
+    // set default value only once on mount
+    setValue("type", "formula_based");
+  }, [setValue]);
 
   return (
     <DialogPanel>
@@ -60,87 +111,205 @@ export default function ValidationRulesDialogForm({
         <DialogCloseButton onClick={closeDialog} />
       </DialogHeader>
 
-      <DialogBody>
-        <DialogPaddingLR>
-          <TextInputField
-            name="name"
-            label={t("validation_rules.new.name_field_label")}
-            rules={{
-              required: {
-                value: true,
-                message: t("forms.validation.required_error_message_specific", {
-                  field: t("validation_rules.new.name_field_label"),
-                }),
-              },
-            }}
-          />
-          <TextAreaField
-            name="description"
-            label={t("validation_rules.new.description_field_label")}
-          />
-          <TextInputField
-            name="range"
-            label={t("validation_rules.new.range_field_label")}
-            rules={{
-              required: {
-                value: true,
-                message: t("forms.validation.required_error_message_specific", {
-                  field: t("validation_rules.new.range_field_label"),
-                }),
-              },
-            }}
-          />
+      <DialogBody padding="top">
+        {/* No padding bottom as we want it to disappear behind footer */}
+        <ScrollContainer>
+          <DialogPaddingLR>
+            <TabGroup>
+              <DialogTabList className={styles.DialogTabList}>
+                <Tab3 onClick={() => setValue("type", "formula_based")}>
+                  {t("validation_rules.new.formula_based_tab_label")}
+                </Tab3>
+                <Tab3 onClick={() => setValue("type", "prompt_based")}>
+                  {t("validation_rules.new.prompt_based_tab_label")}
+                </Tab3>
+              </DialogTabList>
 
-          {/* Using input rather than switch etc. just incase we need more fields */}
-          <SelectInputField
-            as={ControlledSelectInput}
-            name="type"
-            label={t("validation_rules.new.type_field_label")}
-            options={[
-              {
-                id: "formula",
-                value: "formula",
-                label: t("validation_rules.new.type_field_options.formula"),
-              },
-              {
-                id: "prompt",
-                value: "prompt",
-                label: t("validation_rules.new.type_field_options.prompt"),
-              }, // disable
-            ]}
-            isSearchable={false}
-            hasSearchInput={false}
-            rules={{
-              required: {
-                value: true,
-                message: t("forms.validation.required_error_message_specific", {
-                  field: t("validation_rules.new.type_field_label"),
-                }),
-              },
-            }}
-            marginBottom="normal"
-            className=""
-            style={{}}
-          />
+              <TabPanels>
+                <TabPanel>
+                  <TextInputField
+                    name="name"
+                    label={t("validation_rules.new.name_field_label")}
+                    rules={{
+                      required: {
+                        value: true,
+                        message: t(
+                          "common.forms.validation.required_error_message_specific",
+                          {
+                            field: t("validation_rules.new.name_field_label"),
+                          }
+                        ),
+                      },
+                    }}
+                  />
+                  <TextAreaField
+                    name="description"
+                    label={t("validation_rules.new.description_field_label")}
+                  />
 
-          {type?.id === "formula" && (
-            <TextInputField
-              name="formula"
-              label={t("validation_rules.new.formula_field_label")}
-              rules={{
-                required: {
-                  value: true,
-                  message: t(
-                    "forms.validation.required_error_message_specific",
-                    {
-                      field: t("validation_rules.new.formula_field_label"),
-                    }
-                  ),
-                },
-              }}
-            />
-          )}
-        </DialogPaddingLR>
+                  <TextInputField
+                    name="range"
+                    label={t("validation_rules.new.range_field_label")}
+                    rules={{
+                      required: {
+                        value: true,
+                        message: t(
+                          "common.forms.validation.required_error_message_specific",
+                          {
+                            field: t("validation_rules.new.range_field_label"),
+                          }
+                        ),
+                      },
+                    }}
+                  />
+
+                  <SelectInputField
+                    as={SelectInput}
+                    name="data_type"
+                    value={dataType}
+                    setValue={setDataType}
+                    label={t("validation_rules.new.data_type_field_label")}
+                    options={[
+                      {
+                        id: "number",
+                        value: "number",
+                        label: t(
+                          "validation_rules.new.data_type_field_options.number"
+                        ),
+                      },
+                      {
+                        id: "string",
+                        value: "string",
+                        label: t(
+                          "validation_rules.new.data_type_field_options.string"
+                        ),
+                      },
+                      {
+                        id: "date",
+                        value: "date",
+                        label: t(
+                          "validation_rules.new.data_type_field_options.date"
+                        ),
+                      },
+                    ]}
+                    isSearchable={false}
+                    hasSearchInput={false}
+                    rules={{
+                      required: {
+                        value: true,
+                        message: t(
+                          "common.forms.validation.required_error_message_specific",
+                          {
+                            field: t(
+                              "validation_rules.new.data_type_field_label"
+                            ),
+                          }
+                        ),
+                      },
+                    }}
+                    marginBottom="normal"
+                  />
+
+                  <SelectInputField
+                    as={SelectInput}
+                    name="criteria"
+                    value={criteria}
+                    setValue={setCriteria}
+                    label={t("validation_rules.new.criteria_field_label")}
+                    options={[
+                      ...(criteriaOptionsMap[dataType?.id] ?? []),
+                      {
+                        id: "custom_formula",
+                        value: "custom_formula",
+                        label: t(
+                          "validation_rules.new.criteria_field_options.custom_formula"
+                        ),
+                      },
+                    ]}
+                    isSearchable={false}
+                    hasSearchInput={false}
+                    rules={{
+                      required: {
+                        value: true,
+                        message: t(
+                          "common.forms.validation.required_error_message_specific",
+                          {
+                            field: t(
+                              "validation_rules.new.criteria_field_label"
+                            ),
+                          }
+                        ),
+                      },
+                    }}
+                    marginBottom="normal"
+                  />
+
+                  {criteria?.id === "custom_formula" && (
+                    <TextInputField
+                      name="formula_based_validation_rule.formula"
+                      label={t("validation_rules.new.formula_field_label")}
+                      rules={{
+                        required: {
+                          value: true,
+                          message: t(
+                            "common.forms.validation.required_error_message_specific",
+                            {
+                              field: t(
+                                "validation_rules.new.formula_field_label"
+                              ),
+                            }
+                          ),
+                        },
+                      }}
+                    />
+                  )}
+
+                  <SelectInputField
+                    as={ControlledSelectInput}
+                    name="level"
+                    label={t("validation_rules.new.level_field_label")}
+                    options={[
+                      {
+                        id: "info",
+                        value: "info",
+                        label: t("validation_rules.level_options.info"),
+                      },
+                      {
+                        id: "warning",
+                        value: "warning",
+                        label: t("validation_rules.level_options.warning"),
+                      },
+                      {
+                        id: "error",
+                        value: "error",
+                        label: t("validation_rules.level_options.error"),
+                      },
+                    ]}
+                    isSearchable={false}
+                    hasSearchInput={false}
+                    rules={{
+                      required: {
+                        value: true,
+                        message: t(
+                          "common.forms.validation.required_error_message_specific",
+                          {
+                            field: t("validation_rules.new.level_field_label"),
+                          }
+                        ),
+                      },
+                    }}
+                    marginBottom="normal"
+                  />
+
+                  <TextAreaField
+                    name="message"
+                    label={t("validation_rules.new.message_field_label")}
+                  />
+                </TabPanel>
+              </TabPanels>
+            </TabGroup>
+          </DialogPaddingLR>
+        </ScrollContainer>
       </DialogBody>
 
       <DialogFooter>

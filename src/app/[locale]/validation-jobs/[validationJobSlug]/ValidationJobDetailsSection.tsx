@@ -5,15 +5,15 @@ import ValidationRulesList, {
   ValidationRulesListPaddingLR,
 } from "@/components/validation-rules-list/ValidationRulesList";
 import PageSection, {
-  PageSectionPadding,
+  PageSectionSpacing,
 } from "@/react-ui-library/components/containers/page-section/PageSection";
 import PageSectionHeader from "@/react-ui-library/components/containers/page-section/PageSectionHeader";
-import FileCard from "@/react-ui-library/components/data-source-cards/file-card/FileCard";
 import {
   Dd,
   Dl,
   Dt,
 } from "@/react-ui-library/components/description-list/DescriptionList";
+import FileCard from "@/react-ui-library/components/files/file-card/FileCard";
 import PageSectionTitle from "@/react-ui-library/components/text/page-section-title/PageSectionTitle";
 
 import { validationServiceApi } from "../../../../../apiConfig";
@@ -21,7 +21,7 @@ import styles from "./ValidationJobDetailsSection.module.css";
 
 export default function ValidationJobDetailsSection({ validationJob }) {
   const t = useTranslations();
-  console.log(validationJob);
+  // console.log(validationJob);
 
   return (
     <div className="grid grid-cols-12 gap-6">
@@ -63,14 +63,14 @@ export default function ValidationJobDetailsSection({ validationJob }) {
                   <FileCard
                     as="li"
                     fileName={dataSource?.validationFileRecord?.fileName}
+                    displayFileName={
+                      dataSource?.validationFileRecord?.originalFileName
+                    }
                     fileSize={dataSource?.validationFileRecord?.fileSize}
                     key={dataSource.id}
-                    downloadHref={
-                      validationServiceApi.baseURL +
-                      validationServiceApi.endpoints.downloadFile +
-                      "/" +
-                      dataSource?.validationFileRecord?.filePath
-                    }
+                    downloadHref={`${validationServiceApi.baseURL}${
+                      validationServiceApi.endpoints.downloadFile
+                    }/${dataSource?.validationFileRecord?.filePath ?? ""}`}
                   />
                 );
               }
@@ -86,7 +86,7 @@ export default function ValidationJobDetailsSection({ validationJob }) {
        */}
       <div className="col-span-4">
         <PageSection padding="none">
-          <PageSectionPadding padding="top">
+          <PageSectionSpacing padding="top">
             <ValidationRulesListPaddingLR>
               <PageSectionHeader>
                 <PageSectionTitle>
@@ -94,13 +94,13 @@ export default function ValidationJobDetailsSection({ validationJob }) {
                 </PageSectionTitle>
               </PageSectionHeader>
             </ValidationRulesListPaddingLR>
-          </PageSectionPadding>
+          </PageSectionSpacing>
 
-          <PageSectionPadding padding="bottom">
+          <PageSectionSpacing padding="bottom">
             <ValidationRulesList
               validationRules={validationJob.validationRules}
             />
-          </PageSectionPadding>
+          </PageSectionSpacing>
         </PageSection>
       </div>
     </div>

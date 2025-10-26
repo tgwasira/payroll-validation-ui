@@ -50,3 +50,7 @@
 .ValidationRuleSinglesList .ValidationRuleListRow:last-child .ValidationRule {
   margin-bottom: 0;
 }
+
+.marginBottomPageSectionHeader {
+  margin-bottom: var(--margin-bottom-page-section-header);
+}
