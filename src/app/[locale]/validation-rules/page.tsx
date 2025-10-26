@@ -10,6 +10,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import routes from "@/app/routes";
 import NewValidationRuleButton from "@/components/buttons/NewValidationRuleButton";
+import { LOADING_ROWS } from "@/constants";
 import { useValidationRules } from "@/hooks/api/validation-service/useValidationRules";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";
@@ -30,7 +31,9 @@ import Tag from "@/react-ui-library/components/tags/tag/Tag";
 import TagGroup from "@/react-ui-library/components/tags/tag-group/TagGroup";
 import PageTitle from "@/react-ui-library/components/text/page-title/PageTitle";
 import { useApi } from "@/react-ui-library/hooks/useApi";
+import FunctionIcon from "@/react-ui-library/icons/FunctionIcon";
 import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
+import SparklesIcon from "@/react-ui-library/icons/SparklesIcon";
 import { capitalize } from "@/react-ui-library/utils/stringUtils";
 import type { ValidationRule } from "@/types/validationServiceTypes";
 
@@ -51,6 +54,22 @@ export default function ValidationRules() {
   const columnHelper = createColumnHelper<ValidationRule>();
   const columns = [
     getCheckboxColumn("checkbox", columnHelper),
+    columnHelper.accessor("type", {
+      header: "",
+      cell: (info) => {
+        const type = info.getValue();
+        if (type === "formula_based") {
+          return <FunctionIcon className={`icon-medium text-secondary`} />;
+        } else if (type === "prompt_based") {
+          return <SparklesIcon className={`icon-large text-secondary`} />;
+        } else {
+          return <></>;
+        }
+      },
+      meta: {
+        // style: { width: "30%" },
+      },
+    }),
     columnHelper.accessor("name", {
       header: t("validation_rules.list.table.name_column_label"),
       meta: {
@@ -134,6 +153,8 @@ export default function ValidationRules() {
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
   }, []);
+
+  console.log(validationRules);
 
   return (
     <PageContent
@@ -231,7 +252,7 @@ export default function ValidationRules() {
           //
           loading={loading}
           // TODO: Make this a variable
-          loadingRows={15}
+          loadingRows={LOADING_ROWS}
           error={error}
           scrollable={true}
           // scrollTableWrapperStyle={{

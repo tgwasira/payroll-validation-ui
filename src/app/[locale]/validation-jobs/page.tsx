@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 import routes from "@/app/routes";
 import ValidationRuleTag from "@/components/validation-rule-tag/ValidationRuleTag";
+import { LOADING_ROWS } from "@/constants";
 import { useValidationJobs } from "@/hooks/api/validation-service/useValidationJobs";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";
@@ -241,6 +242,8 @@ export default function ValidationJobsList() {
         <Table
           data={validationJobs}
           columns={columns}
+          loading={loading}
+          loadingRows={LOADING_ROWS}
           getHref={(row) =>
             `${routes.validationJobs.base}/${row.original["slug"]}`
           }
