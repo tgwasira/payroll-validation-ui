@@ -2,6 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import React from "react";
 
+import ValidationRuleTag from "@/components/validation-rule-tag/ValidationRuleTag";
 import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
 import Table from "@/react-ui-library/components/tables/table/Table";
 import TableToolbar from "@/react-ui-library/components/tables/table-toolbar/TableToolbar";
@@ -28,9 +29,19 @@ export default function ValidationResultsTable({ validationResult }) {
         },
       }
     ),
-    columnHelper.accessor((row) => row.validationRule.name, {
+    columnHelper.accessor("validationRule", {
       id: "rule",
       header: t("validation_jobs.detail.issues.table.rule_column_heading"),
+      cell: (info) => {
+        const validationRule = info.getValue();
+        return (
+          <ValidationRuleTag
+            name={validationRule.name}
+            type={validationRule.type}
+            className=""
+          />
+        );
+      },
       meta: {
         className: "truncate-overflow",
         style: { width: "40%" },
@@ -151,8 +162,6 @@ export default function ValidationResultsTable({ validationResult }) {
     ...(validationResult?.validationWarnings ?? []),
     ...(validationResult?.validationErrors ?? []),
   ];
-
-  console.log("validationIssues", validationIssues);
 
   return (
     <>

@@ -1,5 +1,7 @@
 import "@/react-ui-library/styles.css";
 import "./globals.css";
+// Required to show loading skeletons
+import "react-loading-skeleton/dist/skeleton.css";
 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";

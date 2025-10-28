@@ -39,7 +39,7 @@ export function useValidationJobs() {
   );
 
   return {
-    loading: api.loading,
+    loading: api.loading === null ? true : api.loading,
     error: api.error,
     validationJobs: (api.data as ValidationJob[] | null) ?? [],
     getValidationJobs,

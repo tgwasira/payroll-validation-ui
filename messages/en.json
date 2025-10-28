@@ -150,7 +150,7 @@
       "data_type_field_label": "Data Type",
       "data_type_field_options": {
         "number": "Number",
-        "string": "String",
+        "text": "Text",
         "date": "Date"
       },
       "criteria_field_label": "Criteria",
@@ -162,6 +162,7 @@
         "is_less_than_or_equal_to": "Is less than or equal to",
         "custom_formula": "Custom Formula"
       },
+      "value_field_label": "Value",
       "level_field_label": "Issue Level",
       "message_field_label": "Message"
     },

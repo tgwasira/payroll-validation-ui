@@ -1,3 +1,8 @@
+import {
+  // CalendarIcon,
+  HashIcon,
+  TextTIcon,
+} from "@phosphor-icons/react/dist/ssr";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
@@ -35,7 +40,10 @@ import {
   TabPanels,
 } from "@/react-ui-library/components/tabs/Tabs";
 import { Tab3, TabList3 } from "@/react-ui-library/components/tabs/tabs3/Tabs3";
+import CalendarIcon from "@/react-ui-library/icons/CalendarIcon";
+import TypeIcon from "@/react-ui-library/icons/TypeIcon";
 
+import NumberFields from "./data-type-specific-fields/NumberFields";
 import styles from "./ValidationRulesDialogForm.module.css";
 
 export default function ValidationRulesDialogForm({
@@ -60,7 +68,6 @@ export default function ValidationRulesDialogForm({
 
   // const type = useWatch({ name: "type" });
   const [dataType, setDataType] = useState(null);
-  console.log(dataType);
   const [criteria, setCriteria] = useState(null);
 
   const criteriaOptionsMap = {
@@ -95,7 +102,7 @@ export default function ValidationRulesDialogForm({
         ),
       },
     ],
-    string: [],
+    text: [],
     date: [],
   };
 
@@ -176,12 +183,31 @@ export default function ValidationRulesDialogForm({
                         label: t(
                           "validation_rules.new.data_type_field_options.number"
                         ),
+                        renderLabelOption: () => (
+                          <div className={styles.DataTypeOptionLabel}>
+                            <HashIcon
+                              weight="bold"
+                              className="icon-medium icon-secondary"
+                            />
+                            {t(
+                              "validation_rules.new.data_type_field_options.number"
+                            )}
+                          </div>
+                        ),
                       },
                       {
-                        id: "string",
-                        value: "string",
+                        id: "text",
+                        value: "text",
                         label: t(
-                          "validation_rules.new.data_type_field_options.string"
+                          "validation_rules.new.data_type_field_options.text"
+                        ),
+                        renderLabelOption: () => (
+                          <div className={styles.DataTypeOptionLabel}>
+                            <TypeIcon className="icon-medium icon-secondary" />
+                            {t(
+                              "validation_rules.new.data_type_field_options.text"
+                            )}
+                          </div>
                         ),
                       },
                       {
@@ -189,6 +215,14 @@ export default function ValidationRulesDialogForm({
                         value: "date",
                         label: t(
                           "validation_rules.new.data_type_field_options.date"
+                        ),
+                        renderLabelOption: () => (
+                          <div className={styles.DataTypeOptionLabel}>
+                            <CalendarIcon className="icon-medium icon-secondary" />
+                            {t(
+                              "validation_rules.new.data_type_field_options.date"
+                            )}
+                          </div>
                         ),
                       },
                     ]}
@@ -243,6 +277,10 @@ export default function ValidationRulesDialogForm({
                     }}
                     marginBottom="normal"
                   />
+
+                  {dataType?.id === "number" && (
+                    <NumberFields criteria={criteria} />
+                  )}
 
                   {criteria?.id === "custom_formula" && (
                     <TextInputField

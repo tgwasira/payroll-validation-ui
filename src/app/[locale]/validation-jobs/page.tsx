@@ -209,9 +209,18 @@ export default function ValidationJobsList() {
     },
   ];
 
+  const renderNewValidationJobButton = () => (
+    <Button href={routes.validationJobs.new}>
+      <div className="text-as-icon-large">+</div>
+      {t("validation_jobs.list.new_validation_job_button_label")}
+    </Button>
+  );
+
   // === Data ===
   const { loading, error, validationJobs, getValidationJobs } =
     useValidationJobs();
+
+  const hasValidationJobs = validationJobs && validationJobs.length > 0;
 
   // Fetch validation jobs on component mount
   useEffect(() => {
@@ -224,10 +233,7 @@ export default function ValidationJobsList() {
         <PageTitle>
           {t("validation_jobs.list.validation_jobs_list_page_title")}
         </PageTitle>
-        <Button href={routes.validationJobs.new}>
-          <div className="text-as-icon-large">+</div>
-          {t("validation_jobs.list.new_validation_job_button_label")}
-        </Button>
+        {renderNewValidationJobButton()}
       </PageHeader>
       <PageSection padding={"none"}>
         {/* Table Toolbar */}
@@ -236,6 +242,7 @@ export default function ValidationJobsList() {
           searchbarPlaceholder={t(
             "validation_jobs.list.validation_jobs_table_toolbar.search_validation_jobs_placeholder"
           )}
+          disabled={loading || !hasValidationJobs}
         />
 
         {/* Validation Jobs Table */}
@@ -256,13 +263,9 @@ export default function ValidationJobsList() {
             "common.tables.empty_state_default_supporting_text",
             { item_name: t("validation_jobs.list.empty_state_item_name") }
           )}
-          emptyStateRenderButton1={() => (
-            <Button href={routes.validationJobs.new} variant="primary">
-              {t("validation_jobs.list.new_validation_job_button_label")}
-            </Button>
-          )}
+          emptyStateRenderButton1={renderNewValidationJobButton}
         />
-        <TablePagination />
+        {(loading || hasValidationJobs) && <TablePagination />}
         {/* Pagination */}
         {/* <Pagination /> */}
       </PageSection>

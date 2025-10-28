@@ -2,13 +2,14 @@ import { StackIcon } from "@phosphor-icons/react";
 import React from "react";
 
 import Tag from "@/react-ui-library/components/tags/tag/Tag";
+import FunctionIcon from "@/react-ui-library/icons/FunctionIcon";
 
 import styles from "./ValidationRuleTag.module.css";
 
 export default function ValidationRuleTag({
   as = "div",
   name,
-  type = "single",
+  type = "",
   className = "",
 }) {
   return (
@@ -18,6 +19,7 @@ export default function ValidationRuleTag({
           <StackIcon className="icon-base" />
         </div>
       )}
+
       <div>{name}</div>
     </Tag>
   );

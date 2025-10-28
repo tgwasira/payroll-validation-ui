@@ -6,3 +6,9 @@
   position: sticky;
   top: 0;
 }
+
+.DataTypeOptionLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-data-type-option-label);
+}

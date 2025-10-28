@@ -1,6 +1,6 @@
 "use client";
 
-import "react-loading-skeleton/dist/skeleton.css";
+// import "react-loading-skeleton/dist/skeleton.css";
 
 import { StackIcon } from "@phosphor-icons/react/dist/ssr";
 import { createColumnHelper } from "@tanstack/react-table";
@@ -45,10 +45,6 @@ import ValidationRulesDialog from "./ValidationRulesDialog";
 export default function ValidationRules() {
   const t = useTranslations();
 
-  const handleNewValidationRuleButtonClick = () => {
-    setValidationRulesDialogOpen(true);
-  };
-
   // --- Tables ---
   // Validation rules table
   const columnHelper = createColumnHelper<ValidationRule>();
@@ -59,7 +55,7 @@ export default function ValidationRules() {
       cell: (info) => {
         const type = info.getValue();
         if (type === "formula_based") {
-          return <FunctionIcon className={`icon-medium text-secondary`} />;
+          return <FunctionIcon className={`icon-medium icon-secondary`} />;
         } else if (type === "prompt_based") {
           return <SparklesIcon className={`icon-large text-secondary`} />;
         } else {
@@ -154,7 +150,14 @@ export default function ValidationRules() {
     return () => window.removeEventListener("resize", resize);
   }, []);
 
-  console.log(validationRules);
+  const hasValidationRules = validationRules && validationRules.length > 0;
+
+  const renderAddValidationRuleButton = () => (
+    <Button onClick={() => setValidationRulesDialogOpen(true)}>
+      <div className="text-as-icon-large">+</div>
+      {t("validation_rules.list.new_validation_rule_button_label")}
+    </Button>
+  );
 
   return (
     <PageContent
@@ -170,7 +173,7 @@ export default function ValidationRules() {
     >
       <PageHeader>
         <PageTitle>{t("validation_rules.list.list_page_title")}</PageTitle>
-        <NewValidationRuleButton onClick={handleNewValidationRuleButtonClick} />
+        {renderAddValidationRuleButton()}
       </PageHeader>
       {/* <div
         style={{
@@ -229,6 +232,7 @@ export default function ValidationRules() {
           searchbarPlaceholder={t(
             "validation_rules.list.validation_rules_search_placeholder"
           )}
+          disabled={loading || !hasValidationRules}
         />
 
         {/* Validation Jobs Table */}
@@ -244,11 +248,7 @@ export default function ValidationRules() {
           emptyStateSupportingText={t(
             "validation_rules.list.table.empty_state_supporting_text"
           )}
-          renderButton1={() => (
-            <NewValidationRuleButton
-              onClick={handleNewValidationRuleButtonClick}
-            />
-          )}
+          emptyStateRenderButton1={renderAddValidationRuleButton}
           //
           loading={loading}
           // TODO: Make this a variable
@@ -274,7 +274,7 @@ export default function ValidationRules() {
         {/* </ScrollContainer> */}
         {/* </div> */}
 
-        <TablePagination />
+        {(loading || hasValidationRules) && <TablePagination />}
       </PageSection>
       {/* </div> */}
       {/* </div> */}
