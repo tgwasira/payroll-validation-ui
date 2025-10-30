@@ -32,6 +32,7 @@ export function useValidationRules(options = {}) {
   };
 }
 
+// TODO: Use translations
 export function useValidationRuleMutations() {
   const api = useApi(validationServiceApi, "/validation-rules");
 
@@ -39,7 +40,7 @@ export function useValidationRuleMutations() {
     async (ruleData: Partial<ValidationRule>) => {
       const promise = api.post(ruleData);
 
-      return toast.promise(promise, {
+      const result = await toast.promise(promise, {
         loading: "Do translation: Creating validation rule...",
         success: (data) =>
           `Validation rule "${data.name || "Untitled"}" created successfully!`,
@@ -48,6 +49,8 @@ export function useValidationRuleMutations() {
           err?.message ||
           "Failed to create validation rule",
       });
+
+      return result.unwrap();
     },
     [api]
   );

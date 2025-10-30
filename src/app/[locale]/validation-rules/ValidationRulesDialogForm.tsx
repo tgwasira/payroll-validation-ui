@@ -25,6 +25,8 @@ import {
 } from "@/react-ui-library/components/dialogs/Dialog";
 import DialogFooterButtonGroup from "@/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
 import FileUpload from "@/react-ui-library/components/file-upload/FileUpload_";
+import { HorizontalFormFieldGroup } from "@/react-ui-library/components/forms/form-fields/form-field-groups/FormFieldGroups";
+import NumericInputField from "@/react-ui-library/components/forms/form-fields/numeric-input-field/NumericInputField";
 import SelectInputField from "@/react-ui-library/components/forms/form-fields/select-input-field/SelectInputField";
 import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
 import TextInputField from "@/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
@@ -66,9 +68,10 @@ export default function ValidationRulesDialogForm({
     // resetVariantForm();
   };
 
-  // const type = useWatch({ name: "type" });
-  const [dataType, setDataType] = useState(null);
-  const [criteria, setCriteria] = useState(null);
+  const dataTypeId = useWatch({ name: "data_type" });
+  const criteriaId = useWatch({ name: "criteria" });
+  // const [dataType, setDataType] = useState(null);
+  // const [criteria, setCriteria] = useState(null);
 
   const criteriaOptionsMap = {
     number: [
@@ -76,6 +79,11 @@ export default function ValidationRulesDialogForm({
         id: "is_equal_to",
         value: "is_equal_to",
         label: t("validation_rules.new.criteria_field_options.is_equal_to"),
+      },
+      {
+        id: "is_not_equal_to",
+        value: "is_not_equal_to",
+        label: t("validation_rules.new.criteria_field_options.is_not_equal_to"),
       },
       {
         id: "is_greater_than",
@@ -99,6 +107,20 @@ export default function ValidationRulesDialogForm({
         value: "is_less_than_or_equal_to",
         label: t(
           "validation_rules.new.criteria_field_options.is_less_than_or_equal_to"
+        ),
+      },
+      {
+        id: "is_between_exclusive",
+        value: "is_between_exclusive",
+        label: t(
+          "validation_rules.new.criteria_field_options.is_between_exclusive"
+        ),
+      },
+      {
+        id: "is_outside_of_exclusive",
+        value: "is_outside_of_exclusive",
+        label: t(
+          "validation_rules.new.criteria_field_options.is_outside_of_exclusive"
         ),
       },
     ],
@@ -170,11 +192,10 @@ export default function ValidationRulesDialogForm({
                     }}
                   />
 
+                  {/* We are registering then so that we can get validation from react-hook-form. We'll compute the formula on submit and then delete these fields. */}
                   <SelectInputField
-                    as={SelectInput}
+                    as={ControlledSelectInput}
                     name="data_type"
-                    value={dataType}
-                    setValue={setDataType}
                     label={t("validation_rules.new.data_type_field_label")}
                     options={[
                       {
@@ -226,7 +247,6 @@ export default function ValidationRulesDialogForm({
                         ),
                       },
                     ]}
-                    isSearchable={false}
                     hasSearchInput={false}
                     rules={{
                       required: {
@@ -245,13 +265,12 @@ export default function ValidationRulesDialogForm({
                   />
 
                   <SelectInputField
-                    as={SelectInput}
+                    as={ControlledSelectInput}
                     name="criteria"
-                    value={criteria}
-                    setValue={setCriteria}
+                    isSearchable={true}
                     label={t("validation_rules.new.criteria_field_label")}
                     options={[
-                      ...(criteriaOptionsMap[dataType?.id] ?? []),
+                      ...(criteriaOptionsMap[dataTypeId] ?? []),
                       {
                         id: "custom_formula",
                         value: "custom_formula",
@@ -260,7 +279,6 @@ export default function ValidationRulesDialogForm({
                         ),
                       },
                     ]}
-                    isSearchable={false}
                     hasSearchInput={false}
                     rules={{
                       required: {
@@ -278,11 +296,78 @@ export default function ValidationRulesDialogForm({
                     marginBottom="normal"
                   />
 
-                  {dataType?.id === "number" && (
-                    <NumberFields criteria={criteria} />
+                  {/* Define these as regular fields so that they can be validated with react-hook-form and then determine the formula on submit the delete these fields. */}
+                  {(criteriaId === "is_equal_to" ||
+                    criteriaId === "is_not_equal_to" ||
+                    criteriaId === "is_greater_than" ||
+                    criteriaId === "is_greater_than_or_equal_to" ||
+                    criteriaId === "is_less_than" ||
+                    criteriaId === "is_less_than_or_equal_to") && (
+                    <NumericInputField
+                      name="value"
+                      label={t("validation_rules.new.value_field_label")}
+                      rules={{
+                        required: {
+                          value: true,
+                          message: t(
+                            "common.forms.validation.required_error_message_specific",
+                            {
+                              field: t(
+                                "validation_rules.new.value_field_label"
+                              ),
+                            }
+                          ),
+                        },
+                      }}
+                    />
                   )}
 
-                  {criteria?.id === "custom_formula" && (
+                  {criteriaId === "is_between_exclusive" && (
+                    <HorizontalFormFieldGroup>
+                      <NumericInputField
+                        name="min_value"
+                        label={t("validation_rules.new.min_value_field_label")}
+                        rules={{
+                          required: {
+                            value: true,
+                            message: t(
+                              "common.forms.validation.required_error_message_specific",
+                              {
+                                field: t(
+                                  "validation_rules.new.min_value_field_label"
+                                ),
+                              }
+                            ),
+                          },
+                        }}
+                        stretch
+                      />
+
+                      <div className="flex-center text-semibold">
+                        {t("common.forms.and")}
+                      </div>
+                      <NumericInputField
+                        name="max_value"
+                        label={t("validation_rules.new.max_value_field_label")}
+                        rules={{
+                          required: {
+                            value: true,
+                            message: t(
+                              "common.forms.validation.required_error_message_specific",
+                              {
+                                field: t(
+                                  "validation_rules.new.max_value_field_label"
+                                ),
+                              }
+                            ),
+                          },
+                        }}
+                        stretch
+                      />
+                    </HorizontalFormFieldGroup>
+                  )}
+
+                  {criteriaId === "custom_formula" && (
                     <TextInputField
                       name="formula_based_validation_rule.formula"
                       label={t("validation_rules.new.formula_field_label")}

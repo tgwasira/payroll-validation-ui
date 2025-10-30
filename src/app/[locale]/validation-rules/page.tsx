@@ -158,6 +158,7 @@ export default function ValidationRules() {
       {t("validation_rules.list.new_validation_rule_button_label")}
     </Button>
   );
+  const disabled = loading || !hasValidationRules;
 
   return (
     <PageContent
@@ -232,7 +233,7 @@ export default function ValidationRules() {
           searchbarPlaceholder={t(
             "validation_rules.list.validation_rules_search_placeholder"
           )}
-          disabled={loading || !hasValidationRules}
+          disabled={disabled}
         />
 
         {/* Validation Jobs Table */}
@@ -255,6 +256,7 @@ export default function ValidationRules() {
           loadingRows={LOADING_ROWS}
           error={error}
           scrollable={true}
+          disabled={disabled}
           // scrollTableWrapperStyle={{
           //   maxHeight: "100%",
           // backgroundColor: "green",

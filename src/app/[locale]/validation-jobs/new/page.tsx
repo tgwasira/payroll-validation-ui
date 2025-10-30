@@ -74,7 +74,6 @@ export default function NewValidationJob() {
         // If validation job was created successfully, redirect to validation
         // jobs page
         if (validationJob) {
-          console.log("Job ID:", validationJob.id);
           // Run validation job via websocket
           send("start_validation", { id: validationJob.id });
           redirect(routes.validationJobs.list);

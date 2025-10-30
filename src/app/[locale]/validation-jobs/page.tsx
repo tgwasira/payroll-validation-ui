@@ -221,6 +221,7 @@ export default function ValidationJobsList() {
     useValidationJobs();
 
   const hasValidationJobs = validationJobs && validationJobs.length > 0;
+  const disabled = loading || !hasValidationJobs;
 
   // Fetch validation jobs on component mount
   useEffect(() => {
@@ -242,7 +243,7 @@ export default function ValidationJobsList() {
           searchbarPlaceholder={t(
             "validation_jobs.list.validation_jobs_table_toolbar.search_validation_jobs_placeholder"
           )}
-          disabled={loading || !hasValidationJobs}
+          disabled={disabled}
         />
 
         {/* Validation Jobs Table */}
@@ -254,6 +255,7 @@ export default function ValidationJobsList() {
           getHref={(row) =>
             `${routes.validationJobs.base}/${row.original["slug"]}`
           }
+          disabled={disabled}
           emptyStateHeading={t("common.tables.empty_state_default_heading", {
             item_name_plural: t(
               "validation_jobs.list.empty_state_item_name_plural"

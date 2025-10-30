@@ -34,7 +34,7 @@ export default function ValidationRulesList({ validationRules }) {
                     variant="tertiary"
                     className={`bg-hover ${styles.DropdownButton}`}
                   >
-                    <CaretRightIcon className="icon-dropdown" weight="bold" />
+                    <DropdownIcon direction="right" />
                   </DisclosureButton>
 
                   <ValidationRuleTag type="group" name={item["name"]} />

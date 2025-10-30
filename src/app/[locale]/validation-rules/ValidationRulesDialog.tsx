@@ -1,7 +1,7 @@
 import { Portal } from "@headlessui/react";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 import { useValidationRuleMutations } from "@/hooks/api/validation-service/useValidationRules";
 import Button from "@/react-ui-library/components/buttons/button/Button";
@@ -75,10 +75,47 @@ export default function ValidationRulesDialog({
     >
       {/* Form needs to be within Dialog otherwise submit button will not work */}
       <Form
-        onSubmit={(data) => {
-          // console.log(data);
-          createValidationRule(data);
-          closeDialog();
+        onSubmit={async (data) => {
+          try {
+            const { data_type: dataType, criteria } = data;
+
+            // Initialise formula_based_validation_rule object
+            // Initialize formula_based_validation_rule object if it doesn't exist
+            if (!data.formula_based_validation_rule) {
+              data.formula_based_validation_rule = {};
+            }
+            if (!data.formula_based_validation_rule.formula) {
+              data.formula_based_validation_rule.formula = {};
+            }
+
+            // TODO: @Harry: Please check that these actually work as intended int the backend
+            if (dataType === "number") {
+              if (criteria === "is_equal_to") {
+                data.formula_based_validation_rule.formula = `${data.range}.eq(${data.value})`;
+              } else if (criteria === "is_not_equal_to") {
+                data.formula_based_validation_rule.formula = `${data.range}.neq(${data.value})`;
+              }
+            }
+
+            // Delete temporary fields that shouldn't be sent to the backend
+            delete data.data_type;
+            delete data.criteria;
+            delete data.value;
+            delete data.min_value;
+            delete data.max_value;
+            console.log(data);
+
+            const result = await createValidationRule(data);
+            closeDialog();
+          } catch (err) {
+            console.error("Error creating validation rule:", err);
+            // Do we need this as toast is handled in the hook
+            // toast.error(
+            //   err?.response?.data?.message ||
+            //     err?.message ||
+            //     "Failed to create validation rule"
+            // );
+          }
         }}
       >
         <ValidationRulesDialogForm
