@@ -124,7 +124,53 @@ export default function ValidationRulesDialogForm({
         ),
       },
     ],
-    text: [],
+    text: [
+      {
+        id: "is_equal_to",
+        value: "is_equal_to",
+        label: t("validation_rules.new.criteria_field_options.is_equal_to"),
+      },
+      {
+        id: "is_not_equal_to",
+        value: "is_not_equal_to",
+        label: t("validation_rules.new.criteria_field_options.is_not_equal_to"),
+      },
+      {
+        id: "contains",
+        value: "contains",
+        label: t("validation_rules.new.criteria_field_options.contains"),
+      },
+      {
+        id: "does_not_contain",
+        value: "does_not_contain",
+        label: t("validation_rules.new.criteria_field_options.does_not_contain"),
+      },
+      {
+        id: "starts_with",
+        value: "starts_with",
+        label: t("validation_rules.new.criteria_field_options.starts_with"),
+      },
+      {
+        id: "ends_with",
+        value: "ends_with",
+        label: t("validation_rules.new.criteria_field_options.ends_with"),
+      },
+      {
+        id: "is_empty",
+        value: "is_empty",
+        label: t("validation_rules.new.criteria_field_options.is_empty"),
+      },
+      {
+        id: "is_not_empty",
+        value: "is_not_empty",
+        label: t("validation_rules.new.criteria_field_options.is_not_empty"),
+      },
+      {
+        id: "matches_pattern",
+        value: "matches_pattern",
+        label: t("validation_rules.new.criteria_field_options.matches_pattern"),
+      },
+    ],
     date: [],
   };
 
@@ -297,7 +343,8 @@ export default function ValidationRulesDialogForm({
                   />
 
                   {/* Define these as regular fields so that they can be validated with react-hook-form and then determine the formula on submit the delete these fields. */}
-                  {(criteriaId === "is_equal_to" ||
+                  {/* Number fields that require a numeric value */}
+                  {dataTypeId === "number" && (criteriaId === "is_equal_to" ||
                     criteriaId === "is_not_equal_to" ||
                     criteriaId === "is_greater_than" ||
                     criteriaId === "is_greater_than_or_equal_to" ||
@@ -322,7 +369,34 @@ export default function ValidationRulesDialogForm({
                     />
                   )}
 
-                  {criteriaId === "is_between_exclusive" && (
+                  {/* Text fields that require a text value */}
+                  {dataTypeId === "text" && (criteriaId === "is_equal_to" ||
+                    criteriaId === "is_not_equal_to" ||
+                    criteriaId === "contains" ||
+                    criteriaId === "does_not_contain" ||
+                    criteriaId === "starts_with" ||
+                    criteriaId === "ends_with" ||
+                    criteriaId === "matches_pattern") && (
+                    <TextInputField
+                      name="value"
+                      label={t("validation_rules.new.value_field_label")}
+                      rules={{
+                        required: {
+                          value: true,
+                          message: t(
+                            "common.forms.validation.required_error_message_specific",
+                            {
+                              field: t(
+                                "validation_rules.new.value_field_label"
+                              ),
+                            }
+                          ),
+                        },
+                      }}
+                    />
+                  )}
+
+                  {dataTypeId === "number" && (criteriaId === "is_between_exclusive" || criteriaId === "is_outside_of_exclusive") && (
                     <HorizontalFormFieldGroup>
                       <NumericInputField
                         name="min_value"
