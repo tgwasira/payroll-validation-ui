@@ -163,6 +163,13 @@
         "is_less_than_or_equal_to": "Is less than or equal to",
         "is_between_exclusive": "Is between (Excluding minimum and maximum)",
         "is_outside_of_exclusive": "Is outside of (Including minimum and maximum)",
+        "contains": "Contains",
+        "does_not_contain": "Does not contain",
+        "starts_with": "Starts with",
+        "ends_with": "Ends with",
+        "is_empty": "Is empty",
+        "is_not_empty": "Is not empty",
+        "matches_pattern": "Matches pattern (regex)",
         "custom_formula": "Custom Formula"
       },
       "value_field_label": "Value",

@@ -88,12 +88,45 @@ export default function ValidationRulesDialog({
               data.formula_based_validation_rule.formula = {};
             }
 
-            // TODO: @Harry: Please check that these actually work as intended int the backend
+            // TODO: @Harry: Please check that these actually work as intended in the backend
+            // Build formula based on data type and criteria
             if (dataType === "number") {
               if (criteria === "is_equal_to") {
                 data.formula_based_validation_rule.formula = `${data.range}.eq(${data.value})`;
               } else if (criteria === "is_not_equal_to") {
                 data.formula_based_validation_rule.formula = `${data.range}.neq(${data.value})`;
+              } else if (criteria === "is_greater_than") {
+                data.formula_based_validation_rule.formula = `${data.range}.gt(${data.value})`;
+              } else if (criteria === "is_greater_than_or_equal_to") {
+                data.formula_based_validation_rule.formula = `${data.range}.ge(${data.value})`;
+              } else if (criteria === "is_less_than") {
+                data.formula_based_validation_rule.formula = `${data.range}.lt(${data.value})`;
+              } else if (criteria === "is_less_than_or_equal_to") {
+                data.formula_based_validation_rule.formula = `${data.range}.le(${data.value})`;
+              } else if (criteria === "is_between_exclusive") {
+                data.formula_based_validation_rule.formula = `(${data.range} > ${data.min_value}) & (${data.range} < ${data.max_value})`;
+              } else if (criteria === "is_outside_of_exclusive") {
+                data.formula_based_validation_rule.formula = `(${data.range} <= ${data.min_value}) | (${data.range} >= ${data.max_value})`;
+              }
+            } else if (dataType === "text") {
+              if (criteria === "is_equal_to") {
+                data.formula_based_validation_rule.formula = `${data.range}.eq('${data.value}')`;
+              } else if (criteria === "is_not_equal_to") {
+                data.formula_based_validation_rule.formula = `${data.range}.ne('${data.value}')`;
+              } else if (criteria === "contains") {
+                data.formula_based_validation_rule.formula = `${data.range}.str.contains('${data.value}', na=False)`;
+              } else if (criteria === "does_not_contain") {
+                data.formula_based_validation_rule.formula = `~${data.range}.str.contains('${data.value}', na=False)`;
+              } else if (criteria === "starts_with") {
+                data.formula_based_validation_rule.formula = `${data.range}.str.startswith('${data.value}', na=False)`;
+              } else if (criteria === "ends_with") {
+                data.formula_based_validation_rule.formula = `${data.range}.str.endswith('${data.value}', na=False)`;
+              } else if (criteria === "is_empty") {
+                data.formula_based_validation_rule.formula = `${data.range}.isna() | (${data.range}.str.strip() == '')`;
+              } else if (criteria === "is_not_empty") {
+                data.formula_based_validation_rule.formula = `${data.range}.notna() & (${data.range}.str.strip() != '')`;
+              } else if (criteria === "matches_pattern") {
+                data.formula_based_validation_rule.formula = `${data.range}.str.match('${data.value}', na=False)`;
               }
             }
 
