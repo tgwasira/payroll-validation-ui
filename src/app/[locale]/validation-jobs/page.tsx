@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import routes from "@/app/routes";
 import ValidationRuleTag from "@/components/validation-rule-tag/ValidationRuleTag";
 import { LOADING_ROWS } from "@/constants";
+import { useWebSocket } from "@/contexts/WebSocketContext";
 import { useValidationJobs } from "@/hooks/api/validation-service/useValidationJobs";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";
@@ -18,6 +19,7 @@ import Input from "@/react-ui-library/components/forms/inputs/Input";
 import SearchInput from "@/react-ui-library/components/forms/inputs/search-input/SearchInput";
 import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
 import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
+import CircularProgressBar from "@/react-ui-library/components/progress-bars/circular-progress-bar/CircularProgressBar";
 import Table from "@/react-ui-library/components/tables/table/Table";
 import TablePagination from "@/react-ui-library/components/tables/table-pagination/TablePagination";
 import TableSearchbar from "@/react-ui-library/components/tables/table-searchbar/TableSearchbar";
@@ -32,6 +34,7 @@ import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
 import { getFileExtension } from "@/react-ui-library/utils/fileUtils";
 
 import StatusIcon from "./StatusIscon";
+import { useValidationProgress } from "./ValidationProgressContext";
 
 type Person = {
   validationDataSources: any[];
@@ -44,6 +47,8 @@ type Person = {
 
 export default function ValidationJobsList() {
   const t = useTranslations();
+
+  const { getProgress } = useValidationProgress();
 
   // === Table ===
   const columnHelper = createColumnHelper<Person>();
@@ -138,12 +143,17 @@ export default function ValidationJobsList() {
         style: { width: "20%" },
       },
     }),
-    columnHelper.accessor("status", {
+    columnHelper.accessor((row) => ({ id: row.id, status: row.status }), {
+      id: "status",
       header: t("validation_jobs.list.table.status_column_heading"),
       cell: (info) => {
-        const status = info.getValue();
+        const { validationProgress } =
+          getProgress(info?.row?.original?.id) || {};
+        return <CircularProgressBar />;
+        //return <div>{validationProgress}</div>;
+        // const status = info.getValue();
 
-        return <StatusIcon status={status} />;
+        // return <StatusIcon status={status} />;
       },
       meta: {
         style: {
@@ -217,8 +227,13 @@ export default function ValidationJobsList() {
   );
 
   // === Data ===
-  const { loading, error, validationJobs, getValidationJobs } =
-    useValidationJobs();
+  const {
+    loading,
+    error,
+    validationJobs,
+    setValidationJobs,
+    getValidationJobs,
+  } = useValidationJobs();
 
   const hasValidationJobs = validationJobs && validationJobs.length > 0;
   const disabled = loading || !hasValidationJobs;
