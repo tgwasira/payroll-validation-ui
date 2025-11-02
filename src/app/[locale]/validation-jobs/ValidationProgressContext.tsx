@@ -11,12 +11,13 @@ import {
 import { useWebSocket } from "@/contexts/WebSocketContext";
 
 interface ValidationProgress {
-  validationProgress: number;
+  prevValidationJobProgress?: number;
+  validationJobProgress: number;
   validationRuleId?: string;
 }
 
 interface ValidationProgressContextType {
-  validationProgresses: Map<string, ValidationProgress>;
+  validationJobProgresses: Map<string, ValidationProgress>;
   getProgress: (jobId: string) => ValidationProgress | undefined;
 }
 
@@ -28,37 +29,59 @@ export function ValidationProgressProvider({
 }: {
   children: ReactNode;
 }) {
-  const [validationProgresses, setValidationProgresses] = useState<
+  const [validationJobProgresses, setValidationProgresses] = useState<
     Map<string, ValidationProgress>
   >(new Map());
   const { subscribe } = useWebSocket();
 
   useEffect(() => {
-    console.log(
-      "ValidationProgressProvider: Subscribing to validation_progress"
-    );
+    console.log("ValidationProgressProvider: Subscribing to validation events");
 
-    const unsubscribe = subscribe("validation_progress", (data) => {
-      const { validationJobId, validationProgress, validationRuleId } = data;
+    const unsubscribes = [
+      subscribe("validation_started", (data) => {
+        const { validationJobId } = data;
+        console.log(`Validation job ${validationJobId} started`);
 
-      setValidationProgresses((prev) => {
-        const newMap = new Map(prev);
-        newMap.set(validationJobId, { validationProgress, validationRuleId });
-        return newMap;
-      });
-    });
+        // You could optionally reset progress or state here:
+        setValidationProgresses((prev) => {
+          const newMap = new Map(prev);
+          newMap.set(validationJobId, {
+            validationJobProgress: 0,
+          });
+          return newMap;
+        });
+      }),
 
-    return unsubscribe;
+      subscribe("validation_progress", (data) => {
+        const { validationJobId, validationJobProgress, validationRuleId } =
+          data;
+
+        setValidationProgresses((prev) => {
+          const newMap = new Map(prev);
+          newMap.set(validationJobId, {
+            prevValidationJobProgress:
+              newMap.get(validationJobId)?.validationJobProgress, // Store previous progress. Undefined if not found. This is perfect because our progress bars handle undefined previous values by removing the animation.
+            validationJobProgress,
+            validationRuleId,
+          });
+          return newMap;
+        });
+      }),
+    ];
+
+    return () => {
+      unsubscribes.forEach((unsubscribe) => unsubscribe());
+    };
   }, [subscribe]);
 
   const getProgress = (jobId: string) => {
-    console.log(validationProgresses);
-    return validationProgresses.get(jobId);
+    // console.log(validationJobProgresses);
+    return validationJobProgresses.get(jobId);
   };
 
   return (
     <ValidationProgressContext.Provider
-      value={{ validationProgresses, getProgress }}
+      value={{ validationJobProgresses, getProgress }}
     >
       {children}
     </ValidationProgressContext.Provider>

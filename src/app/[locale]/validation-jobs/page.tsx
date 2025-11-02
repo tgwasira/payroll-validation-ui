@@ -29,11 +29,13 @@ import getCheckboxColumn from "@/react-ui-library/components/tables/utils/getChe
 import Tag from "@/react-ui-library/components/tags/tag/Tag";
 import TagGroup from "@/react-ui-library/components/tags/tag-group/TagGroup";
 import PageTitle from "@/react-ui-library/components/text/page-title/PageTitle";
+import Tooltip from "@/react-ui-library/components/tooltips/Tooltip";
 import MSExcelFileIcon from "@/react-ui-library/icons/MSExcelFileIcon";
 import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
+import SuccessIcon from "@/react-ui-library/icons/status-icons/StatusIcon";
+import StatusIcon from "@/react-ui-library/icons/status-icons/StatusIcon";
 import { getFileExtension } from "@/react-ui-library/utils/fileUtils";
 
-import StatusIcon from "./StatusIscon";
 import { useValidationProgress } from "./ValidationProgressContext";
 
 type Person = {
@@ -143,26 +145,64 @@ export default function ValidationJobsList() {
         style: { width: "20%" },
       },
     }),
-    columnHelper.accessor((row) => ({ id: row.id, status: row.status }), {
-      id: "status",
-      header: t("validation_jobs.list.table.status_column_heading"),
-      cell: (info) => {
-        const { validationProgress } =
-          getProgress(info?.row?.original?.id) || {};
-        return <CircularProgressBar />;
-        //return <div>{validationProgress}</div>;
-        // const status = info.getValue();
+    columnHelper.accessor(
+      (row) => ({
+        validationJobId: row.id,
+        validationJobStatus: row.validationJobStatus,
+        validationJobResult: row.validationResult,
+      }),
+      {
+        id: "status",
+        header: t("validation_jobs.list.table.status_column_heading"),
+        cell: (info) => {
+          const { validationJobId, validationJobStatus, validationJobResult } =
+            info.getValue();
+          const { status } = validationJobStatus || {};
+          const { prevValidationJobProgress, validationJobProgress } =
+            getProgress(validationJobId) || {};
 
-        // return <StatusIcon status={status} />;
-      },
-      meta: {
-        style: {
-          textAlign: "center",
-          // This is actually max-width = 20% and min-width = wrap content
-          width: "10%",
+          if (validationJobProgress !== undefined) {
+            // Add to dev docs. As much as possible, use CSS even utility classes
+            return (
+              <CircularProgressBar
+                prevProgress={prevValidationJobProgress}
+                progress={validationJobProgress}
+                className="inline-block"
+              />
+            );
+          }
+          if (status === "not_started") {
+            return (
+              <Tooltip content="This is a tooltip">
+                <StatusIcon type="failed" className="inline-block" />
+              </Tooltip>
+            );
+          }
+          if (status === "not_started") {
+            return <StatusIcon type="warning" className="inline-block" />;
+          }
+          if (status === "not_started") {
+            return <StatusIcon type="error" className="inline-block" />;
+          }
+          if (status === "not_started") {
+            return <StatusIcon type="success" className="inline-block" />;
+          }
+
+          // TODO: Make reusable component for status icons.
+          //return <div>{validationJobProgress}</div>;
+          // const status = info.getValue();
+
+          // return <StatusIcon status={status} />;
         },
-      },
-    }),
+        meta: {
+          style: {
+            textAlign: "center",
+            // This is actually max-width = 20% and min-width = wrap content
+            width: "10%",
+          },
+        },
+      }
+    ),
     getActionsColumn("actions", columnHelper, () => (
       <MenuItemsList
         sections={[

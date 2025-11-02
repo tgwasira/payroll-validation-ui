@@ -48,6 +48,8 @@ export function WebSocketProvider({ children }: { children: ReactNode }) {
         const message = snakeToCamelCase(JSON.parse(event.data));
         const { type, payload } = message;
 
+        console.log("WebSocket received:", { type, payload });
+
         // Call all handlers subscribed to this message type
         const handlers = handlersRef.current.get(type);
         if (handlers) {
