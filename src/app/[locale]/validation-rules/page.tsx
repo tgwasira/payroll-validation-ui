@@ -131,7 +131,7 @@ export default function ValidationRules() {
     useState(false);
 
   // --- Data fetching ---
-  const { validationRules, loading, error, fetchValidationRules } =
+  const { validationRules, loading, error, fetchValidationRules, pagination } =
     useValidationRules();
 
   const parentRef = useRef(null);
@@ -276,7 +276,18 @@ export default function ValidationRules() {
         {/* </ScrollContainer> */}
         {/* </div> */}
 
-        {(loading || hasValidationRules) && <TablePagination />}
+        {(loading || hasValidationRules) && (
+          <TablePagination 
+            currentPage={pagination.currentPage}
+            totalItems={pagination.totalItems}
+            itemsPerPage={pagination.itemsPerPage}
+            onPageChange={(page) => fetchValidationRules(page)}
+            onItemsPerPageChange={(itemsPerPage) => {
+              fetchValidationRules(1, itemsPerPage);
+            }}
+            isLoading={loading}
+          />
+        )}
       </PageSection>
       {/* </div> */}
       {/* </div> */}

@@ -217,7 +217,7 @@ export default function ValidationJobsList() {
   );
 
   // === Data ===
-  const { loading, error, validationJobs, getValidationJobs } =
+  const { loading, error, validationJobs, fetchValidationJobs, pagination } =
     useValidationJobs();
 
   const hasValidationJobs = validationJobs && validationJobs.length > 0;
@@ -225,7 +225,7 @@ export default function ValidationJobsList() {
 
   // Fetch validation jobs on component mount
   useEffect(() => {
-    getValidationJobs();
+    fetchValidationJobs();
   }, []);
 
   return (
@@ -267,7 +267,18 @@ export default function ValidationJobsList() {
           )}
           emptyStateRenderButton1={renderNewValidationJobButton}
         />
-        {(loading || hasValidationJobs) && <TablePagination />}
+        {(loading || hasValidationJobs) && (
+          <TablePagination 
+            currentPage={pagination.currentPage}
+            totalItems={pagination.totalItems}
+            itemsPerPage={pagination.itemsPerPage}
+            onPageChange={(page) => fetchValidationJobs(page)}
+            onItemsPerPageChange={(itemsPerPage) => {
+              fetchValidationJobs(1, itemsPerPage);
+            }}
+            isLoading={loading}
+          />
+        )}
         {/* Pagination */}
         {/* <Pagination /> */}
       </PageSection>

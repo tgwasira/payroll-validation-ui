@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import routes from "@/app/routes";
+import { useValidationRuleGroups } from "@/hooks/api/validation-service/useValidationRuleGroups";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";
 import PageContent from "@/react-ui-library/components/containers/page-content/PageContent";
@@ -14,6 +15,7 @@ import PageHeader from "@/react-ui-library/components/page-elements/page-header/
 import Input from "@/react-ui-library/components/forms/inputs/Input";
 import SearchInput from "@/react-ui-library/components/forms/inputs/search-input/SearchInput";
 import Table from "@/react-ui-library/components/tables/table/Table";
+import TablePagination from "@/react-ui-library/components/tables/table-pagination/TablePagination";
 import TableSearchbar from "@/react-ui-library/components/tables/table-searchbar/TableSearchbar";
 import TableToolbar from "@/react-ui-library/components/tables/table-toolbar/TableToolbar";
 import getCheckboxColumn from "@/react-ui-library/components/tables/utils/getCheckboxColumn";
@@ -21,38 +23,15 @@ import Tag from "@/react-ui-library/components/tags/tag/Tag";
 import TagGroup from "@/react-ui-library/components/tags/tag-group/TagGroup";
 import PageTitle from "@/react-ui-library/components/text/page-title/PageTitle";
 import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
+import type { ValidationRuleGroup } from "@/types/validationServiceTypes";
 
 import ValidationRuleGroupsDialog from "./ValidationRuleGroupsDialog";
-
-type ValidationRuleGroup = {
-  name: string;
-  description?: string;
-  validationRules: any[];
-  age: number;
-  visits: number;
-  status: string;
-  progress: number;
-};
 
 export default function ValidationRuleGroups() {
   const t = useTranslations();
 
-  const defaultData: ValidationRuleGroup[] = [
-    {
-      name: "No Empty Cells",
-      description: "A validation rule group that checks for empty cells.",
-      validationRules: [
-        { id: 2, name: "id-is-required", type: "validation-rule" },
-      ],
-    },
-    {
-      name: [{ id: 20, type: "ms-excel", name: "File 2.xls" }],
-      validationRules: [
-        { id: 2, name: "id-is-required", type: "validation-rule" },
-      ],
-      status: "validation-warning",
-    },
-  ];
+  const { validationRuleGroups, loading, error, fetchValidationRuleGroups, pagination } =
+    useValidationRuleGroups();
 
   const columnHelper = createColumnHelper<ValidationRuleGroup>();
 
@@ -65,7 +44,7 @@ export default function ValidationRuleGroups() {
         "validation_rule_groups.list.validation_rule_groups_table.name_column_label"
       ),
       meta: {
-        style: { width: "30%" },
+        style: { width: "40%" },
       },
     }),
     columnHelper.accessor("description", {
@@ -73,31 +52,13 @@ export default function ValidationRuleGroups() {
         "validation_rule_groups.list.validation_rule_groups_table.description_column_label"
       ),
       meta: {
-        style: { width: "30%" },
-      },
-    }),
-    columnHelper.accessor("validationRules", {
-      header: t(
-        "validation_rule_groups.list.validation_rule_groups_table.validation_rules_column_label"
-      ),
-      cell: (info) => {
-        const validationRules = info.getValue();
-
-        return (
-          <TagGroup>
-            {validationRules.map((validationRule) => (
-              <Tag key={validationRule.id}>{validationRule.name}</Tag>
-            ))}
-          </TagGroup>
-        );
-      },
-      meta: {
-        style: { width: "40%" },
+        style: { width: "60%" },
       },
     }),
   ];
 
-  const [data, setData] = useState(() => [...defaultData]);
+  const hasValidationRuleGroups = validationRuleGroups && validationRuleGroups.length > 0;
+  const disabled = loading || !hasValidationRuleGroups;
   const [validationRuleGroupsDialogOpen, setValidationRuleGroupsDialogOpen] =
     useState(false);
 
@@ -120,13 +81,38 @@ export default function ValidationRuleGroups() {
           searchbarPlaceholder={t(
             "validation_rule_groups.list.validation_rule_groups_search_placeholder"
           )}
+          disabled={disabled}
         />
 
-        {/* Validation Jobs Table */}
-        <Table data={data} columns={columns} />
+        {/* Validation Rule Groups Table */}
+        <Table 
+          data={validationRuleGroups} 
+          columns={columns} 
+          loading={loading}
+          error={error}
+          disabled={disabled}
+          emptyStateHeading={t("common.tables.empty_state_default_heading", {
+            item_name_plural: "Validation Rule Groups",
+          })}
+          emptyStateSupportingText={t(
+            "common.tables.empty_state_default_supporting_text",
+            { item_name: "validation rule group" }
+          )}
+        />
 
         {/* Pagination */}
-        {/* <Pagination /> */}
+        {(loading || hasValidationRuleGroups) && (
+          <TablePagination 
+            currentPage={pagination.currentPage}
+            totalItems={pagination.totalItems}
+            itemsPerPage={pagination.itemsPerPage}
+            onPageChange={(page) => fetchValidationRuleGroups(page)}
+            onItemsPerPageChange={(itemsPerPage) => {
+              fetchValidationRuleGroups(1, itemsPerPage);
+            }}
+            isLoading={loading}
+          />
+        )}
       </PageSection>
       <ValidationRuleGroupsDialog
         validationRuleGroupsDialogOpen={validationRuleGroupsDialogOpen}
