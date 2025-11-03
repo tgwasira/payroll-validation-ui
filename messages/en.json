@@ -102,6 +102,13 @@
       "validation_rules_page_section": {
         "empty_state_heading": "No validation rules added yet"
       }
+    },
+    "summary": {
+      "infos": "{count, plural, one {# info} other {# infos}}",
+      "warnings": "{count, plural, one {# warning} other {# warnings}}",
+      "errors": "{count, plural, one {# error} other {# errors}}",
+      "no_issues": "No validation issues",
+      "and": "and"
     }
   },
   "validation_rule_groups": {

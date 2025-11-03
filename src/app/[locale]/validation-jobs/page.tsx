@@ -36,6 +36,7 @@ import SuccessIcon from "@/react-ui-library/icons/status-icons/StatusIcon";
 import StatusIcon from "@/react-ui-library/icons/status-icons/StatusIcon";
 import { getFileExtension } from "@/react-ui-library/utils/fileUtils";
 
+import { getValidationSummary } from "./getValidationSummary";
 import { useValidationProgress } from "./ValidationProgressContext";
 
 type Person = {
@@ -113,7 +114,7 @@ export default function ValidationJobsList() {
         ));
       },
       meta: {
-        style: { width: "25%" },
+        style: { width: "40%" },
       },
     }),
     columnHelper.accessor("validationRules", {
@@ -134,7 +135,7 @@ export default function ValidationJobsList() {
         );
       },
       meta: {
-        style: { width: "25%" },
+        style: { width: "40%" },
       },
     }),
     // TODO: Change to last run
@@ -142,7 +143,9 @@ export default function ValidationJobsList() {
       id: "lastRun",
       header: t("validation_jobs.list.table.last_run_column_heading"),
       meta: {
-        style: { width: "20%" },
+        style: {
+          //  width: "20%"
+        },
       },
     }),
     columnHelper.accessor(
@@ -172,21 +175,38 @@ export default function ValidationJobsList() {
             );
           }
           if (status === "not_started") {
-            return (
-              <Tooltip content="This is a tooltip">
-                <StatusIcon type="failed" className="inline-block" />
-              </Tooltip>
-            );
+            if (validationJobResult) {
+              return (
+                <Tooltip
+                  content={getValidationSummary(t, {
+                    validationInfos: validationJobResult.validationInfos,
+                    validationWarnings: validationJobResult.validationWarnings,
+                    validationErrors: validationJobResult.validationErrors,
+                  })}
+                  placement="bottom"
+                >
+                  {validationJobResult.validationErrors.length > 0 ? (
+                    <StatusIcon type="error" className="inline-block" />
+                  ) : validationJobResult.validationWarnings.length > 0 ? (
+                    <StatusIcon type="warning" className="inline-block" />
+                  ) : validationJobResult.validationInfos.length > 0 ? (
+                    <StatusIcon type="info" className="inline-block" />
+                  ) : (
+                    <StatusIcon type="success" className="inline-block" />
+                  )}
+                </Tooltip>
+              );
+            }
           }
-          if (status === "not_started") {
-            return <StatusIcon type="warning" className="inline-block" />;
-          }
-          if (status === "not_started") {
-            return <StatusIcon type="error" className="inline-block" />;
-          }
-          if (status === "not_started") {
-            return <StatusIcon type="success" className="inline-block" />;
-          }
+          // if (status === "not_started") {
+          //   return <StatusIcon type="warning" className="inline-block" />;
+          // }
+          // if (status === "not_started") {
+          //   return <StatusIcon type="error" className="inline-block" />;
+          // }
+          // if (status === "not_started") {
+          //   return <StatusIcon type="success" className="inline-block" />;
+          // }
 
           // TODO: Make reusable component for status icons.
           //return <div>{validationJobProgress}</div>;
@@ -198,7 +218,7 @@ export default function ValidationJobsList() {
           style: {
             textAlign: "center",
             // This is actually max-width = 20% and min-width = wrap content
-            width: "10%",
+            // width: "5%",
           },
         },
       }
@@ -284,14 +304,32 @@ export default function ValidationJobsList() {
   }, []);
 
   return (
-    <PageContent>
+    <PageContent
+      style={{
+        // position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        // overflow: "hidden",
+        height: "100%",
+        // top: 0,
+        // bottom: 0,
+      }}
+    >
       <PageHeader>
         <PageTitle>
           {t("validation_jobs.list.validation_jobs_list_page_title")}
         </PageTitle>
         {renderNewValidationJobButton()}
       </PageHeader>
-      <PageSection padding={"none"}>
+      <PageSection
+        padding="none"
+        // Important to set flex and flexDirection here because scroll container sets its height to 100% which needs flex to not take parent's height when other siblings are present.
+        flex={true}
+        flexDirection="column"
+        style={{
+          height: "auto",
+        }}
+      >
         {/* Table Toolbar */}
         <TableToolbar
           filterOptions={filterOptions}
@@ -321,6 +359,7 @@ export default function ValidationJobsList() {
             { item_name: t("validation_jobs.list.empty_state_item_name") }
           )}
           emptyStateRenderButton1={renderNewValidationJobButton}
+          scrollable={true}
         />
         {(loading || hasValidationJobs) && <TablePagination />}
         {/* Pagination */}
