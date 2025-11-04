@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import routes from "@/app/routes";
 import ValidationRuleTag from "@/components/validation-rule-tag/ValidationRuleTag";
 import { LOADING_ROWS } from "@/constants";
+import { useWebSocket } from "@/contexts/WebSocketContext";
 import { useValidationJobs } from "@/hooks/api/validation-service/useValidationJobs";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";
@@ -18,6 +19,7 @@ import Input from "@/react-ui-library/components/forms/inputs/Input";
 import SearchInput from "@/react-ui-library/components/forms/inputs/search-input/SearchInput";
 import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
 import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
+import CircularProgressBar from "@/react-ui-library/components/progress-bars/circular-progress-bar/CircularProgressBar";
 import Table from "@/react-ui-library/components/tables/table/Table";
 import TablePagination from "@/react-ui-library/components/tables/table-pagination/TablePagination";
 import TableSearchbar from "@/react-ui-library/components/tables/table-searchbar/TableSearchbar";
@@ -27,11 +29,15 @@ import getCheckboxColumn from "@/react-ui-library/components/tables/utils/getChe
 import Tag from "@/react-ui-library/components/tags/tag/Tag";
 import TagGroup from "@/react-ui-library/components/tags/tag-group/TagGroup";
 import PageTitle from "@/react-ui-library/components/text/page-title/PageTitle";
+import Tooltip from "@/react-ui-library/components/tooltips/Tooltip";
 import MSExcelFileIcon from "@/react-ui-library/icons/MSExcelFileIcon";
 import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
+import SuccessIcon from "@/react-ui-library/icons/status-icons/StatusIcon";
+import StatusIcon from "@/react-ui-library/icons/status-icons/StatusIcon";
 import { getFileExtension } from "@/react-ui-library/utils/fileUtils";
 
-import StatusIcon from "./StatusIscon";
+import { getValidationSummary } from "./getValidationSummary";
+import { useValidationProgress } from "./ValidationProgressContext";
 
 type Person = {
   validationDataSources: any[];
@@ -44,6 +50,8 @@ type Person = {
 
 export default function ValidationJobsList() {
   const t = useTranslations();
+
+  const { getProgress } = useValidationProgress();
 
   // === Table ===
   const columnHelper = createColumnHelper<Person>();
@@ -106,7 +114,7 @@ export default function ValidationJobsList() {
         ));
       },
       meta: {
-        style: { width: "25%" },
+        style: { width: "40%" },
       },
     }),
     columnHelper.accessor("validationRules", {
@@ -127,7 +135,7 @@ export default function ValidationJobsList() {
         );
       },
       meta: {
-        style: { width: "25%" },
+        style: { width: "40%" },
       },
     }),
     // TODO: Change to last run
@@ -135,24 +143,86 @@ export default function ValidationJobsList() {
       id: "lastRun",
       header: t("validation_jobs.list.table.last_run_column_heading"),
       meta: {
-        style: { width: "20%" },
-      },
-    }),
-    columnHelper.accessor("status", {
-      header: t("validation_jobs.list.table.status_column_heading"),
-      cell: (info) => {
-        const status = info.getValue();
-
-        return <StatusIcon status={status} />;
-      },
-      meta: {
         style: {
-          textAlign: "center",
-          // This is actually max-width = 20% and min-width = wrap content
-          width: "10%",
+          //  width: "20%"
         },
       },
     }),
+    columnHelper.accessor(
+      (row) => ({
+        validationJobId: row.id,
+        validationJobStatus: row.validationJobStatus,
+        validationJobResult: row.validationResult,
+      }),
+      {
+        id: "status",
+        header: t("validation_jobs.list.table.status_column_heading"),
+        cell: (info) => {
+          const { validationJobId, validationJobStatus, validationJobResult } =
+            info.getValue();
+          const { status } = validationJobStatus || {};
+          const { prevValidationJobProgress, validationJobProgress } =
+            getProgress(validationJobId) || {};
+
+          if (validationJobProgress !== undefined) {
+            // Add to dev docs. As much as possible, use CSS even utility classes
+            return (
+              <CircularProgressBar
+                prevProgress={prevValidationJobProgress}
+                progress={validationJobProgress}
+                className="inline-block"
+              />
+            );
+          }
+          if (status === "not_started") {
+            if (validationJobResult) {
+              return (
+                <Tooltip
+                  content={getValidationSummary(t, {
+                    validationInfos: validationJobResult.validationInfos,
+                    validationWarnings: validationJobResult.validationWarnings,
+                    validationErrors: validationJobResult.validationErrors,
+                  })}
+                  placement="bottom"
+                >
+                  {validationJobResult.validationErrors.length > 0 ? (
+                    <StatusIcon type="error" className="inline-block" />
+                  ) : validationJobResult.validationWarnings.length > 0 ? (
+                    <StatusIcon type="warning" className="inline-block" />
+                  ) : validationJobResult.validationInfos.length > 0 ? (
+                    <StatusIcon type="info" className="inline-block" />
+                  ) : (
+                    <StatusIcon type="success" className="inline-block" />
+                  )}
+                </Tooltip>
+              );
+            }
+          }
+          // if (status === "not_started") {
+          //   return <StatusIcon type="warning" className="inline-block" />;
+          // }
+          // if (status === "not_started") {
+          //   return <StatusIcon type="error" className="inline-block" />;
+          // }
+          // if (status === "not_started") {
+          //   return <StatusIcon type="success" className="inline-block" />;
+          // }
+
+          // TODO: Make reusable component for status icons.
+          //return <div>{validationJobProgress}</div>;
+          // const status = info.getValue();
+
+          // return <StatusIcon status={status} />;
+        },
+        meta: {
+          style: {
+            textAlign: "center",
+            // This is actually max-width = 20% and min-width = wrap content
+            // width: "5%",
+          },
+        },
+      }
+    ),
     getActionsColumn("actions", columnHelper, () => (
       <MenuItemsList
         sections={[
@@ -217,8 +287,13 @@ export default function ValidationJobsList() {
   );
 
   // === Data ===
-  const { loading, error, validationJobs, getValidationJobs } =
-    useValidationJobs();
+  const {
+    loading,
+    error,
+    validationJobs,
+    setValidationJobs,
+    getValidationJobs,
+  } = useValidationJobs();
 
   const hasValidationJobs = validationJobs && validationJobs.length > 0;
   const disabled = loading || !hasValidationJobs;
@@ -229,14 +304,32 @@ export default function ValidationJobsList() {
   }, []);
 
   return (
-    <PageContent>
+    <PageContent
+      style={{
+        // position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        // overflow: "hidden",
+        height: "100%",
+        // top: 0,
+        // bottom: 0,
+      }}
+    >
       <PageHeader>
         <PageTitle>
           {t("validation_jobs.list.validation_jobs_list_page_title")}
         </PageTitle>
         {renderNewValidationJobButton()}
       </PageHeader>
-      <PageSection padding={"none"}>
+      <PageSection
+        padding="none"
+        // Important to set flex and flexDirection here because scroll container sets its height to 100% which needs flex to not take parent's height when other siblings are present.
+        flex={true}
+        flexDirection="column"
+        style={{
+          height: "auto",
+        }}
+      >
         {/* Table Toolbar */}
         <TableToolbar
           filterOptions={filterOptions}
@@ -266,6 +359,7 @@ export default function ValidationJobsList() {
             { item_name: t("validation_jobs.list.empty_state_item_name") }
           )}
           emptyStateRenderButton1={renderNewValidationJobButton}
+          scrollable={true}
         />
         {(loading || hasValidationJobs) && <TablePagination />}
         {/* Pagination */}

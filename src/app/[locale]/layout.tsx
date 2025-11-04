@@ -19,6 +19,7 @@ import { Toaster } from "@/react-ui-library/components/toasts/Toaster";
 import Topbar from "@/react-ui-library/components/topbar/Topbar";
 
 import AppTopbar from "./AppTopbar";
+import { ValidationProgressProvider } from "./validation-jobs/ValidationProgressContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -44,23 +45,25 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
         <WebSocketProvider>
-          <NextIntlClientProvider>
-            <ThemeProvider>
-              <SkeletonTheme
-                baseColor="var(--color-skeleton-base)"
-                highlightColor="var(--color-skeleton-highlight)"
-              >
-                <div className="body-wrapper">
-                  <AppTopbar />
-                  <div className="page-wrapper">
-                    <AppSidebar />
-                    <div className="page-content">{children}</div>
-                    <Toaster />
+          <ValidationProgressProvider>
+            <NextIntlClientProvider>
+              <ThemeProvider>
+                <SkeletonTheme
+                  baseColor="var(--color-skeleton-base)"
+                  highlightColor="var(--color-skeleton-highlight)"
+                >
+                  <div className="body-wrapper">
+                    <AppTopbar />
+                    <div className="page-wrapper">
+                      <AppSidebar />
+                      <div className="page-content">{children}</div>
+                      <Toaster />
+                    </div>
                   </div>
-                </div>
-              </SkeletonTheme>
-            </ThemeProvider>
-          </NextIntlClientProvider>
+                </SkeletonTheme>
+              </ThemeProvider>
+            </NextIntlClientProvider>
+          </ValidationProgressProvider>
         </WebSocketProvider>
       </body>
     </html>
