@@ -50,6 +50,7 @@ type Person = {
 
 export default function ValidationJobsList() {
   const t = useTranslations();
+  const [currentStatusFilter, setCurrentStatusFilter] = useState<string | null>(null);
 
   const { getProgress } = useValidationProgress();
 
@@ -260,13 +261,26 @@ export default function ValidationJobsList() {
     )),
   ];
 
+  const fetchValidationJobsWithFilter = async (status?: string) => {
+    setCurrentStatusFilter(status || null);
+    await getValidationJobs({ status });
+  };
+
   const filterOptions = [
     {
       label: t(
         "validation_jobs.list.validation_jobs_table_toolbar.filter_options.all_filter_option_label"
       ),
       onClick: () => {
-        console.log("All clicked");
+        fetchValidationJobsWithFilter();
+      },
+    },
+    {
+      label: t(
+        "validation_jobs.list.validation_jobs_table_toolbar.filter_options.active_filter_option_label"
+      ),
+      onClick: () => {
+        fetchValidationJobsWithFilter("pending");
       },
     },
     {
@@ -274,7 +288,7 @@ export default function ValidationJobsList() {
         "validation_jobs.list.validation_jobs_table_toolbar.filter_options.successful_filter_option_label"
       ),
       onClick: () => {
-        console.log("Successful clicked");
+        fetchValidationJobsWithFilter("completed");
       },
     },
   ];
@@ -300,7 +314,7 @@ export default function ValidationJobsList() {
 
   // Fetch validation jobs on component mount
   useEffect(() => {
-    getValidationJobs();
+    fetchValidationJobsWithFilter();
   }, []);
 
   return (
