@@ -48,6 +48,16 @@ type Person = {
   progress: number;
 };
 
+function formatDateTime(datetime: string): string {
+  const date = new Date(datetime);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  return `${year}-${month}-${day}, ${hours}:${minutes}`;
+}
+
 export default function ValidationJobsList() {
   const t = useTranslations();
 
@@ -139,15 +149,19 @@ export default function ValidationJobsList() {
       },
     }),
     // TODO: Change to last run
-    columnHelper.accessor((row) => row.updatedAt || row.createdAt, {
-      id: "lastRun",
-      header: t("validation_jobs.list.table.last_run_column_heading"),
-      meta: {
-        style: {
-          //  width: "20%"
+    columnHelper.accessor(
+      (row) => formatDateTime(row.updatedAt || row.createdAt),
+      {
+        id: "lastRun",
+        header: t("validation_jobs.list.table.last_run_column_heading"),
+        meta: {
+          style: {
+            // TODO: Add to documentation about how to set maxWidth which results in ellipsis
+            // maxWidth: "100px",
+          },
         },
-      },
-    }),
+      }
+    ),
     columnHelper.accessor(
       (row) => ({
         validationJobId: row.id,

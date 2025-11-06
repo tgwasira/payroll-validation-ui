@@ -11,16 +11,21 @@ export default function ValidationRuleTag({
   name,
   type = "",
   className = "",
+  style = {},
 }) {
   return (
-    <Tag as={as} className={`${styles.ValidationRuleTag} ${className}`}>
+    <Tag
+      as={as}
+      className={`${styles.ValidationRuleTag} ${className}`}
+      style={style}
+    >
       {type === "group" && (
         <div>
           <StackIcon className="icon-base" />
         </div>
       )}
 
-      <div>{name}</div>
+      <div className={styles.Text}>{name}</div>
     </Tag>
   );
 }
