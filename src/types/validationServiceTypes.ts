@@ -14,9 +14,26 @@ export type ValidationRule = {
   updated_at: string;
 };
 
+// <<<<<<< HEAD
+// export type ValidationJob = {
+//   id: number;
+//   slug: string;
+//   description?: string;
+//   result?: string;
+//   created_at: string;
+//   updated_at: string;
+// };
+
+// export type ValidationRuleGroup = {
+//   id: number;
+//   name: string;
+//   description?: string;
+//   created_at: string;
+//   updated_at: string;
+// =======
 export type ValidationJobStatus = {
   id: number;
-  status: 'pending' | 'completed' | 'failed';
+  status: "pending" | "completed" | "failed";
   message: string;
   created_at: string;
   updated_at: string;
@@ -39,4 +56,5 @@ export type GetValidationJobsOptions = {
   page?: number;
   limit?: number;
   status?: string;
+  // >>>>>>> main
 };

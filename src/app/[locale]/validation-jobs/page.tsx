@@ -50,7 +50,9 @@ type Person = {
 
 export default function ValidationJobsList() {
   const t = useTranslations();
-  const [currentStatusFilter, setCurrentStatusFilter] = useState<string | null>(null);
+  const [currentStatusFilter, setCurrentStatusFilter] = useState<string | null>(
+    null
+  );
 
   const { getProgress } = useValidationProgress();
 
@@ -301,20 +303,29 @@ export default function ValidationJobsList() {
   );
 
   // === Data ===
-  const {
-    loading,
-    error,
-    validationJobs,
-    setValidationJobs,
-    getValidationJobs,
-  } = useValidationJobs();
+  // <<<<<<< HEAD
+  const { loading, error, validationJobs, fetchValidationJobs, pagination } =
+    useValidationJobs();
+  // =======
+  //   const {
+  //     loading,
+  //     error,
+  //     validationJobs,
+  //     setValidationJobs,
+  //     getValidationJobs,
+  //   } = useValidationJobs();
+  // >>>>>>> main
 
   const hasValidationJobs = validationJobs && validationJobs.length > 0;
   const disabled = loading || !hasValidationJobs;
 
   // Fetch validation jobs on component mount
   useEffect(() => {
-    fetchValidationJobsWithFilter();
+    // <<<<<<< HEAD
+    fetchValidationJobs();
+    // =======
+    //     fetchValidationJobsWithFilter();
+    // >>>>>>> main
   }, []);
 
   return (
@@ -375,7 +386,18 @@ export default function ValidationJobsList() {
           emptyStateRenderButton1={renderNewValidationJobButton}
           scrollable={true}
         />
-        {(loading || hasValidationJobs) && <TablePagination />}
+        {(loading || hasValidationJobs) && (
+          <TablePagination
+            currentPage={pagination.currentPage}
+            totalItems={pagination.totalItems}
+            itemsPerPage={pagination.itemsPerPage}
+            onPageChange={(page) => fetchValidationJobs(page)}
+            onItemsPerPageChange={(itemsPerPage) => {
+              fetchValidationJobs(1, itemsPerPage);
+            }}
+            isLoading={loading}
+          />
+        )}
         {/* Pagination */}
         {/* <Pagination /> */}
       </PageSection>
