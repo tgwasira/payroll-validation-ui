@@ -2,4 +2,11 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  max-width: 12.5rem; /* 200px */
+}
+
+.Text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
