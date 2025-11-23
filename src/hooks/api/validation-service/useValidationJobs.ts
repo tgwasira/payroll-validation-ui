@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { useApi } from "@/react-ui-library/hooks/useApi";
+import { ValidationJob, GetValidationJobsOptions } from "@/types/validationServiceTypes";
 
 import { validationServiceApi } from "../../../../apiConfig";
 
@@ -10,6 +11,7 @@ import { validationServiceApi } from "../../../../apiConfig";
  * @param options - Optional: A configuration object for the API requests.
  * @param options.page - The page number to fetch (default is 1).
  * @param options.limit - The maximum number of jobs to fetch per page (default is 100).
+ * @param options.status - Filter by validation job status.
  *
  * @returns An object containing:
  * - `loading`: Boolean indicating if the API request is in progress.
@@ -20,17 +22,23 @@ import { validationServiceApi } from "../../../../apiConfig";
 export function useValidationJobs() {
   const api = useApi(
     validationServiceApi,
-    validationServiceApi.endpoints.validationJobs
+    "/validation-jobs"
   );
 
   const getValidationJobs = useCallback(
-    async (options = {}) => {
-      const { page = 1, limit = 100 } = options;
+    async (options: GetValidationJobsOptions = {}) => {
+      const { page = 1, limit = 100, status } = options;
 
-      const params = {
+      const params: Record<string, any> = {
         _page: page,
         _limit: limit,
       };
+      
+      // Add status filter if provided
+      if (status) {
+        params.status = status;
+      }
+
       const result = await api.get(params);
 
       return result as ValidationJob[];

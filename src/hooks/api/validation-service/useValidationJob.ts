@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { useApi } from "@/react-ui-library/hooks/useApi";
+import { ValidationJob } from "@/types/validationServiceTypes";
 
 import { validationServiceApi } from "../../../../apiConfig";
 
@@ -17,7 +18,7 @@ import { validationServiceApi } from "../../../../apiConfig";
 export function useValidationJob() {
   const api = useApi(
     validationServiceApi,
-    validationServiceApi.endpoints.validationJobs
+    "/validation-jobs"
   );
 
   const getValidationJob = useCallback(
