@@ -143,7 +143,9 @@ export default function ValidationRulesDialogForm({
       {
         id: "does_not_contain",
         value: "does_not_contain",
-        label: t("validation_rules.new.criteria_field_options.does_not_contain"),
+        label: t(
+          "validation_rules.new.criteria_field_options.does_not_contain"
+        ),
       },
       {
         id: "starts_with",
@@ -344,102 +346,110 @@ export default function ValidationRulesDialogForm({
 
                   {/* Define these as regular fields so that they can be validated with react-hook-form and then determine the formula on submit the delete these fields. */}
                   {/* Number fields that require a numeric value */}
-                  {dataTypeId === "number" && (criteriaId === "is_equal_to" ||
-                    criteriaId === "is_not_equal_to" ||
-                    criteriaId === "is_greater_than" ||
-                    criteriaId === "is_greater_than_or_equal_to" ||
-                    criteriaId === "is_less_than" ||
-                    criteriaId === "is_less_than_or_equal_to") && (
-                    <NumericInputField
-                      name="value"
-                      label={t("validation_rules.new.value_field_label")}
-                      rules={{
-                        required: {
-                          value: true,
-                          message: t(
-                            "common.forms.validation.required_error_message_specific",
-                            {
-                              field: t(
-                                "validation_rules.new.value_field_label"
-                              ),
-                            }
-                          ),
-                        },
-                      }}
-                    />
-                  )}
+                  {dataTypeId === "number" &&
+                    (criteriaId === "is_equal_to" ||
+                      criteriaId === "is_not_equal_to" ||
+                      criteriaId === "is_greater_than" ||
+                      criteriaId === "is_greater_than_or_equal_to" ||
+                      criteriaId === "is_less_than" ||
+                      criteriaId === "is_less_than_or_equal_to") && (
+                      <NumericInputField
+                        name="value"
+                        label={t("validation_rules.new.value_field_label")}
+                        rules={{
+                          required: {
+                            value: true,
+                            message: t(
+                              "common.forms.validation.required_error_message_specific",
+                              {
+                                field: t(
+                                  "validation_rules.new.value_field_label"
+                                ),
+                              }
+                            ),
+                          },
+                        }}
+                      />
+                    )}
 
                   {/* Text fields that require a text value */}
-                  {dataTypeId === "text" && (criteriaId === "is_equal_to" ||
-                    criteriaId === "is_not_equal_to" ||
-                    criteriaId === "contains" ||
-                    criteriaId === "does_not_contain" ||
-                    criteriaId === "starts_with" ||
-                    criteriaId === "ends_with" ||
-                    criteriaId === "matches_pattern") && (
-                    <TextInputField
-                      name="value"
-                      label={t("validation_rules.new.value_field_label")}
-                      rules={{
-                        required: {
-                          value: true,
-                          message: t(
-                            "common.forms.validation.required_error_message_specific",
-                            {
-                              field: t(
-                                "validation_rules.new.value_field_label"
+                  {dataTypeId === "text" &&
+                    (criteriaId === "is_equal_to" ||
+                      criteriaId === "is_not_equal_to" ||
+                      criteriaId === "contains" ||
+                      criteriaId === "does_not_contain" ||
+                      criteriaId === "starts_with" ||
+                      criteriaId === "ends_with" ||
+                      criteriaId === "matches_pattern") && (
+                      <TextInputField
+                        name="value"
+                        label={t("validation_rules.new.value_field_label")}
+                        rules={{
+                          required: {
+                            value: true,
+                            message: t(
+                              "common.forms.validation.required_error_message_specific",
+                              {
+                                field: t(
+                                  "validation_rules.new.value_field_label"
+                                ),
+                              }
+                            ),
+                          },
+                        }}
+                      />
+                    )}
+
+                  {dataTypeId === "number" &&
+                    (criteriaId === "is_between_exclusive" ||
+                      criteriaId === "is_outside_of_exclusive") && (
+                      <HorizontalFormFieldGroup>
+                        <NumericInputField
+                          name="min_value"
+                          label={t(
+                            "validation_rules.new.min_value_field_label"
+                          )}
+                          rules={{
+                            required: {
+                              value: true,
+                              message: t(
+                                "common.forms.validation.required_error_message_specific",
+                                {
+                                  field: t(
+                                    "validation_rules.new.min_value_field_label"
+                                  ),
+                                }
                               ),
-                            }
-                          ),
-                        },
-                      }}
-                    />
-                  )}
+                            },
+                          }}
+                          stretch
+                        />
 
-                  {dataTypeId === "number" && (criteriaId === "is_between_exclusive" || criteriaId === "is_outside_of_exclusive") && (
-                    <HorizontalFormFieldGroup>
-                      <NumericInputField
-                        name="min_value"
-                        label={t("validation_rules.new.min_value_field_label")}
-                        rules={{
-                          required: {
-                            value: true,
-                            message: t(
-                              "common.forms.validation.required_error_message_specific",
-                              {
-                                field: t(
-                                  "validation_rules.new.min_value_field_label"
-                                ),
-                              }
-                            ),
-                          },
-                        }}
-                        stretch
-                      />
-
-                      <div className="flex-center text-semibold">
-                        {t("common.forms.and")}
-                      </div>
-                      <NumericInputField
-                        name="max_value"
-                        label={t("validation_rules.new.max_value_field_label")}
-                        rules={{
-                          required: {
-                            value: true,
-                            message: t(
-                              "common.forms.validation.required_error_message_specific",
-                              {
-                                field: t(
-                                  "validation_rules.new.max_value_field_label"
-                                ),
-                              }
-                            ),
-                          },
-                        }}
-                        stretch
-                      />
-                    </HorizontalFormFieldGroup>
-                  )}
+                        <div className="flex-center text-semibold">
+                          {t("common.general.and")}
+                        </div>
+                        <NumericInputField
+                          name="max_value"
+                          label={t(
+                            "validation_rules.new.max_value_field_label"
+                          )}
+                          rules={{
+                            required: {
+                              value: true,
+                              message: t(
+                                "common.forms.validation.required_error_message_specific",
+                                {
+                                  field: t(
+                                    "validation_rules.new.max_value_field_label"
+                                  ),
+                                }
+                              ),
+                            },
+                          }}
+                          stretch
+                        />
+                      </HorizontalFormFieldGroup>
+                    )}
 
                   {criteriaId === "custom_formula" && (
                     <TextInputField

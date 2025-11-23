@@ -136,7 +136,6 @@ export default function ValidationRulesDialog({
             delete data.value;
             delete data.min_value;
             delete data.max_value;
-            console.log(data);
 
             const result = await createValidationRule(data);
             closeDialog();

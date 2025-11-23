@@ -4,7 +4,7 @@ import { ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr";
 import { createColumnHelper } from "@tanstack/react-table";
 import { redirect } from "next/navigation";
 import { useTranslations } from "next-intl";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import routes from "@/app/routes";
@@ -76,7 +76,7 @@ export default function NewValidationJob() {
         if (validationJob) {
           // Run validation job via websocket
           send("start_validation", { id: validationJob.id });
-          redirect(routes.validationJobs.list);
+          redirect(`${routes.validationJobs.list}`);
         }
       }}
     >

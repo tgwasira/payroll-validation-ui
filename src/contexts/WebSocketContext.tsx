@@ -10,6 +10,8 @@ import {
   useState,
 } from "react";
 
+import { snakeToCamelCase } from "@/react-ui-library/utils/stringUtils";
+
 import { validationServiceApi } from "../../apiConfig";
 
 type MessageHandler = (data: any) => void;
@@ -43,13 +45,15 @@ export function WebSocketProvider({ children }: { children: ReactNode }) {
 
     ws.onmessage = (event) => {
       try {
-        const message = JSON.parse(event.data);
-        const { type, ...data } = message;
+        const message = snakeToCamelCase(JSON.parse(event.data));
+        const { type, payload } = message;
+
+        console.log("WebSocket received:", { type, payload });
 
         // Call all handlers subscribed to this message type
         const handlers = handlersRef.current.get(type);
         if (handlers) {
-          handlers.forEach((handler) => handler(data));
+          handlers.forEach((handler) => handler(payload));
         }
       } catch (error) {
         console.error("Error parsing WebSocket message:", error);
