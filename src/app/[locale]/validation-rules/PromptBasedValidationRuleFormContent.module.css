@@ -1,0 +1,24 @@
+.PromptTextArea {
+  height: calc(var(--min-height-text-area) * 2.5);
+}
+
+.ContextTitleBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ContextTitle {
+  font-weight: var(--font-weight-medium);
+}
+
+.ContextTitleBarButtonGroup {
+  display: flex;
+  gap: var(--gap-context-title-bar-button-group);
+  align-items: center;
+}
+
+.ThumbnailFileUploadItem {
+  aspect-ratio: 1 / 0.98;
+}

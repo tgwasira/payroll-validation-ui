@@ -17,7 +17,7 @@ import {
   DialogTitle,
 } from "@/react-ui-library/components/dialogs/Dialog";
 import DialogFooterButtonGroup from "@/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
-import FileUpload from "@/react-ui-library/components/file-upload/FileUpload_";
+import FileUpload from "@/react-ui-library/components/file-upload/file-upload/FileUpload_";
 import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
 import TextInputField from "@/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
 import {

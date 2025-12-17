@@ -12,6 +12,7 @@ import { SkeletonTheme } from "react-loading-skeleton";
 import { Bounce } from "react-toastify";
 
 import AppSidebar from "@/app/[locale]/AppSidebar";
+import { SSEProvider } from "@/contexts/SSEContext";
 import { WebSocketProvider } from "@/contexts/WebSocketContext";
 import { routing } from "@/i18n/routing";
 import SearchInput from "@/react-ui-library/components/forms/inputs/search-input/SearchInput";
@@ -45,25 +46,27 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
         <WebSocketProvider>
-          <ValidationProgressProvider>
-            <NextIntlClientProvider>
-              <ThemeProvider>
-                <SkeletonTheme
-                  baseColor="var(--color-skeleton-base)"
-                  highlightColor="var(--color-skeleton-highlight)"
-                >
-                  <div className="body-wrapper">
-                    <AppTopbar />
-                    <div className="page-wrapper">
-                      <AppSidebar />
-                      <div className="page-content">{children}</div>
-                      <Toaster />
+          <SSEProvider url={"http://localhost:8001/events/rag"}>
+            <ValidationProgressProvider>
+              <NextIntlClientProvider>
+                <ThemeProvider>
+                  <SkeletonTheme
+                    baseColor="var(--color-skeleton-base)"
+                    highlightColor="var(--color-skeleton-highlight)"
+                  >
+                    <div className="body-wrapper">
+                      <AppTopbar />
+                      <div className="page-wrapper">
+                        <AppSidebar />
+                        <div className="page-content">{children}</div>
+                        <Toaster />
+                      </div>
                     </div>
-                  </div>
-                </SkeletonTheme>
-              </ThemeProvider>
-            </NextIntlClientProvider>
-          </ValidationProgressProvider>
+                  </SkeletonTheme>
+                </ThemeProvider>
+              </NextIntlClientProvider>
+            </ValidationProgressProvider>
+          </SSEProvider>
         </WebSocketProvider>
       </body>
     </html>

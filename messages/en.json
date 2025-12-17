@@ -183,7 +183,12 @@
       "min_value_field_label": "Minimum Value",
       "max_value_field_label": "Maximum Value",
       "level_field_label": "Issue Level",
-      "message_field_label": "Message"
+      "prompt_field_label": "Prompt",
+      "context_field_label": "Context",
+      "message_field_label": "Message",
+      "attachments_field_label": "Attachments",
+      "context_pagesubsubsection_title": "Context",
+      "generate_context_button_label": "Generate"
     },
     "level_options": {
       "info": "Info",

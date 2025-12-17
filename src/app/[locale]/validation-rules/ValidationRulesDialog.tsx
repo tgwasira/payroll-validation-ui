@@ -2,6 +2,7 @@ import { Portal } from "@headlessui/react";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { v4 as uuidv4 } from "uuid";
 
 import { useValidationRuleMutations } from "@/hooks/api/validation-service/useValidationRules";
 import Button from "@/react-ui-library/components/buttons/button/Button";
@@ -17,7 +18,7 @@ import {
   DialogTitle,
 } from "@/react-ui-library/components/dialogs/Dialog";
 import DialogFooterButtonGroup from "@/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
-import FileUpload from "@/react-ui-library/components/file-upload/FileUpload_";
+import FileUpload from "@/react-ui-library/components/file-upload/file-upload/FileUpload_";
 import SelectInputField from "@/react-ui-library/components/forms/form-fields/select-input-field/SelectInputField";
 import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
 import TextInputField from "@/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
@@ -75,6 +76,9 @@ export default function ValidationRulesDialog({
     >
       {/* Form needs to be within Dialog otherwise submit button will not work */}
       <Form
+        defaultValues={{
+          collectionName: uuidv4(),
+        }}
         onSubmit={async (data) => {
           try {
             const { data_type: dataType, criteria } = data;

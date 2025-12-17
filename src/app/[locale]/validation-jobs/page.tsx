@@ -191,7 +191,7 @@ export default function ValidationJobsList() {
               />
             );
           }
-          if (status === "not_started") {
+          if (status === "pending") {
             if (validationJobResult) {
               return (
                 <Tooltip
