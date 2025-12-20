@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import routes from "@/app/routes";
 import ValidationRuleTag from "@/components/validation-rule-tag/ValidationRuleTag";
 import { LOADING_ROWS } from "@/constants";
-import { useWebSocket } from "@/contexts/WebSocketContext";
+import { useWebSocket } from "@/react-ui-library/contexts/WebSocketContext";
 import { useValidationJobs } from "@/hooks/api/validation-service/useValidationJobs";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";

@@ -1,11 +1,12 @@
 import { useTranslations } from "next-intl";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
 import { useGenerateContext } from "@/hooks/api/rag-service/useGenerateContext";
 import { useIndexFile } from "@/hooks/api/rag-service/useIndexFile";
 import { useValidationRuleDataSourceMutations } from "@/hooks/api/validation-service/useValidationRuleDataSourceMutations";
+import { useStreamingText } from "@/hooks/useStreamingText";
 import Button, {
   IconButton,
 } from "@/react-ui-library/components/buttons/button/Button";
@@ -18,6 +19,8 @@ import ThumbnailFileUpload, {
 } from "@/react-ui-library/components/file-upload/thumbnail-file-upload/ThumbnailFileUpload";
 import InputFieldWrapper from "@/react-ui-library/components/forms/form-fields/InputFieldWrapper";
 import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
+import TextArea from "@/react-ui-library/components/forms/inputs/text-area/TextArea";
+import { useSSE } from "@/react-ui-library/contexts/SSEContext";
 import DropdownIcon from "@/react-ui-library/icons/dropdown-icon/DropdownIcon";
 import SparklesIcon from "@/react-ui-library/icons/SparklesIcon";
 
@@ -33,8 +36,23 @@ export default function PromptBasedValidationRuleFormContent() {
   const { indexFile } = useIndexFile();
   const { generateContext, contextData } = useGenerateContext();
 
-  const { getValues } = useFormContext();
-  // FIXME: Running API call twice
+  const [currentJobID, setCurrentJobID] = useState<string | null>(null);
+
+  const { text, isStreaming, error, reset } = useStreamingText(currentJobID);
+
+  const formMethods = useFormContext();
+  const { getValues, setValue } = formMethods;
+
+  useEffect(() => {
+    if (text !== undefined) {
+      setValue("context", text, {
+        shouldValidate: false,
+        shouldDirty: true,
+      });
+    }
+  }, [text, setValue]);
+
+  // FIXME: Running API call twice. Something to do with strict mode
   const handleFileUpload = useCallback(
     async (file: File) => {
       try {
@@ -55,8 +73,10 @@ export default function PromptBasedValidationRuleFormContent() {
 
   const handleGenerateContext = async () => {
     try {
+      const jobID = uuidv4();
+      setCurrentJobID(jobID);
       const contextGenerationData = await generateContext({
-        jobId: uuidv4(),
+        jobId: jobID,
         validationRuleUuid: getValues("validationRuleUuid"),
         prompt: getValues("prompt"),
       });
@@ -133,9 +153,24 @@ export default function PromptBasedValidationRuleFormContent() {
             </div>
           </div>
         )}
-      />
+      >
+        <TextArea
+          // placeholder={placeholder}
+          // renderTextAreaToolbar={renderTextAreaToolbar}
+          reactHookForm={{
+            name: "context",
+            formMethods: formMethods,
+          }}
+          // className={`${
+          //   borderRadiusClasses[
+          //     borderRadius as keyof typeof borderRadiusClasses
+          //   ] || ""
+          // } ${textAreaClassName}`}
+          // style={textAreaStyle}
+        />
+      </PageSubsubsection>
 
-      <div></div>
+      <div>{text}</div>
       {/* <TextAreaField
         name="context"
         label={t("validation_rules.new.context_field_label")}

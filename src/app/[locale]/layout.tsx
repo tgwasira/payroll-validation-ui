@@ -12,8 +12,8 @@ import { SkeletonTheme } from "react-loading-skeleton";
 import { Bounce } from "react-toastify";
 
 import AppSidebar from "@/app/[locale]/AppSidebar";
-import { SSEProvider } from "@/contexts/SSEContext";
-import { WebSocketProvider } from "@/contexts/WebSocketContext";
+import { SSEProvider } from "@/react-ui-library/contexts/SSEContext";
+import { WebSocketProvider } from "@/react-ui-library/contexts/WebSocketContext";
 import { routing } from "@/i18n/routing";
 import SearchInput from "@/react-ui-library/components/forms/inputs/search-input/SearchInput";
 import { Toaster } from "@/react-ui-library/components/toasts/Toaster";

@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import routes from "@/app/routes";
-import { useWebSocket } from "@/contexts/WebSocketContext";
+import { useWebSocket } from "@/react-ui-library/contexts/WebSocketContext";
 import useValidationJobMutations from "@/hooks/api/validation-service/useValidationJobMutations";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import ButtonGroup from "@/react-ui-library/components/buttons/button-group/ButtonGroupContainer";

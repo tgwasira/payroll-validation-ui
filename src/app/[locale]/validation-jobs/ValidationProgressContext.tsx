@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 
-import { useWebSocket } from "@/contexts/WebSocketContext";
+import { useWebSocket } from "@/react-ui-library/contexts/WebSocketContext";
 
 interface ValidationProgress {
   prevValidationJobProgress?: number;

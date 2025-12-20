@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { useWebSocket } from "@/contexts/WebSocketContext";
+import { useWebSocket } from "@/react-ui-library/contexts/WebSocketContext";
 
 // TODO: Review all this code with ChatGPT. This was Claude generated.
 interface ValidationResult {
