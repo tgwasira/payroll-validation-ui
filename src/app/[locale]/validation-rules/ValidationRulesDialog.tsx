@@ -77,7 +77,7 @@ export default function ValidationRulesDialog({
       {/* Form needs to be within Dialog otherwise submit button will not work */}
       <Form
         defaultValues={{
-          collectionName: uuidv4(),
+          validationRuleUuid: uuidv4(),
         }}
         onSubmit={async (data) => {
           try {

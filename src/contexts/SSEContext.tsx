@@ -45,7 +45,7 @@ export function SSEProvider({ url, children }: { children: React.ReactNode }) {
     es.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data) as CounterEvent;
-        console.log("SSE message received:", data);
+        console.log(data);
         setLastEvent(data);
       } catch (err) {
         console.error("Invalid SSE payload", err);

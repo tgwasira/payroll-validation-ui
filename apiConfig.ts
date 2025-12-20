@@ -73,5 +73,6 @@ export const ragServiceApi = new ApiClient({
   },
   endpoints: {
     indexFile: "/events/rag/index-file",
+    generateContext: "/events/rag/generate-context",
   },
 });

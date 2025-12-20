@@ -1,8 +1,10 @@
 import { useTranslations } from "next-intl";
 import React, { useCallback, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 
-import { useIndexFile } from "@/hooks/api/validation-service/useIndexFile";
+import { useGenerateContext } from "@/hooks/api/rag-service/useGenerateContext";
+import { useIndexFile } from "@/hooks/api/rag-service/useIndexFile";
 import { useValidationRuleDataSourceMutations } from "@/hooks/api/validation-service/useValidationRuleDataSourceMutations";
 import Button, {
   IconButton,
@@ -28,7 +30,9 @@ export default function PromptBasedValidationRuleFormContent() {
 
   const { createValidationRuleDataSource, validationRuleDataSource } =
     useValidationRuleDataSourceMutations();
-  const { indexFile, indexInfo } = useIndexFile();
+  const { indexFile } = useIndexFile();
+  const { generateContext, contextData } = useGenerateContext();
+
   const { getValues } = useFormContext();
   // FIXME: Running API call twice
   const handleFileUpload = useCallback(
@@ -40,7 +44,7 @@ export default function PromptBasedValidationRuleFormContent() {
         indexFile({
           fileUuid: validationRuleDataSource.validationRuleFileRecord.uuid,
           filePath: validationRuleDataSource.validationRuleFileRecord.filePath,
-          collectionName: getValues("collectionName"),
+          validationRuleUuid: getValues("validationRuleUuid"),
         });
       } catch (err) {
         console.error("Upload failed", err);
@@ -48,6 +52,18 @@ export default function PromptBasedValidationRuleFormContent() {
     },
     [createValidationRuleDataSource, indexFile, getValues]
   );
+
+  const handleGenerateContext = async () => {
+    try {
+      const contextGenerationData = await generateContext({
+        jobId: uuidv4(),
+        validationRuleUuid: getValues("validationRuleUuid"),
+        prompt: getValues("prompt"),
+      });
+    } catch (err) {
+      console.error("Context generation failed", err);
+    }
+  };
 
   // console.log("Selected files:", selectedFiles);
   // Validation Rule Data Source is created along with the file upload in the
@@ -107,7 +123,7 @@ export default function PromptBasedValidationRuleFormContent() {
               {t("validation_rules.new.context_pagesubsubsection_title")}
             </div>
             <div className={styles.ContextTitleBarButtonGroup}>
-              <IconButton variant="secondary">
+              <IconButton variant="secondary" onClick={handleGenerateContext}>
                 <SparklesIcon className={`icon-large`} />
                 {t("validation_rules.new.generate_context_button_label")}
               </IconButton>
