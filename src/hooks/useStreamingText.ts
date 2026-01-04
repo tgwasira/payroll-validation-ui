@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { useSSE } from "@/react-ui-library/contexts/SSEContext";
 
-export function useStreamingText(jobID?: string) {
+export function useStreamingText(jobId?: string) {
   const { subscribe } = useSSE();
   const [text, setText] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
@@ -15,25 +15,27 @@ export function useStreamingText(jobID?: string) {
     setIsStreaming(false);
     setError(null);
 
-    const unsubscribeToken = subscribe("token", (event) => {
+    const unsubscribeToken = subscribe("token", (data) => {
       if (!streamingRef.current) return;
-      if (!jobID || event.job_id === jobID) {
+      console.log(data.payload);
+      if (!jobId || data.payload.jobId === jobId) {
+        console.log("Received token:", data.payload.content);
         setIsStreaming(true);
-        setText((prev) => prev + (event.content || ""));
+        setText((prev) => prev + (data.payload.content || ""));
       }
     });
 
-    const unsubscribeDone = subscribe("done", (event) => {
-      if (!jobID || event.job_id === jobID) {
+    const unsubscribeDone = subscribe("done", (data) => {
+      if (!jobId || data.payload.jobId === jobId) {
         streamingRef.current = false;
         setIsStreaming(false);
       }
     });
 
-    const unsubscribeError = subscribe("error", (event) => {
-      if (!jobID || event.job_id === jobID) {
+    const unsubscribeError = subscribe("error", (data) => {
+      if (!jobId || data.payload.jobId === jobId) {
         setIsStreaming(false);
-        setError(event.content || "An error occurred");
+        setError(data.payload.content || "An error occurred");
       }
     });
 
@@ -42,7 +44,7 @@ export function useStreamingText(jobID?: string) {
       unsubscribeDone();
       unsubscribeError();
     };
-  }, [subscribe, jobID]);
+  }, [subscribe, jobId]);
 
   const reset = useCallback(() => {
     setText("");

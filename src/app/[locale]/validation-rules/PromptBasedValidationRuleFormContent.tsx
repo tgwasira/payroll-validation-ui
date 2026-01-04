@@ -45,7 +45,7 @@ export default function PromptBasedValidationRuleFormContent() {
 
   useEffect(() => {
     if (text !== undefined) {
-      setValue("context", text, {
+      setValue("prompt_based_validation_rule.context", text, {
         shouldValidate: false,
         shouldDirty: true,
       });
@@ -62,7 +62,7 @@ export default function PromptBasedValidationRuleFormContent() {
         indexFile({
           fileUuid: validationRuleDataSource.validationRuleFileRecord.uuid,
           filePath: validationRuleDataSource.validationRuleFileRecord.filePath,
-          validationRuleUuid: getValues("validationRuleUuid"),
+          validationRuleUuid: getValues("uuid"),
         });
       } catch (err) {
         console.error("Upload failed", err);
@@ -73,12 +73,12 @@ export default function PromptBasedValidationRuleFormContent() {
 
   const handleGenerateContext = async () => {
     try {
-      const jobID = uuidv4();
-      setCurrentJobID(jobID);
+      const jobId = uuidv4();
+      setCurrentJobID(jobId);
       const contextGenerationData = await generateContext({
-        jobId: jobID,
-        validationRuleUuid: getValues("validationRuleUuid"),
-        prompt: getValues("prompt"),
+        jobId: jobId,
+        validationRuleUuid: getValues("uuid"),
+        prompt: getValues("prompt_based_validation_rule.prompt"),
       });
     } catch (err) {
       console.error("Context generation failed", err);
@@ -92,7 +92,7 @@ export default function PromptBasedValidationRuleFormContent() {
   return (
     <>
       <TextAreaField
-        name="prompt"
+        name="prompt_based_validation_rule.prompt"
         label={t("validation_rules.new.prompt_field_label")}
         rules={{
           required: {
@@ -158,7 +158,7 @@ export default function PromptBasedValidationRuleFormContent() {
           // placeholder={placeholder}
           // renderTextAreaToolbar={renderTextAreaToolbar}
           reactHookForm={{
-            name: "context",
+            name: "prompt_based_validation_rule.context",
             formMethods: formMethods,
           }}
           // className={`${
@@ -170,7 +170,7 @@ export default function PromptBasedValidationRuleFormContent() {
         />
       </PageSubsubsection>
 
-      <div>{text}</div>
+      <div></div>
       {/* <TextAreaField
         name="context"
         label={t("validation_rules.new.context_field_label")}

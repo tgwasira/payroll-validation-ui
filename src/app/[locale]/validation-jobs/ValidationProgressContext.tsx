@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 
-import { useWebSocket } from "@/react-ui-library/contexts/WebSocketContext";
+import { useSSE } from "@/react-ui-library/contexts/SSEContext";
 
 interface ValidationProgress {
   prevValidationJobProgress?: number;
@@ -32,14 +32,12 @@ export function ValidationProgressProvider({
   const [validationJobProgresses, setValidationProgresses] = useState<
     Map<string, ValidationProgress>
   >(new Map());
-  const { subscribe } = useWebSocket();
+  const { subscribe } = useSSE();
 
   useEffect(() => {
-    console.log("ValidationProgressProvider: Subscribing to validation events");
-
     const unsubscribes = [
-      subscribe("validation_started", (data) => {
-        const { validationJobId } = data;
+      subscribe("validation_started", (payload) => {
+        const { validationJobId } = payload;
         console.log(`Validation job ${validationJobId} started`);
 
         // You could optionally reset progress or state here:
@@ -52,9 +50,9 @@ export function ValidationProgressProvider({
         });
       }),
 
-      subscribe("validation_progress", (data) => {
+      subscribe("validation_progress", (payload) => {
         const { validationJobId, validationJobProgress, validationRuleId } =
-          data;
+          payload;
 
         setValidationProgresses((prev) => {
           const newMap = new Map(prev);

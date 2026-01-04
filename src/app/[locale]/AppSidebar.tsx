@@ -32,11 +32,11 @@ export default function AppSidebar() {
       label: t("validation_rules_and_rule_groups_tab_label"),
       icon: <ListChecksIcon className="icon-large" />,
       sidebarSecondaryTabs: [
-        {
-          id: "validation-rule-groups",
-          label: t("validation_rule_groups_tab_label"),
-          href: routes.validationRuleGroups.list,
-        },
+        // {
+        //   id: "validation-rule-groups",
+        //   label: t("validation_rule_groups_tab_label"),
+        //   href: routes.validationRuleGroups.list,
+        // },
         {
           id: "validation-rules",
           label: t("validation_rules_tab_label"),

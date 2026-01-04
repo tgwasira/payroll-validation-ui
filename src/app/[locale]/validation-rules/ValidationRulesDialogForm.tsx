@@ -79,8 +79,6 @@ export default function ValidationRulesDialogForm({
     setValue("type", "formula_based");
   }, [setValue]);
 
-  console.log("ValidationRulesDialogForm type:", type);
-
   const renderCommonFormContentTop = () => (
     <>
       <TextInputField

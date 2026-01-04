@@ -46,11 +46,11 @@ export function useValidationJobs(options: UseValidationJobsOptions = {}) {
       const currentPage = customPage ?? pagination.currentPage;
       const currentLimit = customLimit ?? pagination.itemsPerPage;
 
-      const params = {
+      const queryParams = {
         _page: currentPage,
         _limit: currentLimit,
       };
-      const result = await api.get(params);
+      const result = await api.get({ queryParams });
 
       // Assume backend returns data in format: { items: [], total: number }
       // If it returns array directly, we'll handle that too

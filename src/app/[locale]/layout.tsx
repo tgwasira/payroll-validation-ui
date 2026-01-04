@@ -12,12 +12,12 @@ import { SkeletonTheme } from "react-loading-skeleton";
 import { Bounce } from "react-toastify";
 
 import AppSidebar from "@/app/[locale]/AppSidebar";
-import { SSEProvider } from "@/react-ui-library/contexts/SSEContext";
-import { WebSocketProvider } from "@/react-ui-library/contexts/WebSocketContext";
 import { routing } from "@/i18n/routing";
 import SearchInput from "@/react-ui-library/components/forms/inputs/search-input/SearchInput";
 import { Toaster } from "@/react-ui-library/components/toasts/Toaster";
 import Topbar from "@/react-ui-library/components/topbar/Topbar";
+import { SSEProvider } from "@/react-ui-library/contexts/SSEContext";
+import { WebSocketProvider } from "@/react-ui-library/contexts/WebSocketContext";
 
 import AppTopbar from "./AppTopbar";
 import { ValidationProgressProvider } from "./validation-jobs/ValidationProgressContext";
@@ -45,29 +45,27 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
-        <WebSocketProvider>
-          <SSEProvider url={"http://localhost:8001/events/rag"}>
-            <ValidationProgressProvider>
-              <NextIntlClientProvider>
-                <ThemeProvider>
-                  <SkeletonTheme
-                    baseColor="var(--color-skeleton-base)"
-                    highlightColor="var(--color-skeleton-highlight)"
-                  >
-                    <div className="body-wrapper">
-                      <AppTopbar />
-                      <div className="page-wrapper">
-                        <AppSidebar />
-                        <div className="page-content">{children}</div>
-                        <Toaster />
-                      </div>
+        <SSEProvider url={"http://localhost:8001/events/rag"}>
+          <ValidationProgressProvider>
+            <NextIntlClientProvider>
+              <ThemeProvider>
+                <SkeletonTheme
+                  baseColor="var(--color-skeleton-base)"
+                  highlightColor="var(--color-skeleton-highlight)"
+                >
+                  <div className="body-wrapper">
+                    <AppTopbar />
+                    <div className="page-wrapper">
+                      <AppSidebar />
+                      <div className="page-content">{children}</div>
+                      <Toaster />
                     </div>
-                  </SkeletonTheme>
-                </ThemeProvider>
-              </NextIntlClientProvider>
-            </ValidationProgressProvider>
-          </SSEProvider>
-        </WebSocketProvider>
+                  </div>
+                </SkeletonTheme>
+              </ThemeProvider>
+            </NextIntlClientProvider>
+          </ValidationProgressProvider>
+        </SSEProvider>
       </body>
     </html>
   );

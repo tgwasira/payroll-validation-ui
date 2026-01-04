@@ -1,6 +1,10 @@
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 
-import { useWebSocket } from "@/react-ui-library/contexts/WebSocketContext";
+import { useApi } from "@/react-ui-library/hooks/useApi";
+
+import { validationServiceApi } from "../../../../apiConfig";
 
 // TODO: Review all this code with ChatGPT. This was Claude generated.
 interface ValidationResult {
@@ -10,41 +14,47 @@ interface ValidationResult {
   errors?: string[];
 }
 
-export function useValidationJobRun() {
-  const { isConnected, subscribe, send } = useWebSocket();
-  const [results, setResults] = useState<ValidationResult[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+export default function useValidationJobRun() {
+  const t = useTranslations();
 
-  useEffect(() => {
-    const unsubscribe = subscribe(
-      "validation_result",
-      (data: ValidationResult) => {
-        setResults((prev) => [...prev, data]);
-        setIsLoading(false);
-      }
-    );
-
-    return unsubscribe;
-  }, [subscribe]);
+  const api = useApi(validationServiceApi);
 
   const runValidationJob = useCallback(
-    (id) => {
-      setIsLoading(true);
-      send("start_validation", { id });
-      return id;
+    async (validationJob) => {
+      const validationJobId = validationJob.id;
+      const validationJobSlug = validationJob.slug;
+
+      // console.log(data);
+      const promise = api.post(null, {
+        path: validationServiceApi.endpoints.validationJobRun(validationJobId),
+      });
+
+      const result = await toast.promise(promise, {
+        // loading: t("validation_jobs.new.running_validation_job_toast_message", {
+        //   id: validationJobSlug,
+        // }),
+        success: (data) =>
+          t("validation_jobs.new.validation_job_run_started_toast_message", {
+            id: validationJobSlug,
+          }),
+        // TODO: Should ew toast the raw error message from backend?
+        error: (err) =>
+          err?.response?.data?.message ||
+          err?.message ||
+          t("validation_jobs.new.validation_job_run_error_toast_message", {
+            id: validationJobSlug,
+          }),
+      });
+
+      return result.unwrap();
     },
-    [send]
+    [api]
   );
 
-  const clearResults = useCallback(() => {
-    setResults([]);
-  }, []);
-
   return {
-    results,
-    isLoading,
-    isConnected,
     runValidationJob,
-    clearResults,
+    runValidationJobData: (api.data as ValidationJob) ?? null,
+    loading: api.loading,
+    error: api.error,
   };
 }

@@ -101,7 +101,9 @@
       },
       "validation_rules_page_section": {
         "empty_state_heading": "No validation rules added yet"
-      }
+      },
+      "validation_job_run_started_toast_message": "Validation job: {id} started",
+      "validation_job_run_error_toast_message": "Could not start validation job: {id}"
     },
     "summary": {
       "infos": "{count, plural, one {# info} other {# infos}}",

@@ -8,8 +8,8 @@ import React, { useEffect, useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import routes from "@/app/routes";
-import { useWebSocket } from "@/react-ui-library/contexts/WebSocketContext";
 import useValidationJobMutations from "@/hooks/api/validation-service/useValidationJobMutations";
+import useValidationJobRun from "@/hooks/api/validation-service/useValidationJobRun";
 import Button from "@/react-ui-library/components/buttons/button/Button";
 import ButtonGroup from "@/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
 import PageContent from "@/react-ui-library/components/containers/page-content/PageContent";
@@ -35,6 +35,7 @@ import getCheckboxColumn from "@/react-ui-library/components/tables/utils/getChe
 import PageSectionTitle from "@/react-ui-library/components/text/page-section-title/PageSectionTitle";
 import PageTitle from "@/react-ui-library/components/text/page-title/PageTitle";
 import PageTitleAndBackButton from "@/react-ui-library/components/text/page-title-and-back-button/PageTitleAndBackButton";
+import { useSSE } from "@/react-ui-library/contexts/SSEContext";
 import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
 import PlusIcon from "@/react-ui-library/icons/PlusIcon";
 
@@ -51,7 +52,8 @@ export default function NewValidationJob() {
   const [dataSourcesTableData, setValidationDataSourcesTableData] = useState(
     []
   );
-  const { isConnected, subscribe, send } = useWebSocket();
+
+  const { runValidationJob } = useValidationJobRun();
 
   // === Data ===
   const { createValidationJob } = useValidationJobMutations();
@@ -74,8 +76,8 @@ export default function NewValidationJob() {
         // If validation job was created successfully, redirect to validation
         // jobs page
         if (validationJob) {
-          // Run validation job via websocket
-          send("start_validation", { id: validationJob.id });
+          // Run validation job via SSE
+          await runValidationJob(validationJob);
           redirect(`${routes.validationJobs.list}`);
         }
       }}
