@@ -13,10 +13,11 @@ export default function useValidationJobMutations() {
       // console.log(data);
       const promise = api.post(data);
 
+      // TODO: Failed to create
       const result = await toast.promise(promise, {
-        loading: "Do translation: Creating validation job...",
-        success: (data) =>
-          `Validation job "${data.name || "Untitled"}" created successfully!`,
+        // loading: "Do translation: Creating validation job...",
+        // success: (data) =>
+        //   `Validation job "${data.name || "Untitled"}" created successfully!`,
         error: (err) =>
           err?.response?.data?.message ||
           err?.message ||
