@@ -111,14 +111,14 @@ export default function NewValidationJob() {
                   <PageSection>
                     <TextInputField
                       name="slug"
-                      label={t("validation_jobs.new.id_field_label")}
+                      label={t("validation_jobs.new.slug_field_label")}
                       rules={{
                         required: {
                           value: true,
                           message: t(
                             "common.forms.validation.required_error_message_specific",
                             {
-                              field: t("validation_jobs.new.id_field_label"),
+                              field: t("validation_jobs.new.slug_field_label"),
                             }
                           ),
                         },

@@ -37,7 +37,7 @@ export default function ValidationRulesList({ validationRules }) {
                     <DropdownIcon direction="right" />
                   </DisclosureButton>
 
-                  <ValidationRuleTag type="group" name={item["name"]} />
+                  <ValidationRuleTag type="group" slug={item["slug"]} />
                 </div>
                 <DisclosurePanel
                   as="ul"
@@ -48,7 +48,7 @@ export default function ValidationRulesList({ validationRules }) {
                   >
                     <div className={styles.HorizontalSeparator} />
                     <ValidationRuleTag
-                      name={item["name"]}
+                      slug={item["slug"]}
                       className={styles.ValidationRule}
                     />
                   </div>
@@ -57,7 +57,7 @@ export default function ValidationRulesList({ validationRules }) {
                   >
                     <div className={styles.HorizontalSeparator} />
                     <ValidationRuleTag
-                      name={item["name"]}
+                      slug={item["slug"]}
                       className={styles.ValidationRule}
                     />
                   </div>
@@ -68,7 +68,7 @@ export default function ValidationRulesList({ validationRules }) {
                 className={`${styles.ValidationRuleListRow} ${styles.ValidationRuleSingleWrapperNoDisclosure}`}
               >
                 <ValidationRuleTag
-                  name={item["name"]}
+                  slug={item["slug"]}
                   className={styles.ValidationRule}
                 />
               </div>

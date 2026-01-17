@@ -51,12 +51,7 @@
           "rule_column_heading": "Rule",
           "issue_column_heading": "Issue Level",
           "value_column_heading": "Current Value",
-          "correction_column_heading": "Corrected Value",
-          "level": {
-            "info": "Info",
-            "warning": "Warning",
-            "error": "Error"
-          }
+          "correction_column_heading": "Corrected Value"
         }
       },
       "details": {
@@ -76,7 +71,7 @@
       }
     },
     "new": {
-      "id_field_label": "ID",
+      "slug_field_label": "Name",
       "description_field_label": "Description",
       "description_field_placeholder": "Enter a description for the validation job",
       "submit_button_label": "Run Validation",
@@ -126,7 +121,7 @@
     },
     "new": {
       "dialog_title": "New Validation Rule Group",
-      "name_field_label": "Name",
+      "slug_field_label": "Name",
       "description_field_label": "Description",
       "name_required_error_message": "Name is required",
       "validation_rules_form_section_title": "Validation Rules",
@@ -149,7 +144,7 @@
     },
     "new": {
       "dialog_title": "New Validation Rule",
-      "name_field_label": "Name",
+      "slug_field_label": "Name",
       "description_field_label": "Description",
       "range_field_label": "Range",
       "formula_field_label": "Formula",
@@ -188,11 +183,12 @@
       "prompt_field_label": "Prompt",
       "context_field_label": "Context",
       "message_field_label": "Message",
-      "attachments_field_label": "Attachments",
+      "attachments_section_title": "Attachments",
+      "attachments_section_subtitle": "Upload files to extract information for validation. (Max file size: 10MB).",
       "context_pagesubsubsection_title": "Context",
       "generate_context_button_label": "Generate"
     },
-    "level_options": {
+    "levels": {
       "info": "Info",
       "warning": "Warning",
       "error": "Error"

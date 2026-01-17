@@ -38,7 +38,7 @@ export default function ValidationRulesFormSection() {
 
   const { validationRules, loading, error, fetchValidationRules } =
     useValidationRules();
-  const display = "name";
+  const display = "slug";
 
   return (
     <PageSection padding="top bottom">

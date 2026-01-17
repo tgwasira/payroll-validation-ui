@@ -57,7 +57,7 @@ export default function ValidationRules() {
         if (type === "formula_based") {
           return <FunctionIcon className={`icon-medium icon-secondary`} />;
         } else if (type === "prompt_based") {
-          return <SparklesIcon className={`icon-large text-secondary`} />;
+          return <SparklesIcon className={`icon-large icon-secondary`} />;
         } else {
           return <></>;
         }
@@ -66,7 +66,7 @@ export default function ValidationRules() {
         // style: { width: "30%" },
       },
     }),
-    columnHelper.accessor("name", {
+    columnHelper.accessor("slug", {
       header: t("validation_rules.list.table.name_column_label"),
       meta: {
         style: { width: "30%" },
@@ -82,22 +82,32 @@ export default function ValidationRules() {
     columnHelper.accessor("level", {
       header: t("validation_rules.list.table.level_column_label"),
       //No need to style the value because it's not actually showing a status
-      cell: (info) => capitalize(info.getValue()),
-      // const types = {
-      //   info: "normal",
-      //   error: "danger",
-      //   warning: "warning",
-      // };
-      // const values = {
-      //   info: t("validation_rules.level_options.info"),
-      //   error: t("validation_rules.level_options.error"),
-      //   warning: t("validation_rules.level_options.warning"),
-      // };
-      // return (
-      //   <Tag type={types[info.getValue() as keyof typeof types] || "normal"}>
-      //     {values[info.getValue() as keyof typeof values] || info.getValue()}
-      //   </Tag>
-      // );
+      cell: (info) => {
+        const level = info.getValue();
+        if (level === "info")
+          return <Tag type="info">{t("validation_rules.levels.info")}</Tag>;
+        else if (level === "warning")
+          return (
+            <Tag type={"warning"}>{t("validation_rules.levels.warning")}</Tag>
+          );
+        else if (level === "error")
+          return <Tag type={"error"}>{t("validation_rules.levels.error")}</Tag>;
+        // const types = {
+        //   info: "normal",
+        //   error: "danger",
+        //   warning: "warning",
+        // };
+        // const values = {
+        //   info: t("validation_rules.levels.info"),
+        //   error: t("validation_rules.levels.error"),
+        //   warning: t("validation_rules.levels.warning"),
+        // };
+        // return (
+        //   <Tag type={types[info.getValue() as keyof typeof types] || "normal"}>
+        //     {values[info.getValue() as keyof typeof values] || info.getValue()}
+        //   </Tag>
+        // );
+      },
       meta: {
         // loadingCell: () => <Skeleton count={2} />,
         style: { width: "30%" },
@@ -277,7 +287,7 @@ export default function ValidationRules() {
         {/* </div> */}
 
         {(loading || hasValidationRules) && (
-          <TablePagination 
+          <TablePagination
             currentPage={pagination.currentPage}
             totalItems={pagination.totalItems}
             itemsPerPage={pagination.itemsPerPage}

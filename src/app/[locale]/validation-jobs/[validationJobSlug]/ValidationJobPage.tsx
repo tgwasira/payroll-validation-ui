@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 
-import { useValidationJob } from "@/hooks/api/validation-service/useValidationJob";
+import { useValidationJobs } from "@/hooks/api/validation-service/useValidationJob";
 import PageContent from "@/react-ui-library/components/containers/page-content/PageContent";
 import PageSection from "@/react-ui-library/components/containers/page-section/PageSection";
 import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
@@ -27,7 +27,7 @@ import ValidationResultsTable from "./ValidationResultsTable";
 export default function ValidationJobPage({ validationJobSlug }) {
   const t = useTranslations();
   const { loading, error, validationJob, getValidationJob } =
-    useValidationJob();
+    useValidationJobs();
 
   // TODO: Error handling
   // TODO: Loading state

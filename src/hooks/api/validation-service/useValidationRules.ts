@@ -13,6 +13,7 @@ interface UseValidationRulesOptions {
 }
 
 export function useValidationRules(options: UseValidationRulesOptions = {}) {
+  console.log("useValidationRules");
   const api = useApi(validationServiceApi, "/validation-rules");
   const { page = 1, limit = 10, userId } = options;
 

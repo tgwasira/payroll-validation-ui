@@ -45,28 +45,26 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
-        <SSEProvider url={"http://localhost:8000/events/validation"}>
-          <SSEProvider url={"http://localhost:8001/events/rag"}>
-            <ValidationProgressProvider>
-              <NextIntlClientProvider>
-                <ThemeProvider>
-                  <SkeletonTheme
-                    baseColor="var(--color-skeleton-base)"
-                    highlightColor="var(--color-skeleton-highlight)"
-                  >
-                    <div className="body-wrapper">
-                      <AppTopbar />
-                      <div className="page-wrapper">
-                        <AppSidebar />
-                        <div className="page-content">{children}</div>
-                        <Toaster />
-                      </div>
+        <SSEProvider>
+          <ValidationProgressProvider>
+            <NextIntlClientProvider>
+              <ThemeProvider>
+                <SkeletonTheme
+                  baseColor="var(--color-skeleton-base)"
+                  highlightColor="var(--color-skeleton-highlight)"
+                >
+                  <div className="body-wrapper">
+                    <AppTopbar />
+                    <div className="page-wrapper">
+                      <AppSidebar />
+                      <div className="page-content">{children}</div>
+                      <Toaster />
                     </div>
-                  </SkeletonTheme>
-                </ThemeProvider>
-              </NextIntlClientProvider>
-            </ValidationProgressProvider>
-          </SSEProvider>
+                  </div>
+                </SkeletonTheme>
+              </ThemeProvider>
+            </NextIntlClientProvider>
+          </ValidationProgressProvider>
         </SSEProvider>
       </body>
     </html>

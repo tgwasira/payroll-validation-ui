@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSSE } from "@/react-ui-library/contexts/SSEContext";
 
 export function useStreamingText(jobId?: string) {
-  const { subscribe } = useSSE();
+  const { connect, subscribe } = useSSE();
   const [text, setText] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -14,6 +14,9 @@ export function useStreamingText(jobId?: string) {
     setText("");
     setIsStreaming(false);
     setError(null);
+
+    // TODO: Make URL configurable
+    connect("http://localhost:8001/events/rag");
 
     const unsubscribeToken = subscribe("token", (data) => {
       if (!streamingRef.current) return;

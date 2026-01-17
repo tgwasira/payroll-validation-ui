@@ -84,7 +84,7 @@ export default function ValidationRuleGroupsDialog({
               <FormSection>
                 <TextInputField
                   name="name"
-                  label={t("validation_rule_groups.new.name_field_label")}
+                  label={t("validation_rule_groups.new.slug_field_label")}
                   rules={{
                     required: {
                       value: true,

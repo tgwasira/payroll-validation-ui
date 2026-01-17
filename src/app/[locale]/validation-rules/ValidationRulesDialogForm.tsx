@@ -31,7 +31,11 @@ import NumericInputField from "@/react-ui-library/components/forms/form-fields/n
 import SelectInputField from "@/react-ui-library/components/forms/form-fields/select-input-field/SelectInputField";
 import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
 import TextInputField from "@/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
-import { Form, FormGroup } from "@/react-ui-library/components/forms/Forms";
+import {
+  Form,
+  FormSection,
+  FormVerticalSpacing,
+} from "@/react-ui-library/components/forms/Forms";
 import ControlledSelectInput from "@/react-ui-library/components/forms/inputs/select-inputs/ControlledSelectInput";
 import SelectInput from "@/react-ui-library/components/forms/inputs/select-inputs/SelectInput";
 import Tab1 from "@/react-ui-library/components/tabs/Tab1/Tab1";
@@ -48,7 +52,9 @@ import TypeIcon from "@/react-ui-library/icons/TypeIcon";
 
 import NumberFields from "./data-type-specific-fields/NumberFields";
 import FormulaBasedValidationRuleFormContent from "./FormulaBasedValidationRuleFormContent";
-import PromptBasedValidationRuleFormContent from "./PromptBasedValidationRuleFormContent";
+import PromptBasedValidationRuleFormContent, {
+  PromptFormField,
+} from "./PromptBasedValidationRuleFormContent";
 import styles from "./ValidationRulesDialogForm.module.css";
 
 export default function ValidationRulesDialogForm({
@@ -82,15 +88,15 @@ export default function ValidationRulesDialogForm({
   const renderCommonFormContentTop = () => (
     <>
       <TextInputField
-        name="name"
-        label={t("validation_rules.new.name_field_label")}
+        name="slug"
+        label={t("validation_rules.new.slug_field_label")}
         rules={{
           required: {
             value: true,
             message: t(
               "common.forms.validation.required_error_message_specific",
               {
-                field: t("validation_rules.new.name_field_label"),
+                field: t("validation_rules.new.slug_field_label"),
               }
             ),
           },
@@ -109,17 +115,17 @@ export default function ValidationRulesDialogForm({
           {
             id: "info",
             value: "info",
-            label: t("validation_rules.level_options.info"),
+            label: t("validation_rules.levels.info"),
           },
           {
             id: "warning",
             value: "warning",
-            label: t("validation_rules.level_options.warning"),
+            label: t("validation_rules.levels.warning"),
           },
           {
             id: "error",
             value: "error",
-            label: t("validation_rules.level_options.error"),
+            label: t("validation_rules.levels.error"),
           },
         ]}
         isSearchable={false}
@@ -170,38 +176,51 @@ export default function ValidationRulesDialogForm({
         <DialogCloseButton onClick={closeDialog} />
       </DialogHeader>
 
-      <DialogBody padding="top">
+      <DialogBody padding="top" paddingTopSize="tabs">
         {/* No padding bottom as we want it to disappear behind footer */}
         <ScrollContainer scrollX={false} scrollY={true}>
-          <DialogPaddingLR>
-            <TabGroup>
-              <DialogTabList className={styles.DialogTabList}>
-                <Tab3 onClick={() => setValue("type", "formula_based")}>
-                  {t("validation_rules.new.formula_based_tab_label")}
-                </Tab3>
-                <Tab3 onClick={() => setValue("type", "prompt_based")}>
-                  {t("validation_rules.new.prompt_based_tab_label")}
-                </Tab3>
-              </DialogTabList>
+          <TabGroup>
+            <DialogTabList className={styles.DialogTabList}>
+              <Tab3 onClick={() => setValue("type", "formula_based")}>
+                {t("validation_rules.new.formula_based_tab_label")}
+              </Tab3>
+              <Tab3 onClick={() => setValue("type", "prompt_based")}>
+                {t("validation_rules.new.prompt_based_tab_label")}
+              </Tab3>
+            </DialogTabList>
 
-              <TabPanels>
-                <TabPanel>
-                  <FormGroup>
-                    {renderCommonFormContentTop()}
-                    <FormulaBasedValidationRuleFormContent />
-                    {renderCommonFormContentBottom()}
-                  </FormGroup>
-                </TabPanel>
-                <TabPanel>
-                  <FormGroup>
-                    {renderCommonFormContentTop()}
-                    <PromptBasedValidationRuleFormContent />
-                    {/* {renderCommonFormContentBottom()} */}
-                  </FormGroup>
-                </TabPanel>
-              </TabPanels>
-            </TabGroup>
-          </DialogPaddingLR>
+            <TabPanels>
+              <TabPanel>
+                <FormSection borderBottom={false}>
+                  <DialogPaddingLR>
+                    <FormVerticalSpacing>
+                      {renderCommonFormContentTop()}
+                      <FormulaBasedValidationRuleFormContent />
+                      {renderCommonFormContentBottom()}
+                    </FormVerticalSpacing>
+                  </DialogPaddingLR>
+                </FormSection>
+              </TabPanel>
+              <TabPanel>
+                <FormSection>
+                  <DialogPaddingLR>
+                    <FormVerticalSpacing>
+                      {renderCommonFormContentTop()}
+                      <PromptFormField />
+                    </FormVerticalSpacing>
+                  </DialogPaddingLR>
+                </FormSection>
+                <PromptBasedValidationRuleFormContent />
+                {/* <FormSection borderBottom={false}>
+                  <DialogPaddingLR>
+                    <FormVerticalSpacing>
+                      {renderCommonFormContentBottom()}
+                    </FormVerticalSpacing>
+                  </DialogPaddingLR>
+                </FormSection> */}
+              </TabPanel>
+            </TabPanels>
+          </TabGroup>
         </ScrollContainer>
       </DialogBody>
 

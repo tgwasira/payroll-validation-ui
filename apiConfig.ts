@@ -35,7 +35,7 @@ export const validationServiceApi = new ApiClient({
   endpoints: {
     validationJobs: "/validation-jobs",
     validationJobRun: (id: number) => `/events/validation/${id}/run`,
-    validationFileRecords: "/validation-file-records",
+    validationFileRecords: "/validation-file-records", // no longer using this directly
     validationRuleDataSources: "/validation-rule-data-sources",
     downloadFile: "/files/download",
   },

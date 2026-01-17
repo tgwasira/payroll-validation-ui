@@ -13,19 +13,50 @@ import Button, {
 import PageSubsubsection, {
   PageSubsubsectionDisclosureButton,
 } from "@/react-ui-library/components/containers/page-subsubsection/PageSubsubsection";
+import { DialogPaddingLR } from "@/react-ui-library/components/dialogs/Dialog";
 import ThumbnailFileUpload, {
   ThumbnailFileItem,
   ThumbnailFileUploadsContainer,
 } from "@/react-ui-library/components/file-upload/thumbnail-file-upload/ThumbnailFileUpload";
 import InputFieldWrapper from "@/react-ui-library/components/forms/form-fields/InputFieldWrapper";
 import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
+import {
+  FormSection,
+  FormSectionSubtitle,
+  FormSectionTitle,
+  FormVerticalSpacing,
+} from "@/react-ui-library/components/forms/Forms";
 import TextArea from "@/react-ui-library/components/forms/inputs/text-area/TextArea";
+import CircularProgress from "@/react-ui-library/components/progress-bars/circular-progress-bar/CircularProgressBar";
 import { useSSE } from "@/react-ui-library/contexts/SSEContext";
 import DropdownIcon from "@/react-ui-library/icons/dropdown-icon/DropdownIcon";
 import SparklesIcon from "@/react-ui-library/icons/SparklesIcon";
 
 import styles from "./PromptBasedValidationRuleFormContent.module.css";
 import validationRulesDialogFormStyles from "./ValidationRulesDialogForm.module.css";
+
+export function PromptFormField() {
+  const t = useTranslations();
+
+  return (
+    <TextAreaField
+      name="prompt_based_validation_rule.prompt"
+      label={t("validation_rules.new.prompt_field_label")}
+      rules={{
+        required: {
+          value: true,
+          message: t(
+            "common.forms.validation.required_error_message_specific",
+            {
+              field: t("validation_rules.new.prompt_field_label"),
+            }
+          ),
+        },
+      }}
+      textAreaClassName={styles.PromptTextArea}
+    />
+  );
+}
 
 export default function PromptBasedValidationRuleFormContent() {
   const t = useTranslations();
@@ -56,6 +87,9 @@ export default function PromptBasedValidationRuleFormContent() {
   const handleFileUpload = useCallback(
     async (file: File) => {
       try {
+        // Set progress to 0
+        console.log(file);
+
         const validationRuleDataSource = await createValidationRuleDataSource(
           file
         );
@@ -91,50 +125,49 @@ export default function PromptBasedValidationRuleFormContent() {
 
   return (
     <>
-      <TextAreaField
-        name="prompt_based_validation_rule.prompt"
-        label={t("validation_rules.new.prompt_field_label")}
-        rules={{
-          required: {
-            value: true,
-            message: t(
-              "common.forms.validation.required_error_message_specific",
-              {
-                field: t("validation_rules.new.prompt_field_label"),
-              }
-            ),
-          },
-        }}
-        textAreaClassName={styles.PromptTextArea}
-      />
-
-      <InputFieldWrapper
-        label={t("validation_rules.new.attachments_field_label")}
-        displayOptional={false}
-        labelMarginBottom="medium"
-      >
-        <ul
-          className={
-            validationRulesDialogFormStyles.ThumbnailFileUploadsContainer
-          }
-        >
-          {selectedFiles.map((fileItem) => (
-            <ThumbnailFileItem
+      <FormSection>
+        <DialogPaddingLR>
+          {/* <InputFieldWrapper
+              label={t("validation_rules.new.attachments_field_label")}
+              supportingText={t(
+                "validation_rules.new.attachments_field_supporting_text"
+              )}
+              displayOptional={false}
+              // labelMarginBottom="medium"
+            > */}
+          <FormSectionTitle>
+            {t("validation_rules.new.attachments_section_title")}
+          </FormSectionTitle>
+          <FormSectionSubtitle>
+            {t("validation_rules.new.attachments_section_subtitle")}
+          </FormSectionSubtitle>
+          <ul
+            className={
+              validationRulesDialogFormStyles.ThumbnailFileUploadsContainer
+            }
+          >
+            {selectedFiles.map((fileItem) => (
+              <ThumbnailFileItem
+                as="li"
+                key={fileItem.file.name}
+                file={fileItem.file}
+                isValid={fileItem.isValid}
+                isLoading={fileItem.isLoading}
+                progress={fileItem.progress}
+                error={fileItem.error}
+              />
+            ))}
+            <ThumbnailFileUpload
               as="li"
-              key={fileItem.file.name}
-              file={fileItem.file}
-              isValid={fileItem.isValid}
+              setSelectedFiles={setSelectedFiles}
+              validateFile={() => true}
+              onFileValid={handleFileUpload}
+              className={styles.ThumbnailFileUploadItem}
             />
-          ))}
-          <ThumbnailFileUpload
-            as="li"
-            setSelectedFiles={setSelectedFiles}
-            validateFile={() => true}
-            onFileValid={handleFileUpload}
-            className={styles.ThumbnailFileUploadItem}
-          />
-        </ul>
-      </InputFieldWrapper>
+          </ul>
+          {/* </InputFieldWrapper> */}
+        </DialogPaddingLR>
+      </FormSection>
 
       <PageSubsubsection
         renderTitleBar={() => (

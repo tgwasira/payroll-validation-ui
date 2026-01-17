@@ -54,23 +54,13 @@ export default function ValidationResultsTable({ validationResult }) {
         const level = info.getValue();
 
         if (level === "info")
-          return (
-            <Tag type="info">
-              {t("validation_jobs.detail.issues.table.level.info")}
-            </Tag>
-          );
+          return <Tag type="info">{t("validation_rules.levels.info")}</Tag>;
         else if (level === "warning")
           return (
-            <Tag type={"warning"}>
-              {t("validation_jobs.detail.issues.table.level.warning")}
-            </Tag>
+            <Tag type={"warning"}>{t("validation_rules.levels.warning")}</Tag>
           );
         else if (level === "error")
-          return (
-            <Tag type={"error"}>
-              {t("validation_jobs.detail.issues.table.level.error")}
-            </Tag>
-          );
+          return <Tag type={"error"}>{t("validation_rules.levels.error")}</Tag>;
         else return <></>;
       },
       meta: {
