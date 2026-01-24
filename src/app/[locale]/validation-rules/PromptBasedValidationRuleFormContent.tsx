@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 import React, { useCallback, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
 
 import { useGenerateContext } from "@/hooks/api/rag-service/useGenerateContext";
 import { useIndexFile } from "@/hooks/api/rag-service/useIndexFile";
@@ -68,11 +67,18 @@ export default function PromptBasedValidationRuleFormContent() {
   const { generateContext, contextData } = useGenerateContext();
 
   const [currentJobID, setCurrentJobID] = useState<string | null>(null);
+  const { connect, subscribe } = useSSE();
 
   const { text, isStreaming, error, reset } = useStreamingText(currentJobID);
 
   const formMethods = useFormContext();
   const { getValues, setValue } = formMethods;
+
+  // Connect to SSE on mount
+  useEffect(() => {
+    // TODO: Make the URL configurable
+    connect("http://localhost:8001/events/rag");
+  }, []);
 
   useEffect(() => {
     if (text !== undefined) {
@@ -83,21 +89,31 @@ export default function PromptBasedValidationRuleFormContent() {
     }
   }, [text, setValue]);
 
+  const updateFileProgress = (uuid: string, progress: number) => {
+    setSelectedFiles((prev) =>
+      prev.map((item) => (item.uuid === uuid ? { ...item, progress } : item))
+    );
+  };
+
   // FIXME: Running API call twice. Something to do with strict mode
   const handleFileUpload = useCallback(
-    async (file: File) => {
+    async (fileItem) => {
       try {
-        // Set progress to 0
-        console.log(file);
-
         const validationRuleDataSource = await createValidationRuleDataSource(
-          file
+          fileItem.file,
+          fileItem.uuid
         );
-        indexFile({
-          fileUuid: validationRuleDataSource.validationRuleFileRecord.uuid,
-          filePath: validationRuleDataSource.validationRuleFileRecord.filePath,
-          validationRuleUuid: getValues("uuid"),
-        });
+        if (validationRuleDataSource) {
+          // Update progress
+          updateFileProgress(fileItem.uuid, 20);
+
+          indexFile({
+            fileUuid: validationRuleDataSource.validationRuleFileRecord.uuid,
+            filePath:
+              validationRuleDataSource.validationRuleFileRecord.filePath,
+            validationRuleUuid: getValues("uuid"),
+          });
+        }
       } catch (err) {
         console.error("Upload failed", err);
       }
@@ -107,7 +123,7 @@ export default function PromptBasedValidationRuleFormContent() {
 
   const handleGenerateContext = async () => {
     try {
-      const jobId = uuidv4();
+      const jobId = crypto.randomUUID();
       setCurrentJobID(jobId);
       const contextGenerationData = await generateContext({
         jobId: jobId,
@@ -122,6 +138,34 @@ export default function PromptBasedValidationRuleFormContent() {
   // console.log("Selected files:", selectedFiles);
   // Validation Rule Data Source is created along with the file upload in the
   // backend.
+
+  useEffect(() => {
+    const unsubscribes = [
+      subscribe("indexing_progress", (event) => {
+        // TODO: Add logging
+        const { validationRuleUuid, fileUuid, progress } = event.payload;
+
+        updateFileProgress(fileUuid, progress);
+
+        // setValidationProgresses((prevMap) => {
+        //   const newMap = new Map(prevMap);
+
+        //   const previous = prevMap.get(validationJobId);
+
+        //   newMap.set(validationJobId, {
+        //     prevValidationJobProgress: previous?.validationJobProgress,
+        //     validationJobProgress,
+        //   });
+
+        //   return newMap;
+        // });
+      }),
+    ];
+
+    return () => {
+      unsubscribes.forEach((unsubscribe) => unsubscribe());
+    };
+  }, [subscribe]);
 
   return (
     <>

@@ -11,15 +11,7 @@ export function useIndexFile() {
     async (data) => {
       const result = await api.post(data);
 
-      //   return toast.promise(promise, {
-      //     loading: "Do translation: Creating validation rule...",
-      //     success: (data) =>
-      //       `Validation rule "${data.name || "Untitled"}" created successfully!`,
-      //     error: (err) =>
-      //       err?.response?.data?.message ||
-      //       err?.message ||
-      //       "Failed to create validation rule",
-      //   });
+      console.log("Index file result:", result);
 
       return result;
     },

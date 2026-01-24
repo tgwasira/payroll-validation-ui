@@ -12,8 +12,8 @@ export function useValidationRuleDataSourceMutations() {
   });
 
   const createValidationRuleDataSource = useCallback(
-    async (file: File) => {
-      return await uploadFile(file);
+    async (file: File, uuid: string) => {
+      return await uploadFile(file, { uuid });
     },
     [uploadFile]
   );
