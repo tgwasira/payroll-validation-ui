@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { useApi } from "@/react-ui-library/hooks/useApi";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
 import type { ValidationRuleGroup } from "@/types/validationServiceTypes";
 
 import { validationServiceApi } from "../../../../apiConfig";
@@ -24,13 +24,12 @@ interface UseValidationRuleGroupsOptions {
  * - `fetchValidationRuleGroups`: Function to manually trigger fetching of validation rule groups.
  * - `pagination`: Object containing pagination metadata.
  */
-export function useValidationRuleGroups(options: UseValidationRuleGroupsOptions = {}) {
-  const api = useApi(
-    validationServiceApi,
-    "/validation-rule-groups"
-  );
+export function useValidationRuleGroups(
+  options: UseValidationRuleGroupsOptions = {},
+) {
+  const api = useApi(validationServiceApi, "/validation-rule-groups");
   const { page = 1, limit = 10 } = options;
-  
+
   // State for pagination metadata
   const [pagination, setPagination] = useState({
     currentPage: page,
@@ -39,38 +38,41 @@ export function useValidationRuleGroups(options: UseValidationRuleGroupsOptions 
     itemsPerPage: limit,
   });
 
-  const fetchValidationRuleGroups = useCallback(async (customPage?: number, customLimit?: number) => {
-    const currentPage = customPage ?? pagination.currentPage;
-    const currentLimit = customLimit ?? pagination.itemsPerPage;
-    
-    const params = {
-      _page: currentPage,
-      _limit: currentLimit,
-    };
-    const result = await api.get(params);
+  const fetchValidationRuleGroups = useCallback(
+    async (customPage?: number, customLimit?: number) => {
+      const currentPage = customPage ?? pagination.currentPage;
+      const currentLimit = customLimit ?? pagination.itemsPerPage;
 
-    // Assume backend returns data in format: { items: [], total: number }
-    // If it returns array directly, we'll handle that too
-    let items: ValidationRuleGroup[];
-    let total: number;
-    
-    if (Array.isArray(result)) {
-      items = result;
-      total = result.length; // Fallback if no total provided
-    } else {
-      items = result.items || result.data || [];
-      total = result.total || result.totalItems || items.length;
-    }
-    
-    setPagination({
-      currentPage,
-      totalItems: total,
-      totalPages: Math.ceil(total / currentLimit),
-      itemsPerPage: currentLimit,
-    });
+      const queryParams = {
+        _page: currentPage,
+        _limit: currentLimit,
+      };
+      const result = await api.get({ queryParams });
 
-    return items;
-  }, [api, pagination.currentPage, pagination.itemsPerPage]);
+      // Assume backend returns data in format: { items: [], total: number }
+      // If it returns array directly, we'll handle that too
+      let items: ValidationRuleGroup[];
+      let total: number;
+
+      if (Array.isArray(result)) {
+        items = result;
+        total = result.length; // Fallback if no total provided
+      } else {
+        items = result.items || result.data || [];
+        total = result.total || result.totalItems || items.length;
+      }
+
+      setPagination({
+        currentPage,
+        totalItems: total,
+        totalPages: Math.ceil(total / currentLimit),
+        itemsPerPage: currentLimit,
+      });
+
+      return items;
+    },
+    [api, pagination.currentPage, pagination.itemsPerPage],
+  );
 
   useEffect(() => {
     fetchValidationRuleGroups();

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { useApi } from "@/react-ui-library/hooks/useApi";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
 import {
   GetValidationJobsOptions,
   ValidationJob,
@@ -41,57 +41,60 @@ export function useValidationJobs(options: UseValidationJobsOptions = {}) {
   });
 
   // <<<<<<< HEAD
-  //   const fetchValidationJobs = useCallback(async (customPage?: number, customLimit?: number) => {
-  //     const currentPage = customPage ?? pagination.currentPage;
-  //     const currentLimit = customLimit ?? pagination.itemsPerPage;
+  const fetchValidationJobs = useCallback(
+    async (customPage?: number, customLimit?: number) => {
+      const currentPage = customPage ?? pagination.currentPage;
+      const currentLimit = customLimit ?? pagination.itemsPerPage;
 
-  //     const params = {
-  //       _page: currentPage,
-  //       _limit: currentLimit,
-  //     };
-  //     const result = await api.get(params);
-
-  //     // Assume backend returns data in format: { items: [], total: number }
-  //     // If it returns array directly, we'll handle that too
-  //     let items: ValidationJob[];
-  //     let total: number;
-
-  //     if (Array.isArray(result)) {
-  //       items = result;
-  //       total = result.length; // Fallback if no total provided
-  //     } else {
-  //       items = result.items || result.data || [];
-  //       total = result.total || result.totalItems || items.length;
-  //     }
-
-  //     setPagination({
-  //       currentPage,
-  //       totalItems: total,
-  //       totalPages: Math.ceil(total / currentLimit),
-  //       itemsPerPage: currentLimit,
-  //     });
-  // =======
-  const getValidationJobs = useCallback(
-    async (options: GetValidationJobsOptions = {}) => {
-      const { page = 1, limit = 100, status } = options;
-
-      const params: Record<string, any> = {
-        _page: page,
-        _limit: limit,
+      const queryParams = {
+        _page: currentPage,
+        _limit: currentLimit,
       };
+      const result = await api.get({ queryParams });
 
-      // Add status filter if provided
-      if (status) {
-        params.status = status;
+      // Assume backend returns data in format: { items: [], total: number }
+      // If it returns array directly, we'll handle that too
+      let items: ValidationJob[];
+      let total: number;
+
+      if (Array.isArray(result)) {
+        items = result;
+        total = result.length; // Fallback if no total provided
+      } else {
+        items = result.items || result.data || [];
+        total = result.total || result.totalItems || items.length;
       }
 
-      const result = await api.get(params);
-      // >>>>>>> main
-
-      return items;
+      setPagination({
+        currentPage,
+        totalItems: total,
+        totalPages: Math.ceil(total / currentLimit),
+        itemsPerPage: currentLimit,
+      });
     },
-    [api, pagination.currentPage, pagination.itemsPerPage]
   );
+  // =======
+  // const getValidationJobs = useCallback(
+  //   async (options: GetValidationJobsOptions = {}) => {
+  //     const { page = 1, limit = 100, status } = options;
+
+  //     const params: Record<string, any> = {
+  //       _page: page,
+  //       _limit: limit,
+  //     };
+
+  //     // Add status filter if provided
+  //     if (status) {
+  //       params.status = status;
+  //     }
+
+  //     const result = await api.get(params);
+  //     // >>>>>>> main
+
+  //     return items;
+  //   },
+  //   [api, pagination.currentPage, pagination.itemsPerPage]
+  // );
 
   useEffect(() => {
     fetchValidationJobs();
@@ -102,12 +105,12 @@ export function useValidationJobs(options: UseValidationJobsOptions = {}) {
     loading: api.loading === null ? true : api.loading,
     error: api.error,
     // <<<<<<< HEAD
-    //     pagination,
-    //     fetchValidationJobs,
+    pagination,
+    fetchValidationJobs,
     // =======
-    validationJobs: (api.data as ValidationJob[] | null) ?? [],
-    setValidationJobs: api.setData,
-    getValidationJobs,
+    // validationJobs: (api.data as ValidationJob[] | null) ?? [],
+    // setValidationJobs: api.setData,
+    // getValidationJobs,
     // >>>>>>> main
   };
 }

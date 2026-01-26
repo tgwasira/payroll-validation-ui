@@ -12,29 +12,29 @@ import routes from "@/app/routes";
 import NewValidationRuleButton from "@/components/buttons/NewValidationRuleButton";
 import { LOADING_ROWS } from "@/constants";
 import { useValidationRules } from "@/hooks/api/validation-service/useValidationRules";
-import Button from "@/react-ui-library/components/buttons/button/Button";
-import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";
-import PageContent from "@/react-ui-library/components/containers/page-content/PageContent";
-import PageSection from "@/react-ui-library/components/containers/page-section/PageSection";
-import ScrollContainer from "@/react-ui-library/components/containers/scroll-container/ScrollContainer";
-import Input from "@/react-ui-library/components/forms/inputs/Input";
-import SearchInput from "@/react-ui-library/components/forms/inputs/search-input/SearchInput";
-import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
-import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
-import Table from "@/react-ui-library/components/tables/table/Table";
-import TablePagination from "@/react-ui-library/components/tables/table-pagination/TablePagination";
-import TableSearchbar from "@/react-ui-library/components/tables/table-searchbar/TableSearchbar";
-import TableToolbar from "@/react-ui-library/components/tables/table-toolbar/TableToolbar";
-import getActionsColumn from "@/react-ui-library/components/tables/utils/getActionsColumn";
-import getCheckboxColumn from "@/react-ui-library/components/tables/utils/getCheckboxColumn";
-import Tag from "@/react-ui-library/components/tags/tag/Tag";
-import TagGroup from "@/react-ui-library/components/tags/tag-group/TagGroup";
-import PageTitle from "@/react-ui-library/components/text/page-title/PageTitle";
-import { useApi } from "@/react-ui-library/hooks/useApi";
-import FunctionIcon from "@/react-ui-library/icons/FunctionIcon";
-import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
-import SparklesIcon from "@/react-ui-library/icons/SparklesIcon";
-import { capitalize } from "@/react-ui-library/utils/stringUtils";
+import Button from "@algion/react-ui-library/components/buttons/button/Button";
+import Checkbox from "@algion/react-ui-library/components/checkboxes/Checkbox";
+import PageContent from "@algion/react-ui-library/components/containers/page-content/PageContent";
+import PageSection from "@algion/react-ui-library/components/containers/page-section/PageSection";
+import ScrollContainer from "@algion/react-ui-library/components/containers/scroll-container/ScrollContainer";
+import Input from "@algion/react-ui-library/components/forms/inputs/Input";
+import SearchInput from "@algion/react-ui-library/components/forms/inputs/search-input/SearchInput";
+import MenuItemsList from "@algion/react-ui-library/components/menu/MenuItemsList";
+import PageHeader from "@algion/react-ui-library/components/page-elements/page-header/PageHeader";
+import Table from "@algion/react-ui-library/components/tables/table/Table";
+import TablePagination from "@algion/react-ui-library/components/tables/table-pagination/TablePagination";
+import TableSearchbar from "@algion/react-ui-library/components/tables/table-searchbar/TableSearchbar";
+import TableToolbar from "@algion/react-ui-library/components/tables/table-toolbar/TableToolbar";
+import getActionsColumn from "@algion/react-ui-library/components/tables/utils/getActionsColumn";
+import getCheckboxColumn from "@algion/react-ui-library/components/tables/utils/getCheckboxColumn";
+import Tag from "@algion/react-ui-library/components/tags/tag/Tag";
+import TagGroup from "@algion/react-ui-library/components/tags/tag-group/TagGroup";
+import PageTitle from "@algion/react-ui-library/components/text/page-title/PageTitle";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
+import FunctionIcon from "@algion/react-ui-library/icons/FunctionIcon";
+import MSExcelIcon from "@algion/react-ui-library/icons/MSExcelIcon";
+import SparklesIcon from "@algion/react-ui-library/icons/SparklesIcon";
+import { capitalize } from "@algion/react-ui-library/utils/stringUtils";
 import type { ValidationRule } from "@/types/validationServiceTypes";
 
 import ValidationRulesDialog from "./ValidationRulesDialog";
@@ -57,7 +57,7 @@ export default function ValidationRules() {
         if (type === "formula_based") {
           return <FunctionIcon className={`icon-medium icon-secondary`} />;
         } else if (type === "prompt_based") {
-          return <SparklesIcon className={`icon-large text-secondary`} />;
+          return <SparklesIcon className={`icon-large icon-secondary`} />;
         } else {
           return <></>;
         }
@@ -66,7 +66,7 @@ export default function ValidationRules() {
         // style: { width: "30%" },
       },
     }),
-    columnHelper.accessor("name", {
+    columnHelper.accessor("slug", {
       header: t("validation_rules.list.table.name_column_label"),
       meta: {
         style: { width: "30%" },
@@ -82,22 +82,32 @@ export default function ValidationRules() {
     columnHelper.accessor("level", {
       header: t("validation_rules.list.table.level_column_label"),
       //No need to style the value because it's not actually showing a status
-      cell: (info) => capitalize(info.getValue()),
-      // const types = {
-      //   info: "normal",
-      //   error: "danger",
-      //   warning: "warning",
-      // };
-      // const values = {
-      //   info: t("validation_rules.level_options.info"),
-      //   error: t("validation_rules.level_options.error"),
-      //   warning: t("validation_rules.level_options.warning"),
-      // };
-      // return (
-      //   <Tag type={types[info.getValue() as keyof typeof types] || "normal"}>
-      //     {values[info.getValue() as keyof typeof values] || info.getValue()}
-      //   </Tag>
-      // );
+      cell: (info) => {
+        const level = info.getValue();
+        if (level === "info")
+          return <Tag type="info">{t("validation_rules.levels.info")}</Tag>;
+        else if (level === "warning")
+          return (
+            <Tag type={"warning"}>{t("validation_rules.levels.warning")}</Tag>
+          );
+        else if (level === "error")
+          return <Tag type={"error"}>{t("validation_rules.levels.error")}</Tag>;
+        // const types = {
+        //   info: "normal",
+        //   error: "danger",
+        //   warning: "warning",
+        // };
+        // const values = {
+        //   info: t("validation_rules.levels.info"),
+        //   error: t("validation_rules.levels.error"),
+        //   warning: t("validation_rules.levels.warning"),
+        // };
+        // return (
+        //   <Tag type={types[info.getValue() as keyof typeof types] || "normal"}>
+        //     {values[info.getValue() as keyof typeof values] || info.getValue()}
+        //   </Tag>
+        // );
+      },
       meta: {
         // loadingCell: () => <Skeleton count={2} />,
         style: { width: "30%" },
@@ -231,7 +241,7 @@ export default function ValidationRules() {
         {/* Table Toolbar */}
         <TableToolbar
           searchbarPlaceholder={t(
-            "validation_rules.list.validation_rules_search_placeholder"
+            "validation_rules.list.validation_rules_search_placeholder",
           )}
           disabled={disabled}
         />
@@ -244,10 +254,10 @@ export default function ValidationRules() {
           data={validationRules}
           columns={columns}
           emptyStateHeading={t(
-            "validation_rules.list.table.empty_state_heading"
+            "validation_rules.list.table.empty_state_heading",
           )}
           emptyStateSupportingText={t(
-            "validation_rules.list.table.empty_state_supporting_text"
+            "validation_rules.list.table.empty_state_supporting_text",
           )}
           emptyStateRenderButton1={renderAddValidationRuleButton}
           //
@@ -277,7 +287,7 @@ export default function ValidationRules() {
         {/* </div> */}
 
         {(loading || hasValidationRules) && (
-          <TablePagination 
+          <TablePagination
             currentPage={pagination.currentPage}
             totalItems={pagination.totalItems}
             itemsPerPage={pagination.itemsPerPage}

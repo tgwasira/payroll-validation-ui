@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { useApi } from "@/react-ui-library/hooks/useApi";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
 import { ValidationJob } from "@/types/validationServiceTypes";
 
 import { validationServiceApi } from "../../../../apiConfig";
@@ -15,25 +15,30 @@ import { validationServiceApi } from "../../../../apiConfig";
  *  - `getValidationJob`: Function to manually trigger fetching of a validation
  *      job.
  */
-export function useValidationJob() {
-  const api = useApi(
-    validationServiceApi,
-    "/validation-jobs"
-  );
+export function useValidationJobs() {
+  const api = useApi(validationServiceApi, "/validation-jobs");
 
   const getValidationJob = useCallback(
     async (slug: string) => {
-      const result = await api.getById(slug);
+      // TODO: Go back to the overloaded format
+      const result = await api.get({ path: slug });
 
       return result as ValidationJob;
     },
-    [api]
+    [api],
   );
+
+  const getValidationJobProgresses = useCallback(async () => {
+    const result = await api.get({ path: "/progresses" });
+
+    return result;
+  }, [api]);
 
   return {
     loading: api.loading,
     error: api.error,
     validationJob: (api.data as ValidationJob | null) ?? null,
     getValidationJob,
+    getValidationJobProgresses,
   };
 }

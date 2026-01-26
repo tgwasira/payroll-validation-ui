@@ -2,10 +2,11 @@ import { Portal } from "@headlessui/react";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { v4 as uuidv4 } from "uuid";
 
 import { useValidationRuleMutations } from "@/hooks/api/validation-service/useValidationRules";
-import Button from "@/react-ui-library/components/buttons/button/Button";
-import ButtonGroup from "@/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
+import Button from "@algion/react-ui-library/components/buttons/button/Button";
+import ButtonGroup from "@algion/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
 import {
   Dialog,
   DialogBody,
@@ -15,22 +16,22 @@ import {
   DialogPaddingLR,
   DialogPanel,
   DialogTitle,
-} from "@/react-ui-library/components/dialogs/Dialog";
-import DialogFooterButtonGroup from "@/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
-import FileUpload from "@/react-ui-library/components/file-upload/FileUpload_";
-import SelectInputField from "@/react-ui-library/components/forms/form-fields/select-input-field/SelectInputField";
-import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
-import TextInputField from "@/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
-import { Form } from "@/react-ui-library/components/forms/Forms";
-import ControlledSelectInput from "@/react-ui-library/components/forms/inputs/select-inputs/ControlledSelectInput";
-import Tab1 from "@/react-ui-library/components/tabs/Tab1/Tab1";
+} from "@algion/react-ui-library/components/dialogs/Dialog";
+import DialogFooterButtonGroup from "@algion/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
+import FileUpload from "@algion/react-ui-library/components/file-upload/file-upload/FileUpload_";
+import SelectInputField from "@algion/react-ui-library/components/forms/form-fields/select-input-field/SelectInputField";
+import TextAreaField from "@algion/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
+import TextInputField from "@algion/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
+import { Form } from "@algion/react-ui-library/components/forms/Forms";
+import ControlledSelectInput from "@algion/react-ui-library/components/forms/inputs/select-inputs/ControlledSelectInput";
+import Tab1 from "@algion/react-ui-library/components/tabs/Tab1/Tab1";
 import {
   Tab,
   TabGroup,
   TabList,
   TabPanel,
   TabPanels,
-} from "@/react-ui-library/components/tabs/Tabs";
+} from "@algion/react-ui-library/components/tabs/Tabs";
 
 import styles from "./ValidationDataSourceDialog.module.css";
 import ValidationRulesDialogForm from "./ValidationRulesDialogForm";
@@ -75,58 +76,63 @@ export default function ValidationRulesDialog({
     >
       {/* Form needs to be within Dialog otherwise submit button will not work */}
       <Form
+        defaultValues={{
+          uuid: uuidv4(), // UUID for validation rule. This is used to link collections in vector store to validation rules
+        }}
         onSubmit={async (data) => {
           try {
-            const { data_type: dataType, criteria } = data;
+            const { data_type: dataType, type, criteria } = data;
 
-            // Initialise formula_based_validation_rule object
-            // Initialize formula_based_validation_rule object if it doesn't exist
-            if (!data.formula_based_validation_rule) {
-              data.formula_based_validation_rule = {};
-            }
-            if (!data.formula_based_validation_rule.formula) {
-              data.formula_based_validation_rule.formula = {};
-            }
-
-            // TODO: @Harry: Please check that these actually work as intended in the backend
-            // Build formula based on data type and criteria
-            if (dataType === "number") {
-              if (criteria === "is_equal_to") {
-                data.formula_based_validation_rule.formula = `${data.range}.eq(${data.value})`;
-              } else if (criteria === "is_not_equal_to") {
-                data.formula_based_validation_rule.formula = `${data.range}.neq(${data.value})`;
-              } else if (criteria === "is_greater_than") {
-                data.formula_based_validation_rule.formula = `${data.range}.gt(${data.value})`;
-              } else if (criteria === "is_greater_than_or_equal_to") {
-                data.formula_based_validation_rule.formula = `${data.range}.ge(${data.value})`;
-              } else if (criteria === "is_less_than") {
-                data.formula_based_validation_rule.formula = `${data.range}.lt(${data.value})`;
-              } else if (criteria === "is_less_than_or_equal_to") {
-                data.formula_based_validation_rule.formula = `${data.range}.le(${data.value})`;
-              } else if (criteria === "is_between_exclusive") {
-                data.formula_based_validation_rule.formula = `(${data.range} > ${data.min_value}) & (${data.range} < ${data.max_value})`;
-              } else if (criteria === "is_outside_of_exclusive") {
-                data.formula_based_validation_rule.formula = `(${data.range} <= ${data.min_value}) | (${data.range} >= ${data.max_value})`;
+            if (type === "formula_based") {
+              // Initialise formula_based_validation_rule object
+              // Initialize formula_based_validation_rule object if it doesn't exist
+              if (!data.formula_based_validation_rule) {
+                data.formula_based_validation_rule = {};
               }
-            } else if (dataType === "text") {
-              if (criteria === "is_equal_to") {
-                data.formula_based_validation_rule.formula = `${data.range}.eq('${data.value}')`;
-              } else if (criteria === "is_not_equal_to") {
-                data.formula_based_validation_rule.formula = `${data.range}.ne('${data.value}')`;
-              } else if (criteria === "contains") {
-                data.formula_based_validation_rule.formula = `${data.range}.str.contains('${data.value}', na=False)`;
-              } else if (criteria === "does_not_contain") {
-                data.formula_based_validation_rule.formula = `~${data.range}.str.contains('${data.value}', na=False)`;
-              } else if (criteria === "starts_with") {
-                data.formula_based_validation_rule.formula = `${data.range}.str.startswith('${data.value}', na=False)`;
-              } else if (criteria === "ends_with") {
-                data.formula_based_validation_rule.formula = `${data.range}.str.endswith('${data.value}', na=False)`;
-              } else if (criteria === "is_empty") {
-                data.formula_based_validation_rule.formula = `${data.range}.isna() | (${data.range}.str.strip() == '')`;
-              } else if (criteria === "is_not_empty") {
-                data.formula_based_validation_rule.formula = `${data.range}.notna() & (${data.range}.str.strip() != '')`;
-              } else if (criteria === "matches_pattern") {
-                data.formula_based_validation_rule.formula = `${data.range}.str.match('${data.value}', na=False)`;
+              if (!data.formula_based_validation_rule.formula) {
+                data.formula_based_validation_rule.formula = {};
+              }
+
+              // TODO: @Harry: Please check that these actually work as intended in the backend
+              // Build formula based on data type and criteria
+              if (dataType === "number") {
+                if (criteria === "is_equal_to") {
+                  data.formula_based_validation_rule.formula = `${data.range}.eq(${data.value})`;
+                } else if (criteria === "is_not_equal_to") {
+                  data.formula_based_validation_rule.formula = `${data.range}.neq(${data.value})`;
+                } else if (criteria === "is_greater_than") {
+                  data.formula_based_validation_rule.formula = `${data.range}.gt(${data.value})`;
+                } else if (criteria === "is_greater_than_or_equal_to") {
+                  data.formula_based_validation_rule.formula = `${data.range}.ge(${data.value})`;
+                } else if (criteria === "is_less_than") {
+                  data.formula_based_validation_rule.formula = `${data.range}.lt(${data.value})`;
+                } else if (criteria === "is_less_than_or_equal_to") {
+                  data.formula_based_validation_rule.formula = `${data.range}.le(${data.value})`;
+                } else if (criteria === "is_between_exclusive") {
+                  data.formula_based_validation_rule.formula = `(${data.range} > ${data.min_value}) & (${data.range} < ${data.max_value})`;
+                } else if (criteria === "is_outside_of_exclusive") {
+                  data.formula_based_validation_rule.formula = `(${data.range} <= ${data.min_value}) | (${data.range} >= ${data.max_value})`;
+                }
+              } else if (dataType === "text") {
+                if (criteria === "is_equal_to") {
+                  data.formula_based_validation_rule.formula = `${data.range}.eq('${data.value}')`;
+                } else if (criteria === "is_not_equal_to") {
+                  data.formula_based_validation_rule.formula = `${data.range}.ne('${data.value}')`;
+                } else if (criteria === "contains") {
+                  data.formula_based_validation_rule.formula = `${data.range}.str.contains('${data.value}', na=False)`;
+                } else if (criteria === "does_not_contain") {
+                  data.formula_based_validation_rule.formula = `~${data.range}.str.contains('${data.value}', na=False)`;
+                } else if (criteria === "starts_with") {
+                  data.formula_based_validation_rule.formula = `${data.range}.str.startswith('${data.value}', na=False)`;
+                } else if (criteria === "ends_with") {
+                  data.formula_based_validation_rule.formula = `${data.range}.str.endswith('${data.value}', na=False)`;
+                } else if (criteria === "is_empty") {
+                  data.formula_based_validation_rule.formula = `${data.range}.isna() | (${data.range}.str.strip() == '')`;
+                } else if (criteria === "is_not_empty") {
+                  data.formula_based_validation_rule.formula = `${data.range}.notna() & (${data.range}.str.strip() != '')`;
+                } else if (criteria === "matches_pattern") {
+                  data.formula_based_validation_rule.formula = `${data.range}.str.match('${data.value}', na=False)`;
+                }
               }
             }
 
@@ -136,6 +142,13 @@ export default function ValidationRulesDialog({
             delete data.value;
             delete data.min_value;
             delete data.max_value;
+
+            // Delete fields not relevant to the selected type
+            if (type === "formula_based") {
+              delete data.prompt_based_validation_rule;
+            } else if (type === "prompt_based") {
+              delete data.formula_based_validation_rule;
+            }
 
             const result = await createValidationRule(data);
             closeDialog();

@@ -3,9 +3,9 @@ import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import { useFieldArray } from "react-hook-form";
 
-import Button from "@/react-ui-library/components/buttons/button/Button";
-import ButtonGroup from "@/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
-import RightAlignedContent from "@/react-ui-library/components/containers/right-aligned-content/RightAlignedContent";
+import Button from "@algion/react-ui-library/components/buttons/button/Button";
+import ButtonGroup from "@algion/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
+import RightAlignedContent from "@algion/react-ui-library/components/containers/right-aligned-content/RightAlignedContent";
 import {
   Dialog,
   DialogBody,
@@ -15,27 +15,27 @@ import {
   DialogPaddingLR,
   DialogPanel,
   DialogTitle,
-} from "@/react-ui-library/components/dialogs/Dialog";
-import DialogFooterButtonGroup from "@/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
-import FileUpload from "@/react-ui-library/components/file-upload/FileUpload_";
-import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
-import TextInputField from "@/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
+} from "@algion/react-ui-library/components/dialogs/Dialog";
+import DialogFooterButtonGroup from "@algion/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
+import FileUpload from "@algion/react-ui-library/components/file-upload/file-upload/FileUpload_";
+import TextAreaField from "@algion/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
+import TextInputField from "@algion/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
 import {
   Form,
   FormPageSectionTitle,
   FormSection,
-} from "@/react-ui-library/components/forms/Forms";
-import ControlledSelect from "@/react-ui-library/components/forms/inputs/select-forms/inputs/ControlledSelect";
-import Select from "@/react-ui-library/components/forms/inputs/select-forms/inputs/Select";
-import { List, ListItem } from "@/react-ui-library/components/lists/List";
-import Tab1 from "@/react-ui-library/components/tabs/Tab1/Tab1";
+} from "@algion/react-ui-library/components/forms/Forms";
+import ControlledSelect from "@algion/react-ui-library/components/forms/inputs/select-forms/inputs/ControlledSelect";
+import Select from "@algion/react-ui-library/components/forms/inputs/select-forms/inputs/Select";
+import { List, ListItem } from "@algion/react-ui-library/components/lists/List";
+import Tab1 from "@algion/react-ui-library/components/tabs/Tab1/Tab1";
 import {
   Tab,
   TabGroup,
   TabList,
   TabPanel,
   TabPanels,
-} from "@/react-ui-library/components/tabs/Tabs";
+} from "@algion/react-ui-library/components/tabs/Tabs";
 
 import styles from "./ValidationRuleGroupsDialog.module.css";
 import ValidationRuleItem from "./ValidationRuleItem";
@@ -84,12 +84,12 @@ export default function ValidationRuleGroupsDialog({
               <FormSection>
                 <TextInputField
                   name="name"
-                  label={t("validation_rule_groups.new.name_field_label")}
+                  label={t("validation_rule_groups.new.slug_field_label")}
                   rules={{
                     required: {
                       value: true,
                       message: t(
-                        "validation_rule_groups.new.name_required_error_message"
+                        "validation_rule_groups.new.name_required_error_message",
                       ),
                     },
                   }}
@@ -97,7 +97,7 @@ export default function ValidationRuleGroupsDialog({
                 <TextAreaField
                   name="description"
                   label={t(
-                    "validation_rule_groups.new.description_field_label"
+                    "validation_rule_groups.new.description_field_label",
                   )}
                 />
               </FormSection>
@@ -107,7 +107,7 @@ export default function ValidationRuleGroupsDialog({
               <DialogPaddingLR>
                 <FormPageSectionTitle>
                   {t(
-                    "validation_rule_groups.new.validation_rules_form_section_title"
+                    "validation_rule_groups.new.validation_rules_form_section_title",
                   )}
                 </FormPageSectionTitle>
               </DialogPaddingLR>

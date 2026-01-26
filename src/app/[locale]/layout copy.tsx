@@ -1,27 +1,26 @@
-// import "@algion/react-ui-library/global.css";
+import "@algion/react-ui-library/global.css";
 import "./globals.css";
 // Required to show loading skeletons
 import "react-loading-skeleton/dist/skeleton.css";
 
-import { Button } from "@algion/react-ui-library";
-// import SearchInput from "@algion/react-ui-library/components/forms/inputs/search-input/SearchInput";
-// import { Toaster } from "@algion/react-ui-library/components/toasts/Toaster";
-// import Topbar from "@algion/react-ui-library/components/topbar/Topbar";
-// import { SSEProvider } from "@algion/react-ui-library/contexts/SSEContext";
-// import { WebSocketProvider } from "@algion/react-ui-library/contexts/WebSocketContext";
+import SearchInput from "@algion/react-ui-library/components/forms/inputs/search-input/SearchInput";
+import { Toaster } from "@algion/react-ui-library/components/toasts/Toaster";
+import Topbar from "@algion/react-ui-library/components/topbar/Topbar";
+import { SSEProvider } from "@algion/react-ui-library/contexts/SSEContext";
+import { WebSocketProvider } from "@algion/react-ui-library/contexts/WebSocketContext";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "next-themes";
 import { SkeletonTheme } from "react-loading-skeleton";
+import { Bounce } from "react-toastify";
 
-// import { Bounce } from "react-toastify";
-// import AppSidebar from "@/app/[locale]/AppSidebar";
+import AppSidebar from "@/app/[locale]/AppSidebar";
 import { routing } from "@/i18n/routing";
 
-// import AppTopbar from "./AppTopbar";
-// import { ValidationProgressProvider } from "./validation-jobs/ValidationProgressContext";
+import AppTopbar from "./AppTopbar";
+import { ValidationProgressProvider } from "./validation-jobs/ValidationProgressContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -46,8 +45,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
-        <Button>Test</Button>
-        {/* <SSEProvider>
+        <SSEProvider>
           <ValidationProgressProvider>
             <NextIntlClientProvider>
               <ThemeProvider>
@@ -67,7 +65,7 @@ export default async function RootLayout({
               </ThemeProvider>
             </NextIntlClientProvider>
           </ValidationProgressProvider>
-        </SSEProvider> */}
+        </SSEProvider>
       </body>
     </html>
   );

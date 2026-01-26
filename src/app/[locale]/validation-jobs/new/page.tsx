@@ -8,35 +8,36 @@ import React, { useEffect, useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import routes from "@/app/routes";
-import { useWebSocket } from "@/contexts/WebSocketContext";
 import useValidationJobMutations from "@/hooks/api/validation-service/useValidationJobMutations";
-import Button from "@/react-ui-library/components/buttons/button/Button";
-import ButtonGroup from "@/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
-import PageContent from "@/react-ui-library/components/containers/page-content/PageContent";
+import useValidationJobRun from "@/hooks/api/validation-service/useValidationJobRun";
+import Button from "@algion/react-ui-library/components/buttons/button/Button";
+import ButtonGroup from "@algion/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
+import PageContent from "@algion/react-ui-library/components/containers/page-content/PageContent";
 import PageSection, {
   PageSectionSpacing,
   // PageSectionSpacing,
   PageSectionSpacingLR,
   PageSectionSpacingTB,
-} from "@/react-ui-library/components/containers/page-section/PageSection";
-import PageSectionHeader from "@/react-ui-library/components/containers/page-section/PageSectionHeader";
-import PageSubsection from "@/react-ui-library/components/containers/page-subsection/PageSubsection";
-import RightAlignedContent from "@/react-ui-library/components/containers/right-aligned-content/RightAlignedContent";
-import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
-import TextInputField from "@/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
-import { Form } from "@/react-ui-library/components/forms/Forms";
-import { Menu } from "@/react-ui-library/components/menu/Menu";
-import { MenuButton } from "@/react-ui-library/components/menu/MenuButton";
-import { MenuDropdown } from "@/react-ui-library/components/menu/MenuDropdown";
-import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
-import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
-import Table from "@/react-ui-library/components/tables/table/Table";
-import getCheckboxColumn from "@/react-ui-library/components/tables/utils/getCheckboxColumn";
-import PageSectionTitle from "@/react-ui-library/components/text/page-section-title/PageSectionTitle";
-import PageTitle from "@/react-ui-library/components/text/page-title/PageTitle";
-import PageTitleAndBackButton from "@/react-ui-library/components/text/page-title-and-back-button/PageTitleAndBackButton";
-import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
-import PlusIcon from "@/react-ui-library/icons/PlusIcon";
+} from "@algion/react-ui-library/components/containers/page-section/PageSection";
+import PageSectionHeader from "@algion/react-ui-library/components/containers/page-section/PageSectionHeader";
+import PageSubsection from "@algion/react-ui-library/components/containers/page-subsection/PageSubsection";
+import RightAlignedContent from "@algion/react-ui-library/components/containers/right-aligned-content/RightAlignedContent";
+import TextAreaField from "@algion/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
+import TextInputField from "@algion/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
+import { Form } from "@algion/react-ui-library/components/forms/Forms";
+import { Menu } from "@algion/react-ui-library/components/menu/Menu";
+import { MenuButton } from "@algion/react-ui-library/components/menu/MenuButton";
+import { MenuDropdown } from "@algion/react-ui-library/components/menu/MenuDropdown";
+import MenuItemsList from "@algion/react-ui-library/components/menu/MenuItemsList";
+import PageHeader from "@algion/react-ui-library/components/page-elements/page-header/PageHeader";
+import Table from "@algion/react-ui-library/components/tables/table/Table";
+import getCheckboxColumn from "@algion/react-ui-library/components/tables/utils/getCheckboxColumn";
+import PageSectionTitle from "@algion/react-ui-library/components/text/page-section-title/PageSectionTitle";
+import PageTitle from "@algion/react-ui-library/components/text/page-title/PageTitle";
+import PageTitleAndBackButton from "@algion/react-ui-library/components/text/page-title-and-back-button/PageTitleAndBackButton";
+import { useSSE } from "@algion/react-ui-library/contexts/SSEContext";
+import MSExcelIcon from "@algion/react-ui-library/icons/MSExcelIcon";
+import PlusIcon from "@algion/react-ui-library/icons/PlusIcon";
 
 import ValidationDataSourceDialog from "./ValidationDataSourceDialog";
 import ValidationDataSourcesTableSection from "./ValidationDataSourcesSection";
@@ -49,9 +50,10 @@ export default function NewValidationJob() {
   const [uploadedFiles, setUploadedFiles] = useState<ValidationFile[]>([]);
   const [dataSourceDialogOpen, setDataSourceDialogOpen] = useState(false);
   const [dataSourcesTableData, setValidationDataSourcesTableData] = useState(
-    []
+    [],
   );
-  const { isConnected, subscribe, send } = useWebSocket();
+
+  const { runValidationJob } = useValidationJobRun();
 
   // === Data ===
   const { createValidationJob } = useValidationJobMutations();
@@ -64,7 +66,7 @@ export default function NewValidationJob() {
         // Extract validationRuleIds from validationRules and remove
         // validationRules
         data["validationRuleIds"] = data.validationRules.map(
-          (validationRule) => validationRule.id
+          (validationRule) => validationRule.id,
         );
         delete data.validationRules;
 
@@ -74,8 +76,8 @@ export default function NewValidationJob() {
         // If validation job was created successfully, redirect to validation
         // jobs page
         if (validationJob) {
-          // Run validation job via websocket
-          send("start_validation", { id: validationJob.id });
+          // Run validation job via SSE
+          await runValidationJob(validationJob);
           redirect(`${routes.validationJobs.list}`);
         }
       }}
@@ -98,7 +100,7 @@ export default function NewValidationJob() {
               <PageHeader>
                 <PageTitleAndBackButton
                   title={t(
-                    "validation_jobs.new.validation_jobs_new_page_title"
+                    "validation_jobs.new.validation_jobs_new_page_title",
                   )}
                 />
               </PageHeader>
@@ -109,15 +111,15 @@ export default function NewValidationJob() {
                   <PageSection>
                     <TextInputField
                       name="slug"
-                      label={t("validation_jobs.new.id_field_label")}
+                      label={t("validation_jobs.new.slug_field_label")}
                       rules={{
                         required: {
                           value: true,
                           message: t(
                             "common.forms.validation.required_error_message_specific",
                             {
-                              field: t("validation_jobs.new.id_field_label"),
-                            }
+                              field: t("validation_jobs.new.slug_field_label"),
+                            },
                           ),
                         },
                       }}

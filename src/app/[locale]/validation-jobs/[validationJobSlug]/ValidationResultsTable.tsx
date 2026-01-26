@@ -3,13 +3,13 @@ import { useTranslations } from "next-intl";
 import React from "react";
 
 import ValidationRuleTag from "@/components/validation-rule-tag/ValidationRuleTag";
-import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
-import Table from "@/react-ui-library/components/tables/table/Table";
-import TableToolbar from "@/react-ui-library/components/tables/table-toolbar/TableToolbar";
-import getActionsColumn from "@/react-ui-library/components/tables/utils/getActionsColumn";
-import getCheckboxColumn from "@/react-ui-library/components/tables/utils/getCheckboxColumn";
-import Tag from "@/react-ui-library/components/tags/tag/Tag";
-import { toSpreadsheetRange } from "@/react-ui-library/utils/spreadsheetUtils";
+import MenuItemsList from "@algion/react-ui-library/components/menu/MenuItemsList";
+import Table from "@algion/react-ui-library/components/tables/table/Table";
+import TableToolbar from "@algion/react-ui-library/components/tables/table-toolbar/TableToolbar";
+import getActionsColumn from "@algion/react-ui-library/components/tables/utils/getActionsColumn";
+import getCheckboxColumn from "@algion/react-ui-library/components/tables/utils/getCheckboxColumn";
+import Tag from "@algion/react-ui-library/components/tags/tag/Tag";
+import { toSpreadsheetRange } from "@algion/react-ui-library/utils/spreadsheetUtils";
 
 export default function ValidationResultsTable({ validationResult }) {
   const t = useTranslations();
@@ -27,7 +27,7 @@ export default function ValidationResultsTable({ validationResult }) {
         meta: {
           style: { width: "20%" },
         },
-      }
+      },
     ),
     columnHelper.accessor("validationRule", {
       id: "rule",
@@ -54,23 +54,13 @@ export default function ValidationResultsTable({ validationResult }) {
         const level = info.getValue();
 
         if (level === "info")
-          return (
-            <Tag type="info">
-              {t("validation_jobs.detail.issues.table.level.info")}
-            </Tag>
-          );
+          return <Tag type="info">{t("validation_rules.levels.info")}</Tag>;
         else if (level === "warning")
           return (
-            <Tag type={"warning"}>
-              {t("validation_jobs.detail.issues.table.level.warning")}
-            </Tag>
+            <Tag type={"warning"}>{t("validation_rules.levels.warning")}</Tag>
           );
         else if (level === "error")
-          return (
-            <Tag type={"error"}>
-              {t("validation_jobs.detail.issues.table.level.error")}
-            </Tag>
-          );
+          return <Tag type={"error"}>{t("validation_rules.levels.error")}</Tag>;
         else return <></>;
       },
       meta: {
@@ -119,7 +109,7 @@ export default function ValidationResultsTable({ validationResult }) {
   const filterOptions = [
     {
       label: t(
-        "validation_jobs.detail.issues.table.toolbar.filter_options.all_filter_option_label"
+        "validation_jobs.detail.issues.table.toolbar.filter_options.all_filter_option_label",
       ),
       onClick: () => {
         console.log("All clicked");
@@ -127,7 +117,7 @@ export default function ValidationResultsTable({ validationResult }) {
     },
     {
       label: t(
-        "validation_jobs.detail.issues.table.toolbar.filter_options.infos_filter_option_label"
+        "validation_jobs.detail.issues.table.toolbar.filter_options.infos_filter_option_label",
       ),
       onClick: () => {
         console.log("Info clicked");
@@ -135,7 +125,7 @@ export default function ValidationResultsTable({ validationResult }) {
     },
     {
       label: t(
-        "validation_jobs.detail.issues.table.toolbar.filter_options.warnings_filter_option_label"
+        "validation_jobs.detail.issues.table.toolbar.filter_options.warnings_filter_option_label",
       ),
       onClick: () => {
         console.log("Warning clicked");
@@ -143,7 +133,7 @@ export default function ValidationResultsTable({ validationResult }) {
     },
     {
       label: t(
-        "validation_jobs.detail.issues.table.toolbar.filter_options.errors_filter_option_label"
+        "validation_jobs.detail.issues.table.toolbar.filter_options.errors_filter_option_label",
       ),
       onClick: () => {
         console.log("Error clicked");
@@ -168,7 +158,7 @@ export default function ValidationResultsTable({ validationResult }) {
       <TableToolbar
         filterOptions={filterOptions}
         searchbarPlaceholder={t(
-          "validation_jobs.detail.issues.table.search_placeholder"
+          "validation_jobs.detail.issues.table.search_placeholder",
         )}
       />
       <Table data={validationIssues} columns={columns} />

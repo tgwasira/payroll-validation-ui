@@ -1,14 +1,14 @@
 import { StackIcon } from "@phosphor-icons/react";
 import React from "react";
 
-import Tag from "@/react-ui-library/components/tags/tag/Tag";
-import FunctionIcon from "@/react-ui-library/icons/FunctionIcon";
+import Tag from "@algion/react-ui-library/components/tags/tag/Tag";
+import FunctionIcon from "@algion/react-ui-library/icons/FunctionIcon";
 
 import styles from "./ValidationRuleTag.module.css";
 
 export default function ValidationRuleTag({
   as = "div",
-  name,
+  slug,
   type = "",
   className = "",
   style = {},
@@ -25,7 +25,7 @@ export default function ValidationRuleTag({
         </div>
       )}
 
-      <div className={styles.Text}>{name}</div>
+      <div className={styles.Text}>{slug}</div>
     </Tag>
   );
 }

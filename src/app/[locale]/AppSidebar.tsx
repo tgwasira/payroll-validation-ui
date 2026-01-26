@@ -6,9 +6,9 @@ import { useTranslations } from "next-intl";
 import React from "react";
 
 import BrandingLight from "@/components/BrandingLight";
-import Sidebar from "@/react-ui-library/components/sidebar/Sidebar";
-import SidebarBranding from "@/react-ui-library/components/sidebar/SidebarBranding";
-import SidebarTabGroup from "@/react-ui-library/components/sidebar/SidebarTabGroup";
+import Sidebar from "@algion/react-ui-library/components/sidebar/Sidebar";
+import SidebarBranding from "@algion/react-ui-library/components/sidebar/SidebarBranding";
+import SidebarTabGroup from "@algion/react-ui-library/components/sidebar/SidebarTabGroup";
 
 import routes from "../routes";
 import styles from "./AppSidebar.module.css";
@@ -32,11 +32,11 @@ export default function AppSidebar() {
       label: t("validation_rules_and_rule_groups_tab_label"),
       icon: <ListChecksIcon className="icon-large" />,
       sidebarSecondaryTabs: [
-        {
-          id: "validation-rule-groups",
-          label: t("validation_rule_groups_tab_label"),
-          href: routes.validationRuleGroups.list,
-        },
+        // {
+        //   id: "validation-rule-groups",
+        //   label: t("validation_rule_groups_tab_label"),
+        //   href: routes.validationRuleGroups.list,
+        // },
         {
           id: "validation-rules",
           label: t("validation_rules_tab_label"),

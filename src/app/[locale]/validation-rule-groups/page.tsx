@@ -7,22 +7,22 @@ import { useState } from "react";
 
 import routes from "@/app/routes";
 import { useValidationRuleGroups } from "@/hooks/api/validation-service/useValidationRuleGroups";
-import Button from "@/react-ui-library/components/buttons/button/Button";
-import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";
-import PageContent from "@/react-ui-library/components/containers/page-content/PageContent";
-import PageSection from "@/react-ui-library/components/containers/page-section/PageSection";
-import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
-import Input from "@/react-ui-library/components/forms/inputs/Input";
-import SearchInput from "@/react-ui-library/components/forms/inputs/search-input/SearchInput";
-import Table from "@/react-ui-library/components/tables/table/Table";
-import TablePagination from "@/react-ui-library/components/tables/table-pagination/TablePagination";
-import TableSearchbar from "@/react-ui-library/components/tables/table-searchbar/TableSearchbar";
-import TableToolbar from "@/react-ui-library/components/tables/table-toolbar/TableToolbar";
-import getCheckboxColumn from "@/react-ui-library/components/tables/utils/getCheckboxColumn";
-import Tag from "@/react-ui-library/components/tags/tag/Tag";
-import TagGroup from "@/react-ui-library/components/tags/tag-group/TagGroup";
-import PageTitle from "@/react-ui-library/components/text/page-title/PageTitle";
-import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
+import Button from "@algion/react-ui-library/components/buttons/button/Button";
+import Checkbox from "@algion/react-ui-library/components/checkboxes/Checkbox";
+import PageContent from "@algion/react-ui-library/components/containers/page-content/PageContent";
+import PageSection from "@algion/react-ui-library/components/containers/page-section/PageSection";
+import PageHeader from "@algion/react-ui-library/components/page-elements/page-header/PageHeader";
+import Input from "@algion/react-ui-library/components/forms/inputs/Input";
+import SearchInput from "@algion/react-ui-library/components/forms/inputs/search-input/SearchInput";
+import Table from "@algion/react-ui-library/components/tables/table/Table";
+import TablePagination from "@algion/react-ui-library/components/tables/table-pagination/TablePagination";
+import TableSearchbar from "@algion/react-ui-library/components/tables/table-searchbar/TableSearchbar";
+import TableToolbar from "@algion/react-ui-library/components/tables/table-toolbar/TableToolbar";
+import getCheckboxColumn from "@algion/react-ui-library/components/tables/utils/getCheckboxColumn";
+import Tag from "@algion/react-ui-library/components/tags/tag/Tag";
+import TagGroup from "@algion/react-ui-library/components/tags/tag-group/TagGroup";
+import PageTitle from "@algion/react-ui-library/components/text/page-title/PageTitle";
+import MSExcelIcon from "@algion/react-ui-library/icons/MSExcelIcon";
 import type { ValidationRuleGroup } from "@/types/validationServiceTypes";
 
 import ValidationRuleGroupsDialog from "./ValidationRuleGroupsDialog";
@@ -30,8 +30,13 @@ import ValidationRuleGroupsDialog from "./ValidationRuleGroupsDialog";
 export default function ValidationRuleGroups() {
   const t = useTranslations();
 
-  const { validationRuleGroups, loading, error, fetchValidationRuleGroups, pagination } =
-    useValidationRuleGroups();
+  const {
+    validationRuleGroups,
+    loading,
+    error,
+    fetchValidationRuleGroups,
+    pagination,
+  } = useValidationRuleGroups();
 
   const columnHelper = createColumnHelper<ValidationRuleGroup>();
 
@@ -41,7 +46,7 @@ export default function ValidationRuleGroups() {
     getCheckboxColumn("checkbox", columnHelper),
     columnHelper.accessor("name", {
       header: t(
-        "validation_rule_groups.list.validation_rule_groups_table.name_column_label"
+        "validation_rule_groups.list.validation_rule_groups_table.name_column_label",
       ),
       meta: {
         style: { width: "40%" },
@@ -49,7 +54,7 @@ export default function ValidationRuleGroups() {
     }),
     columnHelper.accessor("description", {
       header: t(
-        "validation_rule_groups.list.validation_rule_groups_table.description_column_label"
+        "validation_rule_groups.list.validation_rule_groups_table.description_column_label",
       ),
       meta: {
         style: { width: "60%" },
@@ -57,7 +62,8 @@ export default function ValidationRuleGroups() {
     }),
   ];
 
-  const hasValidationRuleGroups = validationRuleGroups && validationRuleGroups.length > 0;
+  const hasValidationRuleGroups =
+    validationRuleGroups && validationRuleGroups.length > 0;
   const disabled = loading || !hasValidationRuleGroups;
   const [validationRuleGroupsDialogOpen, setValidationRuleGroupsDialogOpen] =
     useState(false);
@@ -71,7 +77,7 @@ export default function ValidationRuleGroups() {
         <Button onClick={() => setValidationRuleGroupsDialogOpen(true)}>
           <div className="text-as-icon-large">+</div>
           {t(
-            "validation_rule_groups.list.new_validation_rule_group_button_label"
+            "validation_rule_groups.list.new_validation_rule_group_button_label",
           )}
         </Button>
       </PageHeader>
@@ -79,15 +85,15 @@ export default function ValidationRuleGroups() {
         {/* Table Toolbar */}
         <TableToolbar
           searchbarPlaceholder={t(
-            "validation_rule_groups.list.validation_rule_groups_search_placeholder"
+            "validation_rule_groups.list.validation_rule_groups_search_placeholder",
           )}
           disabled={disabled}
         />
 
         {/* Validation Rule Groups Table */}
-        <Table 
-          data={validationRuleGroups} 
-          columns={columns} 
+        <Table
+          data={validationRuleGroups}
+          columns={columns}
           loading={loading}
           error={error}
           disabled={disabled}
@@ -96,13 +102,13 @@ export default function ValidationRuleGroups() {
           })}
           emptyStateSupportingText={t(
             "common.tables.empty_state_default_supporting_text",
-            { item_name: "validation rule group" }
+            { item_name: "validation rule group" },
           )}
         />
 
         {/* Pagination */}
         {(loading || hasValidationRuleGroups) && (
-          <TablePagination 
+          <TablePagination
             currentPage={pagination.currentPage}
             totalItems={pagination.totalItems}
             itemsPerPage={pagination.itemsPerPage}

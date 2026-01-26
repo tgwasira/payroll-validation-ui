@@ -6,9 +6,9 @@ import {
 import { CaretRightIcon } from "@phosphor-icons/react";
 import React from "react";
 
-import IconOnlyButton from "@/react-ui-library/components/buttons/icon-only-button/IconOnlyButton";
-import { List, ListItem } from "@/react-ui-library/components/lists/List";
-import Tag from "@/react-ui-library/components/tags/tag/Tag";
+import IconOnlyButton from "@algion/react-ui-library/components/buttons/icon-only-button/IconOnlyButton";
+import { List, ListItem } from "@algion/react-ui-library/components/lists/List";
+import Tag from "@algion/react-ui-library/components/tags/tag/Tag";
 
 import ValidationRuleTag from "../validation-rule-tag/ValidationRuleTag";
 import styles from "./ValidationRulesList.module.css";
@@ -37,7 +37,7 @@ export default function ValidationRulesList({ validationRules }) {
                     <DropdownIcon direction="right" />
                   </DisclosureButton>
 
-                  <ValidationRuleTag type="group" name={item["name"]} />
+                  <ValidationRuleTag type="group" slug={item["slug"]} />
                 </div>
                 <DisclosurePanel
                   as="ul"
@@ -48,7 +48,7 @@ export default function ValidationRulesList({ validationRules }) {
                   >
                     <div className={styles.HorizontalSeparator} />
                     <ValidationRuleTag
-                      name={item["name"]}
+                      slug={item["slug"]}
                       className={styles.ValidationRule}
                     />
                   </div>
@@ -57,7 +57,7 @@ export default function ValidationRulesList({ validationRules }) {
                   >
                     <div className={styles.HorizontalSeparator} />
                     <ValidationRuleTag
-                      name={item["name"]}
+                      slug={item["slug"]}
                       className={styles.ValidationRule}
                     />
                   </div>
@@ -68,7 +68,7 @@ export default function ValidationRulesList({ validationRules }) {
                 className={`${styles.ValidationRuleListRow} ${styles.ValidationRuleSingleWrapperNoDisclosure}`}
               >
                 <ValidationRuleTag
-                  name={item["name"]}
+                  slug={item["slug"]}
                   className={styles.ValidationRule}
                 />
               </div>
