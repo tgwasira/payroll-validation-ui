@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import { useApi } from "@/react-ui-library/hooks/useApi";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
 
 import { validationServiceApi } from "../../../../apiConfig";
 
@@ -48,7 +48,7 @@ export default function useValidationJobRun() {
 
       return result.unwrap();
     },
-    [api]
+    [api],
   );
 
   return {

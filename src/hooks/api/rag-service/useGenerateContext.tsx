@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 
-import { useApi } from "@/react-ui-library/hooks/useApi";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
 
 import { ragServiceApi } from "../../../../apiConfig";
 
@@ -12,7 +12,7 @@ export function useGenerateContext() {
       const result = await api.post(data);
       return result;
     },
-    [api]
+    [api],
   );
 
   return {

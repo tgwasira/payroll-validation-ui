@@ -1,8 +1,8 @@
 import { StackIcon } from "@phosphor-icons/react";
 import React from "react";
 
-import Tag from "@/react-ui-library/components/tags/tag/Tag";
-import FunctionIcon from "@/react-ui-library/icons/FunctionIcon";
+import Tag from "@algion/react-ui-library/components/tags/tag/Tag";
+import FunctionIcon from "@algion/react-ui-library/icons/FunctionIcon";
 
 import styles from "./ValidationRuleTag.module.css";
 

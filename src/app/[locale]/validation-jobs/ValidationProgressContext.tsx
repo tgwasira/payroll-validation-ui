@@ -10,7 +10,7 @@ import {
 } from "react";
 
 import { useValidationJobs } from "@/hooks/api/validation-service/useValidationJob";
-import { useSSE } from "@/react-ui-library/contexts/SSEContext";
+import { useSSE } from "@algion/react-ui-library/contexts/SSEContext";
 
 interface ValidationProgress {
   prevValidationJobProgress?: number;
@@ -61,7 +61,7 @@ export function ValidationProgressProvider({
           prevValidationJobProgress: undefined,
           validationJobProgress: progress,
         },
-      ])
+      ]),
     );
 
     setValidationProgresses(map);
@@ -156,7 +156,7 @@ export function useValidationProgress() {
   const context = useContext(ValidationProgressContext);
   if (!context) {
     throw new Error(
-      "useValidationProgress must be used within ValidationProgressProvider"
+      "useValidationProgress must be used within ValidationProgressProvider",
     );
   }
   // TODO: Should we return named values

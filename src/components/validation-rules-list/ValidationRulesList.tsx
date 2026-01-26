@@ -6,9 +6,9 @@ import {
 import { CaretRightIcon } from "@phosphor-icons/react";
 import React from "react";
 
-import IconOnlyButton from "@/react-ui-library/components/buttons/icon-only-button/IconOnlyButton";
-import { List, ListItem } from "@/react-ui-library/components/lists/List";
-import Tag from "@/react-ui-library/components/tags/tag/Tag";
+import IconOnlyButton from "@algion/react-ui-library/components/buttons/icon-only-button/IconOnlyButton";
+import { List, ListItem } from "@algion/react-ui-library/components/lists/List";
+import Tag from "@algion/react-ui-library/components/tags/tag/Tag";
 
 import ValidationRuleTag from "../validation-rule-tag/ValidationRuleTag";
 import styles from "./ValidationRulesList.module.css";

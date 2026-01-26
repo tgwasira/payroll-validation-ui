@@ -5,8 +5,8 @@ import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
 
 import { useValidationRuleMutations } from "@/hooks/api/validation-service/useValidationRules";
-import Button from "@/react-ui-library/components/buttons/button/Button";
-import ButtonGroup from "@/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
+import Button from "@algion/react-ui-library/components/buttons/button/Button";
+import ButtonGroup from "@algion/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
 import {
   Dialog,
   DialogBody,
@@ -16,22 +16,22 @@ import {
   DialogPaddingLR,
   DialogPanel,
   DialogTitle,
-} from "@/react-ui-library/components/dialogs/Dialog";
-import DialogFooterButtonGroup from "@/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
-import FileUpload from "@/react-ui-library/components/file-upload/file-upload/FileUpload_";
-import SelectInputField from "@/react-ui-library/components/forms/form-fields/select-input-field/SelectInputField";
-import TextAreaField from "@/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
-import TextInputField from "@/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
-import { Form } from "@/react-ui-library/components/forms/Forms";
-import ControlledSelectInput from "@/react-ui-library/components/forms/inputs/select-inputs/ControlledSelectInput";
-import Tab1 from "@/react-ui-library/components/tabs/Tab1/Tab1";
+} from "@algion/react-ui-library/components/dialogs/Dialog";
+import DialogFooterButtonGroup from "@algion/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
+import FileUpload from "@algion/react-ui-library/components/file-upload/file-upload/FileUpload_";
+import SelectInputField from "@algion/react-ui-library/components/forms/form-fields/select-input-field/SelectInputField";
+import TextAreaField from "@algion/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
+import TextInputField from "@algion/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
+import { Form } from "@algion/react-ui-library/components/forms/Forms";
+import ControlledSelectInput from "@algion/react-ui-library/components/forms/inputs/select-inputs/ControlledSelectInput";
+import Tab1 from "@algion/react-ui-library/components/tabs/Tab1/Tab1";
 import {
   Tab,
   TabGroup,
   TabList,
   TabPanel,
   TabPanels,
-} from "@/react-ui-library/components/tabs/Tabs";
+} from "@algion/react-ui-library/components/tabs/Tabs";
 
 import styles from "./ValidationDataSourceDialog.module.css";
 import ValidationRulesDialogForm from "./ValidationRulesDialogForm";

@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 
-import { useApi } from "@/react-ui-library/hooks/useApi";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
 
 import { ragServiceApi } from "../../../../apiConfig";
 
@@ -15,7 +15,7 @@ export function useIndexFile() {
 
       return result;
     },
-    [api]
+    [api],
   );
 
   return {

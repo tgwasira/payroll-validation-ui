@@ -12,29 +12,29 @@ import routes from "@/app/routes";
 import NewValidationRuleButton from "@/components/buttons/NewValidationRuleButton";
 import { LOADING_ROWS } from "@/constants";
 import { useValidationRules } from "@/hooks/api/validation-service/useValidationRules";
-import Button from "@/react-ui-library/components/buttons/button/Button";
-import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";
-import PageContent from "@/react-ui-library/components/containers/page-content/PageContent";
-import PageSection from "@/react-ui-library/components/containers/page-section/PageSection";
-import ScrollContainer from "@/react-ui-library/components/containers/scroll-container/ScrollContainer";
-import Input from "@/react-ui-library/components/forms/inputs/Input";
-import SearchInput from "@/react-ui-library/components/forms/inputs/search-input/SearchInput";
-import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
-import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
-import Table from "@/react-ui-library/components/tables/table/Table";
-import TablePagination from "@/react-ui-library/components/tables/table-pagination/TablePagination";
-import TableSearchbar from "@/react-ui-library/components/tables/table-searchbar/TableSearchbar";
-import TableToolbar from "@/react-ui-library/components/tables/table-toolbar/TableToolbar";
-import getActionsColumn from "@/react-ui-library/components/tables/utils/getActionsColumn";
-import getCheckboxColumn from "@/react-ui-library/components/tables/utils/getCheckboxColumn";
-import Tag from "@/react-ui-library/components/tags/tag/Tag";
-import TagGroup from "@/react-ui-library/components/tags/tag-group/TagGroup";
-import PageTitle from "@/react-ui-library/components/text/page-title/PageTitle";
-import { useApi } from "@/react-ui-library/hooks/useApi";
-import FunctionIcon from "@/react-ui-library/icons/FunctionIcon";
-import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
-import SparklesIcon from "@/react-ui-library/icons/SparklesIcon";
-import { capitalize } from "@/react-ui-library/utils/stringUtils";
+import Button from "@algion/react-ui-library/components/buttons/button/Button";
+import Checkbox from "@algion/react-ui-library/components/checkboxes/Checkbox";
+import PageContent from "@algion/react-ui-library/components/containers/page-content/PageContent";
+import PageSection from "@algion/react-ui-library/components/containers/page-section/PageSection";
+import ScrollContainer from "@algion/react-ui-library/components/containers/scroll-container/ScrollContainer";
+import Input from "@algion/react-ui-library/components/forms/inputs/Input";
+import SearchInput from "@algion/react-ui-library/components/forms/inputs/search-input/SearchInput";
+import MenuItemsList from "@algion/react-ui-library/components/menu/MenuItemsList";
+import PageHeader from "@algion/react-ui-library/components/page-elements/page-header/PageHeader";
+import Table from "@algion/react-ui-library/components/tables/table/Table";
+import TablePagination from "@algion/react-ui-library/components/tables/table-pagination/TablePagination";
+import TableSearchbar from "@algion/react-ui-library/components/tables/table-searchbar/TableSearchbar";
+import TableToolbar from "@algion/react-ui-library/components/tables/table-toolbar/TableToolbar";
+import getActionsColumn from "@algion/react-ui-library/components/tables/utils/getActionsColumn";
+import getCheckboxColumn from "@algion/react-ui-library/components/tables/utils/getCheckboxColumn";
+import Tag from "@algion/react-ui-library/components/tags/tag/Tag";
+import TagGroup from "@algion/react-ui-library/components/tags/tag-group/TagGroup";
+import PageTitle from "@algion/react-ui-library/components/text/page-title/PageTitle";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
+import FunctionIcon from "@algion/react-ui-library/icons/FunctionIcon";
+import MSExcelIcon from "@algion/react-ui-library/icons/MSExcelIcon";
+import SparklesIcon from "@algion/react-ui-library/icons/SparklesIcon";
+import { capitalize } from "@algion/react-ui-library/utils/stringUtils";
 import type { ValidationRule } from "@/types/validationServiceTypes";
 
 import ValidationRulesDialog from "./ValidationRulesDialog";
@@ -241,7 +241,7 @@ export default function ValidationRules() {
         {/* Table Toolbar */}
         <TableToolbar
           searchbarPlaceholder={t(
-            "validation_rules.list.validation_rules_search_placeholder"
+            "validation_rules.list.validation_rules_search_placeholder",
           )}
           disabled={disabled}
         />
@@ -254,10 +254,10 @@ export default function ValidationRules() {
           data={validationRules}
           columns={columns}
           emptyStateHeading={t(
-            "validation_rules.list.table.empty_state_heading"
+            "validation_rules.list.table.empty_state_heading",
           )}
           emptyStateSupportingText={t(
-            "validation_rules.list.table.empty_state_supporting_text"
+            "validation_rules.list.table.empty_state_supporting_text",
           )}
           emptyStateRenderButton1={renderAddValidationRuleButton}
           //

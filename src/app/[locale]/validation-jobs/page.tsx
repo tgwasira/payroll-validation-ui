@@ -11,33 +11,33 @@ import routes from "@/app/routes";
 import ValidationRuleTag from "@/components/validation-rule-tag/ValidationRuleTag";
 import { LOADING_ROWS } from "@/constants";
 import { useValidationJobs } from "@/hooks/api/validation-service/useValidationJobs";
-import Button from "@/react-ui-library/components/buttons/button/Button";
-import Checkbox from "@/react-ui-library/components/checkboxes/Checkbox";
-import PageContent from "@/react-ui-library/components/containers/page-content/PageContent";
-import PageSection from "@/react-ui-library/components/containers/page-section/PageSection";
-import Input from "@/react-ui-library/components/forms/inputs/Input";
-import SearchInput from "@/react-ui-library/components/forms/inputs/search-input/SearchInput";
-import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
-import PageHeader from "@/react-ui-library/components/page-elements/page-header/PageHeader";
-import CircularProgressBar from "@/react-ui-library/components/progress-bars/circular-progress-bar/CircularProgressBar";
-import Table from "@/react-ui-library/components/tables/table/Table";
-import TablePagination from "@/react-ui-library/components/tables/table-pagination/TablePagination";
-import TableSearchbar from "@/react-ui-library/components/tables/table-searchbar/TableSearchbar";
-import TableToolbar from "@/react-ui-library/components/tables/table-toolbar/TableToolbar";
-import getActionsColumn from "@/react-ui-library/components/tables/utils/getActionsColumn";
-import getCheckboxColumn from "@/react-ui-library/components/tables/utils/getCheckboxColumn";
-import Tag from "@/react-ui-library/components/tags/tag/Tag";
-import TagGroup from "@/react-ui-library/components/tags/tag-group/TagGroup";
-import PageTitle from "@/react-ui-library/components/text/page-title/PageTitle";
-import Tooltip from "@/react-ui-library/components/tooltips/Tooltip";
-import PdfIcon from "@/react-ui-library/icons/custom/PdfIcon";
-import DocumentIcon from "@/react-ui-library/icons/icons8/DocumentIcon";
-import SpreadsheetIcon from "@/react-ui-library/icons/icons8/SpreadsheetIcon";
-import MSExcelFileIcon from "@/react-ui-library/icons/MSExcelFileIcon";
-import MSExcelIcon from "@/react-ui-library/icons/MSExcelIcon";
-import SuccessIcon from "@/react-ui-library/icons/status-icons/StatusIcon";
-import StatusIcon from "@/react-ui-library/icons/status-icons/StatusIcon";
-import { getFileExtension } from "@/react-ui-library/utils/fileUtils";
+import Button from "@algion/react-ui-library/components/buttons/button/Button";
+import Checkbox from "@algion/react-ui-library/components/checkboxes/Checkbox";
+import PageContent from "@algion/react-ui-library/components/containers/page-content/PageContent";
+import PageSection from "@algion/react-ui-library/components/containers/page-section/PageSection";
+import Input from "@algion/react-ui-library/components/forms/inputs/Input";
+import SearchInput from "@algion/react-ui-library/components/forms/inputs/search-input/SearchInput";
+import MenuItemsList from "@algion/react-ui-library/components/menu/MenuItemsList";
+import PageHeader from "@algion/react-ui-library/components/page-elements/page-header/PageHeader";
+import CircularProgressBar from "@algion/react-ui-library/components/progress-bars/circular-progress-bar/CircularProgressBar";
+import Table from "@algion/react-ui-library/components/tables/table/Table";
+import TablePagination from "@algion/react-ui-library/components/tables/table-pagination/TablePagination";
+import TableSearchbar from "@algion/react-ui-library/components/tables/table-searchbar/TableSearchbar";
+import TableToolbar from "@algion/react-ui-library/components/tables/table-toolbar/TableToolbar";
+import getActionsColumn from "@algion/react-ui-library/components/tables/utils/getActionsColumn";
+import getCheckboxColumn from "@algion/react-ui-library/components/tables/utils/getCheckboxColumn";
+import Tag from "@algion/react-ui-library/components/tags/tag/Tag";
+import TagGroup from "@algion/react-ui-library/components/tags/tag-group/TagGroup";
+import PageTitle from "@algion/react-ui-library/components/text/page-title/PageTitle";
+import Tooltip from "@algion/react-ui-library/components/tooltips/Tooltip";
+import PdfIcon from "@algion/react-ui-library/icons/custom/PdfIcon";
+import DocumentIcon from "@algion/react-ui-library/icons/icons8/DocumentIcon";
+import SpreadsheetIcon from "@algion/react-ui-library/icons/icons8/SpreadsheetIcon";
+import MSExcelFileIcon from "@algion/react-ui-library/icons/MSExcelFileIcon";
+import MSExcelIcon from "@algion/react-ui-library/icons/MSExcelIcon";
+import SuccessIcon from "@algion/react-ui-library/icons/status-icons/StatusIcon";
+import StatusIcon from "@algion/react-ui-library/icons/status-icons/StatusIcon";
+import { getFileExtension } from "@algion/react-ui-library/utils/fileUtils";
 
 import { getValidationSummary } from "./getValidationSummary";
 import { useValidationProgress } from "./ValidationProgressContext";
@@ -64,7 +64,7 @@ function formatDateTime(datetime: string): string {
 export default function ValidationJobsList() {
   const t = useTranslations();
   const [currentStatusFilter, setCurrentStatusFilter] = useState<string | null>(
-    null
+    null,
   );
 
   const {
@@ -107,7 +107,7 @@ export default function ValidationJobsList() {
             {validationDataSource.type === "file" &&
               (() => {
                 const fileExtension = getFileExtension(
-                  validationDataSource.validationFileRecord.fileName
+                  validationDataSource.validationFileRecord.fileName,
                 );
 
                 if (fileExtension === ".xlsx" || fileExtension === ".xls") {
@@ -180,7 +180,7 @@ export default function ValidationJobsList() {
             // maxWidth: "100px",
           },
         },
-      }
+      },
     ),
     columnHelper.accessor(
       (row) => ({
@@ -209,7 +209,7 @@ export default function ValidationJobsList() {
 
           const { status } = validationJobStatus || {};
           const resultsSummary = JSON.parse(
-            validationJobStatus?.summary?.results || "{}"
+            validationJobStatus?.summary?.results || "{}",
           );
 
           // console.log("Updated validation job: ", updatedValidationJob);
@@ -290,7 +290,7 @@ export default function ValidationJobsList() {
             // width: "5%",
           },
         },
-      }
+      },
     ),
     getActionsColumn("actions", columnHelper, () => (
       <MenuItemsList
@@ -337,7 +337,7 @@ export default function ValidationJobsList() {
   const filterOptions = [
     {
       label: t(
-        "validation_jobs.list.validation_jobs_table_toolbar.filter_options.all_filter_option_label"
+        "validation_jobs.list.validation_jobs_table_toolbar.filter_options.all_filter_option_label",
       ),
       onClick: () => {
         fetchValidationJobsWithFilter();
@@ -345,7 +345,7 @@ export default function ValidationJobsList() {
     },
     {
       label: t(
-        "validation_jobs.list.validation_jobs_table_toolbar.filter_options.active_filter_option_label"
+        "validation_jobs.list.validation_jobs_table_toolbar.filter_options.active_filter_option_label",
       ),
       onClick: () => {
         fetchValidationJobsWithFilter("pending");
@@ -353,7 +353,7 @@ export default function ValidationJobsList() {
     },
     {
       label: t(
-        "validation_jobs.list.validation_jobs_table_toolbar.filter_options.successful_filter_option_label"
+        "validation_jobs.list.validation_jobs_table_toolbar.filter_options.successful_filter_option_label",
       ),
       onClick: () => {
         fetchValidationJobsWithFilter("completed");
@@ -425,7 +425,7 @@ export default function ValidationJobsList() {
         <TableToolbar
           filterOptions={filterOptions}
           searchbarPlaceholder={t(
-            "validation_jobs.list.validation_jobs_table_toolbar.search_validation_jobs_placeholder"
+            "validation_jobs.list.validation_jobs_table_toolbar.search_validation_jobs_placeholder",
           )}
           disabled={disabled}
         />
@@ -442,12 +442,12 @@ export default function ValidationJobsList() {
           disabled={disabled}
           emptyStateHeading={t("common.tables.empty_state_default_heading", {
             item_name_plural: t(
-              "validation_jobs.list.empty_state_item_name_plural"
+              "validation_jobs.list.empty_state_item_name_plural",
             ),
           })}
           emptyStateSupportingText={t(
             "common.tables.empty_state_default_supporting_text",
-            { item_name: t("validation_jobs.list.empty_state_item_name") }
+            { item_name: t("validation_jobs.list.empty_state_item_name") },
           )}
           emptyStateRenderButton1={renderNewValidationJobButton}
           scrollable={true}

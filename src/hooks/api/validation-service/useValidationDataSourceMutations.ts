@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 
-import { useApi } from "@/react-ui-library/hooks/useApi";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
 
 import { validationServiceApi } from "../../../../apiConfig";
 
@@ -23,7 +23,7 @@ export function useValidationDataSourceMutations() {
 
       return result;
     },
-    [api]
+    [api],
   );
 
   return {

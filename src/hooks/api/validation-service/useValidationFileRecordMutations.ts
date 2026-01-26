@@ -1,13 +1,13 @@
 import React, { useCallback } from "react";
 
-import { useApi } from "@/react-ui-library/hooks/useApi";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
 
 import { validationServiceApi } from "../../../../apiConfig";
 
 export function useValidationJobFileMutations() {
   const api = useApi(
     validationServiceApi,
-    validationServiceApi.endpoints.validationFileRecords
+    validationServiceApi.endpoints.validationFileRecords,
   );
 
   const createValidationFileRecord = useCallback(
@@ -25,7 +25,7 @@ export function useValidationJobFileMutations() {
 
       return result;
     },
-    [api]
+    [api],
   );
 
   return {

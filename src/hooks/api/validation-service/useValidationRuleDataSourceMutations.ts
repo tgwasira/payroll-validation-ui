@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 
-import { useApi } from "@/react-ui-library/hooks/useApi";
-import { useMultipartFileUpload } from "@/react-ui-library/hooks/useMultipartFileUpload";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
+import { useMultipartFileUpload } from "@algion/react-ui-library/hooks/useMultipartFileUpload";
 
 import { validationServiceApi } from "../../../../apiConfig";
 
@@ -15,7 +15,7 @@ export function useValidationRuleDataSourceMutations() {
     async (file: File, uuid: string) => {
       return await uploadFile(file, { uuid });
     },
-    [uploadFile]
+    [uploadFile],
   );
 
   return {

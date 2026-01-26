@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { toast } from "sonner";
 
-import { useApi } from "@/react-ui-library/hooks/useApi";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
 
 import { validationServiceApi } from "../../../../apiConfig";
 
@@ -26,7 +26,7 @@ export default function useValidationJobMutations() {
 
       return result.unwrap();
     },
-    [api]
+    [api],
   );
 
   return {

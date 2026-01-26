@@ -3,20 +3,20 @@
 import { useTranslations } from "next-intl";
 import React from "react";
 
-import Avatar from "@/react-ui-library/components/avatars/Avatar";
-import Button from "@/react-ui-library/components/buttons/button/Button";
-import SearchInput from "@/react-ui-library/components/forms/inputs//search-input/SearchInput";
-import { Menu } from "@/react-ui-library/components/menu/Menu";
-import { MenuButton } from "@/react-ui-library/components/menu/MenuButton";
-import { MenuDropdown } from "@/react-ui-library/components/menu/MenuDropdown";
-import { MenuItem } from "@/react-ui-library/components/menu/MenuItem";
-import MenuItems from "@/react-ui-library/components/menu/MenuItems";
-import SidebarHeader from "@/react-ui-library/components/sidebar/sidebar-header/SidebarHeader";
-import SidebarBranding from "@/react-ui-library/components/sidebar/SidebarBranding";
+import Avatar from "@algion/react-ui-library/components/avatars/Avatar";
+import Button from "@algion/react-ui-library/components/buttons/button/Button";
+import SearchInput from "@algion/react-ui-library/components/forms/inputs//search-input/SearchInput";
+import { Menu } from "@algion/react-ui-library/components/menu/Menu";
+import { MenuButton } from "@algion/react-ui-library/components/menu/MenuButton";
+import { MenuDropdown } from "@algion/react-ui-library/components/menu/MenuDropdown";
+import { MenuItem } from "@algion/react-ui-library/components/menu/MenuItem";
+import MenuItems from "@algion/react-ui-library/components/menu/MenuItems";
+import SidebarHeader from "@algion/react-ui-library/components/sidebar/sidebar-header/SidebarHeader";
+import SidebarBranding from "@algion/react-ui-library/components/sidebar/SidebarBranding";
 import Topbar, {
   TopbarMainContent,
-} from "@/react-ui-library/components/topbar/Topbar";
-import DropdownIcon from "@/react-ui-library/icons/dropdown-icon/DropdownIcon";
+} from "@algion/react-ui-library/components/topbar/Topbar";
+import DropdownIcon from "@algion/react-ui-library/icons/dropdown-icon/DropdownIcon";
 
 import logogram from "../../../public/logogram.png";
 import styles from "./AppTopbar.module.css";

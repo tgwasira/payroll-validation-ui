@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { useApi } from "@/react-ui-library/hooks/useApi";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
 import type { ValidationRuleGroup } from "@/types/validationServiceTypes";
 
 import { validationServiceApi } from "../../../../apiConfig";
@@ -25,7 +25,7 @@ interface UseValidationRuleGroupsOptions {
  * - `pagination`: Object containing pagination metadata.
  */
 export function useValidationRuleGroups(
-  options: UseValidationRuleGroupsOptions = {}
+  options: UseValidationRuleGroupsOptions = {},
 ) {
   const api = useApi(validationServiceApi, "/validation-rule-groups");
   const { page = 1, limit = 10 } = options;
@@ -71,7 +71,7 @@ export function useValidationRuleGroups(
 
       return items;
     },
-    [api, pagination.currentPage, pagination.itemsPerPage]
+    [api, pagination.currentPage, pagination.itemsPerPage],
   );
 
   useEffect(() => {

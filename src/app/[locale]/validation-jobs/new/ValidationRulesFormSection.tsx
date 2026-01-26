@@ -6,21 +6,21 @@ import ValidationRulesList, {
   ValidationRulesListPaddingLR,
 } from "@/components/validation-rules-list/ValidationRulesList";
 import { useValidationRules } from "@/hooks/api/validation-service/useValidationRules";
-import Button from "@/react-ui-library/components/buttons/button/Button";
+import Button from "@algion/react-ui-library/components/buttons/button/Button";
 import PageSection, {
   PageSectionSpacing,
-} from "@/react-ui-library/components/containers/page-section/PageSection";
+} from "@algion/react-ui-library/components/containers/page-section/PageSection";
 import PageSectionHeader, {
   PageSectionContentsSpacing,
-} from "@/react-ui-library/components/containers/page-section/PageSectionHeader";
-import EmptyState1 from "@/react-ui-library/components/empty-states/EmptyState1";
-import { List, ListItem } from "@/react-ui-library/components/lists/List";
-import { Menu } from "@/react-ui-library/components/menu/Menu";
-import { MenuButton } from "@/react-ui-library/components/menu/MenuButton";
-import { MenuDropdown } from "@/react-ui-library/components/menu/MenuDropdown";
-import MenuItemsList from "@/react-ui-library/components/menu/MenuItemsList";
-import PageSectionTitle from "@/react-ui-library/components/text/page-section-title/PageSectionTitle";
-import PlusIcon from "@/react-ui-library/icons/PlusIcon";
+} from "@algion/react-ui-library/components/containers/page-section/PageSectionHeader";
+import EmptyState1 from "@algion/react-ui-library/components/empty-states/EmptyState1";
+import { List, ListItem } from "@algion/react-ui-library/components/lists/List";
+import { Menu } from "@algion/react-ui-library/components/menu/Menu";
+import { MenuButton } from "@algion/react-ui-library/components/menu/MenuButton";
+import { MenuDropdown } from "@algion/react-ui-library/components/menu/MenuDropdown";
+import MenuItemsList from "@algion/react-ui-library/components/menu/MenuItemsList";
+import PageSectionTitle from "@algion/react-ui-library/components/text/page-section-title/PageSectionTitle";
+import PlusIcon from "@algion/react-ui-library/icons/PlusIcon";
 
 import ValidationRuleItems from "../../validation-rule-groups/ValidationRuleItems";
 

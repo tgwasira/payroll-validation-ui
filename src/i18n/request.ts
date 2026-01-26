@@ -12,7 +12,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   // Load both JSON files for the locale
   const [libraryMessages, appMessages] = await Promise.all([
-    import(`@/react-ui-library/messages/${locale}.json`).then((m) => m.default),
+    import(`@algion/react-ui-library/messages/${locale}.json`).then(
+      (m) => m.default,
+    ),
     import(`../../messages/${locale}.json`).then((m) => m.default),
   ]);
 

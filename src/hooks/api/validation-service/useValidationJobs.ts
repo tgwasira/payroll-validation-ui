@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { useApi } from "@/react-ui-library/hooks/useApi";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
 import {
   GetValidationJobsOptions,
   ValidationJob,
@@ -71,7 +71,7 @@ export function useValidationJobs(options: UseValidationJobsOptions = {}) {
         totalPages: Math.ceil(total / currentLimit),
         itemsPerPage: currentLimit,
       });
-    }
+    },
   );
   // =======
   // const getValidationJobs = useCallback(

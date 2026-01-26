@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import { useApi } from "@/react-ui-library/hooks/useApi";
+import { useApi } from "@algion/react-ui-library/hooks/useApi";
 import type { ValidationRule } from "@/types/validationServiceTypes";
 
 import { validationServiceApi } from "../../../../apiConfig";
@@ -58,7 +58,7 @@ export function useValidationRules(options: UseValidationRulesOptions = {}) {
 
       return items;
     },
-    [api, pagination.currentPage, pagination.itemsPerPage]
+    [api, pagination.currentPage, pagination.itemsPerPage],
   );
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export function useValidationRuleMutations() {
 
       return result.unwrap();
     },
-    [api]
+    [api],
   );
 
   return {
