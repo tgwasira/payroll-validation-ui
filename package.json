@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@algion/react-ui-library": "git+https://${REACT_UI_LIBRARY_TOKEN}@github.com/Algion-Co/react-ui-library",
+    "@algion/react-ui-library": "git+https://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@github.com/Algion-Co/react-ui-library",
     "@atlaskit/pragmatic-drag-and-drop": "^1.7.7",
     "@floating-ui/react": "^0.27.15",
     "@headlessui/react": "^2.2.7",
