@@ -4,7 +4,7 @@ import React from "react";
 
 // import FunctionIcon from "@algion-co/react-ui-library/icons/FunctionIcon";
 import styles from "./ValidationRuleTag.module.css";
-
+//
 export function ValidationRuleTag({
   as = "div",
   slug,
