@@ -30,6 +30,8 @@ const eslintConfig = [
           "ts-check": false,
         },
       ],
+
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 ];
