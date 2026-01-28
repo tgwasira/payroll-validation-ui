@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function BrandingLight() {
+export function BrandingLight() {
   return (
     <svg
       width=""

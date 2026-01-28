@@ -1,4 +1,4 @@
-import ApiClient from "@algion-co/react-ui-library/api/clients";
+import ApiClient from "@algion-co/react-ui-library/api/apiClient";
 
 export const validationServiceApi = new ApiClient({
   baseURL: "http://127.0.0.1:8000",
