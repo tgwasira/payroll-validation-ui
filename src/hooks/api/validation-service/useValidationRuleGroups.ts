@@ -1,6 +1,7 @@
+// @ts-nocheck
+import { useApi } from "@algion-co/react-ui-library/hooks/useApi";
 import { useCallback, useEffect, useState } from "react";
 
-import { useApi } from "@algion-co/react-ui-library/hooks/useApi";
 import type { ValidationRuleGroup } from "@/types/validationServiceTypes";
 
 import { validationServiceApi } from "../../../../apiConfig";

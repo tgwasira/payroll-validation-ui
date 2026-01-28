@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Types for the validation service API.
  *

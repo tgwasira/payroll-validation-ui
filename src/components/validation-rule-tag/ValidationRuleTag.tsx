@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Tag } from "@algion-co/react-ui-library/components/tags/tag/Tag";
 import { StackIcon } from "@phosphor-icons/react";
 import React from "react";

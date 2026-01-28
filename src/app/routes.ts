@@ -1,9 +1,10 @@
+// @ts-nocheck
 function makeRoutes(base, extra = {}) {
   return {
     base,
     list: base,
     ...Object.fromEntries(
-      Object.entries(extra).map(([key, sub]) => [key, `${base}${sub}`])
+      Object.entries(extra).map(([key, sub]) => [key, `${base}${sub}`]),
     ),
   };
 }

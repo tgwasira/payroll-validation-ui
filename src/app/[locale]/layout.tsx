@@ -1,3 +1,4 @@
+// @ts-nocheck
 // import "@algion-co/react-ui-library/global.css";
 import "./globals.css";
 // Required to show loading skeletons

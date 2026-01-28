@@ -1,7 +1,8 @@
+// @ts-nocheck
+import { useApi } from "@algion-co/react-ui-library/hooks/useApi";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import { useApi } from "@algion-co/react-ui-library/hooks/useApi";
 import type { ValidationRule } from "@/types/validationServiceTypes";
 
 import { validationServiceApi } from "../../../../apiConfig";

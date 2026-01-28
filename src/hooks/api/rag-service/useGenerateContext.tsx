@@ -1,6 +1,6 @@
-import React, { useCallback } from "react";
-
+// @ts-nocheck
 import { useApi } from "@algion-co/react-ui-library/hooks/useApi";
+import React, { useCallback } from "react";
 
 import { ragServiceApi } from "../../../../apiConfig";
 

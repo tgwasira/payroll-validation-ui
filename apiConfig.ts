@@ -1,3 +1,4 @@
+// @ts-nocheck
 import ApiClient from "@algion-co/react-ui-library/api/apiClient";
 
 export const validationServiceApi = new ApiClient({

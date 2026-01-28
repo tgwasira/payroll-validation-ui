@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { hasLocale } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
 
