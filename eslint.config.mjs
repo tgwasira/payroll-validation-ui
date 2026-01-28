@@ -19,6 +19,17 @@ const eslintConfig = [
     rules: {
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
+
+      // <-- Allow @ts-nocheck
+      "@typescript-eslint/ban-ts-comment": [
+        "error",
+        {
+          "ts-ignore": "allow-with-description",
+          "ts-nocheck": false, // <-- This allows @ts-nocheck
+          "ts-expect-error": "allow-with-description",
+          "ts-check": false,
+        },
+      ],
     },
   },
 ];
