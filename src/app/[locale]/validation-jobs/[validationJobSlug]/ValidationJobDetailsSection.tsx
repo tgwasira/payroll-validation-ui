@@ -6,15 +6,15 @@ import ValidationRulesList, {
 } from "@/components/validation-rules-list/ValidationRulesList";
 import PageSection, {
   PageSectionSpacing,
-} from "@algion/react-ui-library/components/containers/page-section/PageSection";
-import PageSectionHeader from "@algion/react-ui-library/components/containers/page-section/PageSectionHeader";
+} from "@algion-co/react-ui-library/components/containers/page-section/PageSection";
+import PageSectionHeader from "@algion-co/react-ui-library/components/containers/page-section/PageSectionHeader";
 import {
   Dd,
   Dl,
   Dt,
-} from "@algion/react-ui-library/components/description-list/DescriptionList";
-import FileCard from "@algion/react-ui-library/components/files/file-card/FileCard";
-import PageSectionTitle from "@algion/react-ui-library/components/text/page-section-title/PageSectionTitle";
+} from "@algion-co/react-ui-library/components/description-list/DescriptionList";
+import FileCard from "@algion-co/react-ui-library/components/files/file-card/FileCard";
+import PageSectionTitle from "@algion-co/react-ui-library/components/text/page-section-title/PageSectionTitle";
 
 import { validationServiceApi } from "../../../../../apiConfig";
 import styles from "./ValidationJobDetailsSection.module.css";

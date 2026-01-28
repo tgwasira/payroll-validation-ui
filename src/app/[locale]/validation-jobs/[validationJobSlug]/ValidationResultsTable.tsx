@@ -3,13 +3,13 @@ import { useTranslations } from "next-intl";
 import React from "react";
 
 import ValidationRuleTag from "@/components/validation-rule-tag/ValidationRuleTag";
-import MenuItemsList from "@algion/react-ui-library/components/menu/MenuItemsList";
-import Table from "@algion/react-ui-library/components/tables/table/Table";
-import TableToolbar from "@algion/react-ui-library/components/tables/table-toolbar/TableToolbar";
-import getActionsColumn from "@algion/react-ui-library/components/tables/utils/getActionsColumn";
-import getCheckboxColumn from "@algion/react-ui-library/components/tables/utils/getCheckboxColumn";
-import Tag from "@algion/react-ui-library/components/tags/tag/Tag";
-import { toSpreadsheetRange } from "@algion/react-ui-library/utils/spreadsheetUtils";
+import MenuItemsList from "@algion-co/react-ui-library/components/menu/MenuItemsList";
+import Table from "@algion-co/react-ui-library/components/tables/table/Table";
+import TableToolbar from "@algion-co/react-ui-library/components/tables/table-toolbar/TableToolbar";
+import getActionsColumn from "@algion-co/react-ui-library/components/tables/utils/getActionsColumn";
+import getCheckboxColumn from "@algion-co/react-ui-library/components/tables/utils/getCheckboxColumn";
+import Tag from "@algion-co/react-ui-library/components/tags/tag/Tag";
+import { toSpreadsheetRange } from "@algion-co/react-ui-library/utils/spreadsheetUtils";
 
 export default function ValidationResultsTable({ validationResult }) {
   const t = useTranslations();

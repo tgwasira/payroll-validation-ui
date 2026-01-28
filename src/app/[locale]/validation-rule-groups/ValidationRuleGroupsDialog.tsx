@@ -3,9 +3,9 @@ import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import { useFieldArray } from "react-hook-form";
 
-import Button from "@algion/react-ui-library/components/buttons/button/Button";
-import ButtonGroup from "@algion/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
-import RightAlignedContent from "@algion/react-ui-library/components/containers/right-aligned-content/RightAlignedContent";
+import Button from "@algion-co/react-ui-library/components/buttons/button/Button";
+import ButtonGroup from "@algion-co/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
+import RightAlignedContent from "@algion-co/react-ui-library/components/containers/right-aligned-content/RightAlignedContent";
 import {
   Dialog,
   DialogBody,
@@ -15,27 +15,30 @@ import {
   DialogPaddingLR,
   DialogPanel,
   DialogTitle,
-} from "@algion/react-ui-library/components/dialogs/Dialog";
-import DialogFooterButtonGroup from "@algion/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
-import FileUpload from "@algion/react-ui-library/components/file-upload/file-upload/FileUpload_";
-import TextAreaField from "@algion/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
-import TextInputField from "@algion/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
+} from "@algion-co/react-ui-library/components/dialogs/Dialog";
+import DialogFooterButtonGroup from "@algion-co/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
+import FileUpload from "@algion-co/react-ui-library/components/file-upload/file-upload/FileUpload_";
+import TextAreaField from "@algion-co/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
+import TextInputField from "@algion-co/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
 import {
   Form,
   FormPageSectionTitle,
   FormSection,
-} from "@algion/react-ui-library/components/forms/Forms";
-import ControlledSelect from "@algion/react-ui-library/components/forms/inputs/select-forms/inputs/ControlledSelect";
-import Select from "@algion/react-ui-library/components/forms/inputs/select-forms/inputs/Select";
-import { List, ListItem } from "@algion/react-ui-library/components/lists/List";
-import Tab1 from "@algion/react-ui-library/components/tabs/Tab1/Tab1";
+} from "@algion-co/react-ui-library/components/forms/Forms";
+import ControlledSelect from "@algion-co/react-ui-library/components/forms/inputs/select-forms/inputs/ControlledSelect";
+import Select from "@algion-co/react-ui-library/components/forms/inputs/select-forms/inputs/Select";
+import {
+  List,
+  ListItem,
+} from "@algion-co/react-ui-library/components/lists/List";
+import Tab1 from "@algion-co/react-ui-library/components/tabs/Tab1/Tab1";
 import {
   Tab,
   TabGroup,
   TabList,
   TabPanel,
   TabPanels,
-} from "@algion/react-ui-library/components/tabs/Tabs";
+} from "@algion-co/react-ui-library/components/tabs/Tabs";
 
 import styles from "./ValidationRuleGroupsDialog.module.css";
 import ValidationRuleItem from "./ValidationRuleItem";

@@ -8,9 +8,9 @@ import React, { useEffect, useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
 import { useValidationRuleMutations } from "@/hooks/api/validation-service/useValidationRules";
-import Button from "@algion/react-ui-library/components/buttons/button/Button";
-import ButtonGroup from "@algion/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
-import ScrollContainer from "@algion/react-ui-library/components/containers/scroll-container/ScrollContainer";
+import Button from "@algion-co/react-ui-library/components/buttons/button/Button";
+import ButtonGroup from "@algion-co/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
+import ScrollContainer from "@algion-co/react-ui-library/components/containers/scroll-container/ScrollContainer";
 import {
   Dialog,
   DialogBody,
@@ -22,36 +22,36 @@ import {
   DialogTabGroup,
   DialogTabList,
   DialogTitle,
-} from "@algion/react-ui-library/components/dialogs/Dialog";
-import DialogFooterButtonGroup from "@algion/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
-import FileUpload from "@algion/react-ui-library/components/file-upload/file-upload/FileUpload_";
-import ThumbnailFileUpload from "@algion/react-ui-library/components/file-upload/thumbnail-file-upload/ThumbnailFileUpload";
-import { HorizontalFormFieldGroup } from "@algion/react-ui-library/components/forms/form-fields/form-field-groups/FormFieldGroups";
-import NumericInputField from "@algion/react-ui-library/components/forms/form-fields/numeric-input-field/NumericInputField";
-import SelectInputField from "@algion/react-ui-library/components/forms/form-fields/select-input-field/SelectInputField";
-import TextAreaField from "@algion/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
-import TextInputField from "@algion/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
+} from "@algion-co/react-ui-library/components/dialogs/Dialog";
+import DialogFooterButtonGroup from "@algion-co/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
+import FileUpload from "@algion-co/react-ui-library/components/file-upload/file-upload/FileUpload_";
+import ThumbnailFileUpload from "@algion-co/react-ui-library/components/file-upload/thumbnail-file-upload/ThumbnailFileUpload";
+import { HorizontalFormFieldGroup } from "@algion-co/react-ui-library/components/forms/form-fields/form-field-groups/FormFieldGroups";
+import NumericInputField from "@algion-co/react-ui-library/components/forms/form-fields/numeric-input-field/NumericInputField";
+import SelectInputField from "@algion-co/react-ui-library/components/forms/form-fields/select-input-field/SelectInputField";
+import TextAreaField from "@algion-co/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
+import TextInputField from "@algion-co/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
 import {
   Form,
   FormSection,
   FormVerticalSpacing,
-} from "@algion/react-ui-library/components/forms/Forms";
-import ControlledSelectInput from "@algion/react-ui-library/components/forms/inputs/select-inputs/ControlledSelectInput";
-import SelectInput from "@algion/react-ui-library/components/forms/inputs/select-inputs/SelectInput";
-import Tab1 from "@algion/react-ui-library/components/tabs/Tab1/Tab1";
+} from "@algion-co/react-ui-library/components/forms/Forms";
+import ControlledSelectInput from "@algion-co/react-ui-library/components/forms/inputs/select-inputs/ControlledSelectInput";
+import SelectInput from "@algion-co/react-ui-library/components/forms/inputs/select-inputs/SelectInput";
+import Tab1 from "@algion-co/react-ui-library/components/tabs/Tab1/Tab1";
 import {
   Tab,
   TabGroup,
   TabList,
   TabPanel,
   TabPanels,
-} from "@algion/react-ui-library/components/tabs/Tabs";
+} from "@algion-co/react-ui-library/components/tabs/Tabs";
 import {
   Tab3,
   TabList3,
-} from "@algion/react-ui-library/components/tabs/tabs3/Tabs3";
-import CalendarIcon from "@algion/react-ui-library/icons/CalendarIcon";
-import TypeIcon from "@algion/react-ui-library/icons/TypeIcon";
+} from "@algion-co/react-ui-library/components/tabs/tabs3/Tabs3";
+import CalendarIcon from "@algion-co/react-ui-library/icons/CalendarIcon";
+import TypeIcon from "@algion-co/react-ui-library/icons/TypeIcon";
 
 import NumberFields from "./data-type-specific-fields/NumberFields";
 import FormulaBasedValidationRuleFormContent from "./FormulaBasedValidationRuleFormContent";

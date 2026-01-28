@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { useSSE } from "@algion/react-ui-library/contexts/SSEContext";
+import { useSSE } from "@algion-co/react-ui-library/contexts/SSEContext";
 
 export function useStreamingText(jobId?: string) {
   const { connect, subscribe } = useSSE();

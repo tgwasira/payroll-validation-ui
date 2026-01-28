@@ -10,7 +10,7 @@ import {
 } from "react";
 
 import { useValidationJobs } from "@/hooks/api/validation-service/useValidationJob";
-import { useSSE } from "@algion/react-ui-library/contexts/SSEContext";
+import { useSSE } from "@algion-co/react-ui-library/contexts/SSEContext";
 
 interface ValidationProgress {
   prevValidationJobProgress?: number;

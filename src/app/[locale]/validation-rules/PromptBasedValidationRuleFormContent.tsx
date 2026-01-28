@@ -8,28 +8,28 @@ import { useValidationRuleDataSourceMutations } from "@/hooks/api/validation-ser
 import { useStreamingText } from "@/hooks/useStreamingText";
 import Button, {
   IconButton,
-} from "@algion/react-ui-library/components/buttons/button/Button";
+} from "@algion-co/react-ui-library/components/buttons/button/Button";
 import PageSubsubsection, {
   PageSubsubsectionDisclosureButton,
-} from "@algion/react-ui-library/components/containers/page-subsubsection/PageSubsubsection";
-import { DialogPaddingLR } from "@algion/react-ui-library/components/dialogs/Dialog";
+} from "@algion-co/react-ui-library/components/containers/page-subsubsection/PageSubsubsection";
+import { DialogPaddingLR } from "@algion-co/react-ui-library/components/dialogs/Dialog";
 import ThumbnailFileUpload, {
   ThumbnailFileItem,
   ThumbnailFileUploadsContainer,
-} from "@algion/react-ui-library/components/file-upload/thumbnail-file-upload/ThumbnailFileUpload";
-import InputFieldWrapper from "@algion/react-ui-library/components/forms/form-fields/InputFieldWrapper";
-import TextAreaField from "@algion/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
+} from "@algion-co/react-ui-library/components/file-upload/thumbnail-file-upload/ThumbnailFileUpload";
+import InputFieldWrapper from "@algion-co/react-ui-library/components/forms/form-fields/InputFieldWrapper";
+import TextAreaField from "@algion-co/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
 import {
   FormSection,
   FormSectionSubtitle,
   FormSectionTitle,
   FormVerticalSpacing,
-} from "@algion/react-ui-library/components/forms/Forms";
-import TextArea from "@algion/react-ui-library/components/forms/inputs/text-area/TextArea";
-import CircularProgress from "@algion/react-ui-library/components/progress-bars/circular-progress-bar/CircularProgressBar";
-import { useSSE } from "@algion/react-ui-library/contexts/SSEContext";
-import DropdownIcon from "@algion/react-ui-library/icons/dropdown-icon/DropdownIcon";
-import SparklesIcon from "@algion/react-ui-library/icons/SparklesIcon";
+} from "@algion-co/react-ui-library/components/forms/Forms";
+import TextArea from "@algion-co/react-ui-library/components/forms/inputs/text-area/TextArea";
+import CircularProgress from "@algion-co/react-ui-library/components/progress-bars/circular-progress-bar/CircularProgressBar";
+import { useSSE } from "@algion-co/react-ui-library/contexts/SSEContext";
+import DropdownIcon from "@algion-co/react-ui-library/icons/dropdown-icon/DropdownIcon";
+import SparklesIcon from "@algion-co/react-ui-library/icons/SparklesIcon";
 
 import styles from "./PromptBasedValidationRuleFormContent.module.css";
 import validationRulesDialogFormStyles from "./ValidationRulesDialogForm.module.css";

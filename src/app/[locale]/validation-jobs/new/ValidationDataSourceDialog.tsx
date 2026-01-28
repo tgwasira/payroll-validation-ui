@@ -4,9 +4,9 @@ import { set, useFieldArray, useFormContext } from "react-hook-form";
 
 import { useValidationDataSourceMutations } from "@/hooks/api/validation-service/useValidationDataSourceMutations";
 import { useValidationJobFileMutations } from "@/hooks/api/validation-service/useValidationFileRecordMutations";
-import Button from "@algion/react-ui-library/components/buttons/button/Button";
-import ButtonGroup from "@algion/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
-import ScrollContainer from "@algion/react-ui-library/components/containers/scroll-container/ScrollContainer";
+import Button from "@algion-co/react-ui-library/components/buttons/button/Button";
+import ButtonGroup from "@algion-co/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
+import ScrollContainer from "@algion-co/react-ui-library/components/containers/scroll-container/ScrollContainer";
 import {
   Dialog,
   DialogBody,
@@ -18,22 +18,25 @@ import {
   DialogPanel,
   DialogTabList,
   DialogTitle,
-} from "@algion/react-ui-library/components/dialogs/Dialog";
-import DialogFooterButtonGroup from "@algion/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
-import FileUpload from "@algion/react-ui-library/components/file-upload/file-upload/FileUpload";
-// import FileUpload from "@algion/react-ui-library/components/file-upload/FileUpload_";
-import { Form } from "@algion/react-ui-library/components/forms/Forms";
-import { List, ListItem } from "@algion/react-ui-library/components/lists/List";
-import Tab1 from "@algion/react-ui-library/components/tabs/Tab1/Tab1";
+} from "@algion-co/react-ui-library/components/dialogs/Dialog";
+import DialogFooterButtonGroup from "@algion-co/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
+import FileUpload from "@algion-co/react-ui-library/components/file-upload/file-upload/FileUpload";
+// import FileUpload from "@algion-co/react-ui-library/components/file-upload/FileUpload_";
+import { Form } from "@algion-co/react-ui-library/components/forms/Forms";
+import {
+  List,
+  ListItem,
+} from "@algion-co/react-ui-library/components/lists/List";
+import Tab1 from "@algion-co/react-ui-library/components/tabs/Tab1/Tab1";
 import {
   Tab,
   TabGroup,
   TabList,
   TabPanel,
   TabPanels,
-} from "@algion/react-ui-library/components/tabs/Tabs";
-import { Tab3 } from "@algion/react-ui-library/components/tabs/tabs3/Tabs3";
-import MSExcelIcon from "@algion/react-ui-library/icons/MSExcelIcon";
+} from "@algion-co/react-ui-library/components/tabs/Tabs";
+import { Tab3 } from "@algion-co/react-ui-library/components/tabs/tabs3/Tabs3";
+import MSExcelIcon from "@algion-co/react-ui-library/icons/MSExcelIcon";
 
 import FileList from "../../../../react-ui-library/components/files/file-list/FileList";
 import styles from "./ValidationDataSourceDialog.module.css";

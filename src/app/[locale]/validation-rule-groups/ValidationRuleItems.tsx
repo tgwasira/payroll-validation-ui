@@ -3,16 +3,19 @@ import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
-import Button from "@algion/react-ui-library/components/buttons/button/Button";
-import RightAlignedContent from "@algion/react-ui-library/components/containers/right-aligned-content/RightAlignedContent";
-import { DialogPaddingLR } from "@algion/react-ui-library/components/dialogs/Dialog";
-import SearchableSelect from "@algion/react-ui-library/components/forms/inputs/select-forms/inputs/SearchableSelect";
-import Select from "@algion/react-ui-library/components/forms/inputs/select-forms/inputs/Select";
-import { List, ListItem } from "@algion/react-ui-library/components/lists/List";
-import { Menu } from "@algion/react-ui-library/components/menu/Menu";
-import { MenuButton } from "@algion/react-ui-library/components/menu/MenuButton";
-import { MenuDropdown } from "@algion/react-ui-library/components/menu/MenuDropdown";
-import MenuItemsList from "@algion/react-ui-library/components/menu/MenuItemsList";
+import Button from "@algion-co/react-ui-library/components/buttons/button/Button";
+import RightAlignedContent from "@algion-co/react-ui-library/components/containers/right-aligned-content/RightAlignedContent";
+import { DialogPaddingLR } from "@algion-co/react-ui-library/components/dialogs/Dialog";
+import SearchableSelect from "@algion-co/react-ui-library/components/forms/inputs/select-forms/inputs/SearchableSelect";
+import Select from "@algion-co/react-ui-library/components/forms/inputs/select-forms/inputs/Select";
+import {
+  List,
+  ListItem,
+} from "@algion-co/react-ui-library/components/lists/List";
+import { Menu } from "@algion-co/react-ui-library/components/menu/Menu";
+import { MenuButton } from "@algion-co/react-ui-library/components/menu/MenuButton";
+import { MenuDropdown } from "@algion-co/react-ui-library/components/menu/MenuDropdown";
+import MenuItemsList from "@algion-co/react-ui-library/components/menu/MenuItemsList";
 
 import styles from "./ValidationRuleItems.module.css";
 

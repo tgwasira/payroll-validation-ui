@@ -6,21 +6,24 @@ import ValidationRulesList, {
   ValidationRulesListPaddingLR,
 } from "@/components/validation-rules-list/ValidationRulesList";
 import { useValidationRules } from "@/hooks/api/validation-service/useValidationRules";
-import Button from "@algion/react-ui-library/components/buttons/button/Button";
+import Button from "@algion-co/react-ui-library/components/buttons/button/Button";
 import PageSection, {
   PageSectionSpacing,
-} from "@algion/react-ui-library/components/containers/page-section/PageSection";
+} from "@algion-co/react-ui-library/components/containers/page-section/PageSection";
 import PageSectionHeader, {
   PageSectionContentsSpacing,
-} from "@algion/react-ui-library/components/containers/page-section/PageSectionHeader";
-import EmptyState1 from "@algion/react-ui-library/components/empty-states/EmptyState1";
-import { List, ListItem } from "@algion/react-ui-library/components/lists/List";
-import { Menu } from "@algion/react-ui-library/components/menu/Menu";
-import { MenuButton } from "@algion/react-ui-library/components/menu/MenuButton";
-import { MenuDropdown } from "@algion/react-ui-library/components/menu/MenuDropdown";
-import MenuItemsList from "@algion/react-ui-library/components/menu/MenuItemsList";
-import PageSectionTitle from "@algion/react-ui-library/components/text/page-section-title/PageSectionTitle";
-import PlusIcon from "@algion/react-ui-library/icons/PlusIcon";
+} from "@algion-co/react-ui-library/components/containers/page-section/PageSectionHeader";
+import EmptyState1 from "@algion-co/react-ui-library/components/empty-states/EmptyState1";
+import {
+  List,
+  ListItem,
+} from "@algion-co/react-ui-library/components/lists/List";
+import { Menu } from "@algion-co/react-ui-library/components/menu/Menu";
+import { MenuButton } from "@algion-co/react-ui-library/components/menu/MenuButton";
+import { MenuDropdown } from "@algion-co/react-ui-library/components/menu/MenuDropdown";
+import MenuItemsList from "@algion-co/react-ui-library/components/menu/MenuItemsList";
+import PageSectionTitle from "@algion-co/react-ui-library/components/text/page-section-title/PageSectionTitle";
+import PlusIcon from "@algion-co/react-ui-library/icons/PlusIcon";
 
 import ValidationRuleItems from "../../validation-rule-groups/ValidationRuleItems";
 

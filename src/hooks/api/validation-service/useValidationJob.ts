@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { useApi } from "@algion/react-ui-library/hooks/useApi";
+import { useApi } from "@algion-co/react-ui-library/hooks/useApi";
 import { ValidationJob } from "@/types/validationServiceTypes";
 
 import { validationServiceApi } from "../../../../apiConfig";

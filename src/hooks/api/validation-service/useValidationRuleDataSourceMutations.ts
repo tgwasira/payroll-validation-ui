@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 
-import { useApi } from "@algion/react-ui-library/hooks/useApi";
-import { useMultipartFileUpload } from "@algion/react-ui-library/hooks/useMultipartFileUpload";
+import { useApi } from "@algion-co/react-ui-library/hooks/useApi";
+import { useMultipartFileUpload } from "@algion-co/react-ui-library/hooks/useMultipartFileUpload";
 
 import { validationServiceApi } from "../../../../apiConfig";
 

@@ -1,14 +1,14 @@
-// import "@algion/react-ui-library/global.css";
+// import "@algion-co/react-ui-library/global.css";
 import "./globals.css";
 // Required to show loading skeletons
 import "react-loading-skeleton/dist/skeleton.css";
 
-import { Button } from "@algion/react-ui-library";
-// import SearchInput from "@algion/react-ui-library/components/forms/inputs/search-input/SearchInput";
-// import { Toaster } from "@algion/react-ui-library/components/toasts/Toaster";
-// import Topbar from "@algion/react-ui-library/components/topbar/Topbar";
-// import { SSEProvider } from "@algion/react-ui-library/contexts/SSEContext";
-// import { WebSocketProvider } from "@algion/react-ui-library/contexts/WebSocketContext";
+import { Button } from "@algion-co/react-ui-library";
+// import SearchInput from "@algion-co/react-ui-library/components/forms/inputs/search-input/SearchInput";
+// import { Toaster } from "@algion-co/react-ui-library/components/toasts/Toaster";
+// import Topbar from "@algion-co/react-ui-library/components/topbar/Topbar";
+// import { SSEProvider } from "@algion-co/react-ui-library/contexts/SSEContext";
+// import { WebSocketProvider } from "@algion-co/react-ui-library/contexts/WebSocketContext";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";

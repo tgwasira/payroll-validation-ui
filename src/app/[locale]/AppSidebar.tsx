@@ -1,3 +1,6 @@
+import Sidebar from "@algion-co/react-ui-library/components/sidebar/Sidebar";
+import SidebarBranding from "@algion-co/react-ui-library/components/sidebar/SidebarBranding";
+import SidebarTabGroup from "@algion-co/react-ui-library/components/sidebar/SidebarTabGroup";
 import {
   FileMagnifyingGlassIcon,
   ListChecksIcon,
@@ -6,9 +9,6 @@ import { useTranslations } from "next-intl";
 import React from "react";
 
 import BrandingLight from "@/components/BrandingLight";
-import Sidebar from "@algion/react-ui-library/components/sidebar/Sidebar";
-import SidebarBranding from "@algion/react-ui-library/components/sidebar/SidebarBranding";
-import SidebarTabGroup from "@algion/react-ui-library/components/sidebar/SidebarTabGroup";
 
 import routes from "../routes";
 import styles from "./AppSidebar.module.css";
