@@ -1,0 +1,12 @@
+.AppTopbar__Searchbar {
+  width: 50%;
+  background-color: var(--color-bg-secondary);
+  border: none;
+}
+
+.MainContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}

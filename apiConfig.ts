@@ -1,5 +1,5 @@
 // @ts-nocheck
-import ApiClient from "@algion-co/react-ui-library/api/apiClient";
+import { ApiClient } from "@algion-co/react-ui-library";
 
 export const validationServiceApi = new ApiClient({
   baseURL: "http://127.0.0.1:8000",

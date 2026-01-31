@@ -14,7 +14,7 @@ interface ValidationResult {
   errors?: string[];
 }
 
-export default function useValidationJobRun() {
+export function useValidationJobRun() {
   const t = useTranslations();
 
   const api = useApi(validationServiceApi);

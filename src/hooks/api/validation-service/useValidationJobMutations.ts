@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 import { validationServiceApi } from "../../../../apiConfig";
 
-export default function useValidationJobMutations() {
+export function useValidationJobMutations() {
   const api = useApi(validationServiceApi, "/validation-jobs");
 
   const createValidationJob = useCallback(
