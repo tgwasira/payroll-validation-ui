@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { Sidebar } from "@algion-co/react-ui-library/components/sidebar/Sidebar";
-import { SidebarBranding } from "@algion-co/react-ui-library/components/sidebar/SidebarBranding";
-import { SidebarTabGroup } from "@algion-co/react-ui-library/components/sidebar/SidebarTabGroup";
+import { Sidebar } from "@algion-co/react-ui-library";
+import { SidebarBranding } from "@algion-co/react-ui-library";
+import { SidebarTabGroup } from "@algion-co/react-ui-library";
 import {
   FileMagnifyingGlassIcon,
   ListChecksIcon,

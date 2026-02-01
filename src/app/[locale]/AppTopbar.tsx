@@ -3,16 +3,16 @@
 
 import { Avatar } from "@algion-co/react-ui-library";
 import { Button } from "@algion-co/react-ui-library";
-import { DropdownIcon } from "@algion-co/react-ui-library/DropdownIcon";
-import { Menu } from "@algion-co/react-ui-library/Menu";
-import { MenuButton } from "@algion-co/react-ui-library/MenuButton";
-import { MenuDropdown } from "@algion-co/react-ui-library/MenuDropdown";
-import { MenuItem } from "@algion-co/react-ui-library/MenuItem";
-import { MenuItems } from "@algion-co/react-ui-library/MenuItems";
-import { SearchInput } from "@algion-co/react-ui-library/SearchInput";
-import { SidebarBranding } from "@algion-co/react-ui-library/SidebarBranding";
-import { SidebarHeader } from "@algion-co/react-ui-library/SidebarHeader";
-import { Topbar, TopbarMainContent } from "@algion-co/react-ui-library/Topbar";
+import { DropdownIcon } from "@algion-co/react-ui-library";
+import { Menu } from "@algion-co/react-ui-library";
+import { MenuButton } from "@algion-co/react-ui-library";
+import { MenuDropdown } from "@algion-co/react-ui-library";
+import { MenuItem } from "@algion-co/react-ui-library";
+import { MenuItems } from "@algion-co/react-ui-library";
+import { SearchInput } from "@algion-co/react-ui-library";
+import { SidebarBranding } from "@algion-co/react-ui-library";
+import { SidebarHeader } from "@algion-co/react-ui-library";
+import { Topbar, TopbarMainContent } from "@algion-co/react-ui-library";
 import { useTranslations } from "next-intl";
 import React from "react";
 

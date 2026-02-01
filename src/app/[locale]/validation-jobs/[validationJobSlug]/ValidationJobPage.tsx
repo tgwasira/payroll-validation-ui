@@ -1,22 +1,19 @@
 // @ts-nocheck
 "use client";
 
-import PageContent from "@algion-co/react-ui-library/components/containers/page-content/PageContent";
-import PageSection from "@algion-co/react-ui-library/components/containers/page-section/PageSection";
-import PageHeader from "@algion-co/react-ui-library/components/page-elements/page-header/PageHeader";
-import {
-  PageTabGroup,
-  PageTabList,
-} from "@algion-co/react-ui-library/components/page-elements/page-tabs/PageTabs";
-import Table from "@algion-co/react-ui-library/components/tables/table/Table";
-import Tab2 from "@algion-co/react-ui-library/components/tabs/Tab2/Tab2";
+import PageContent from "@algion-co/react-ui-library";
+import PageSection from "@algion-co/react-ui-library";
+import PageHeader from "@algion-co/react-ui-library";
+import { PageTabGroup, PageTabList } from "@algion-co/react-ui-library";
+import Table from "@algion-co/react-ui-library";
+import Tab2 from "@algion-co/react-ui-library";
 import {
   TabGroup,
   TabList,
   TabPanel,
   TabPanels,
-} from "@algion-co/react-ui-library/components/tabs/Tabs";
-import PageTitleAndBackButton from "@algion-co/react-ui-library/components/text/page-title-and-back-button/PageTitleAndBackButton";
+} from "@algion-co/react-ui-library";
+import PageTitleAndBackButton from "@algion-co/react-ui-library";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 

@@ -1,24 +1,18 @@
 // @ts-nocheck
-import { Button } from "@algion-co/react-ui-library/components/buttons/button/Button";
-import {
-  PageSection,
-  PageSectionSpacing,
-} from "@algion-co/react-ui-library/components/containers/page-section/PageSection";
+import { Button } from "@algion-co/react-ui-library";
+import { PageSection, PageSectionSpacing } from "@algion-co/react-ui-library";
 import {
   PageSectionContentsSpacing,
   PageSectionHeader,
-} from "@algion-co/react-ui-library/components/containers/page-section/PageSectionHeader";
-import { EmptyState1 } from "@algion-co/react-ui-library/components/empty-states/EmptyState1";
-import {
-  List,
-  ListItem,
-} from "@algion-co/react-ui-library/components/lists/List";
-import { Menu } from "@algion-co/react-ui-library/components/menu/Menu";
-import { MenuButton } from "@algion-co/react-ui-library/components/menu/MenuButton";
-import { MenuDropdown } from "@algion-co/react-ui-library/components/menu/MenuDropdown";
-import { MenuItemsList } from "@algion-co/react-ui-library/components/menu/MenuItemsList";
-import { PageSectionTitle } from "@algion-co/react-ui-library/components/text/page-section-title/PageSectionTitle";
-import { PlusIcon } from "@algion-co/react-ui-library/icons/PlusIcon";
+} from "@algion-co/react-ui-library";
+import { EmptyState1 } from "@algion-co/react-ui-library";
+import { List, ListItem } from "@algion-co/react-ui-library";
+import { Menu } from "@algion-co/react-ui-library";
+import { MenuButton } from "@algion-co/react-ui-library";
+import { MenuDropdown } from "@algion-co/react-ui-library";
+import { MenuItemsList } from "@algion-co/react-ui-library";
+import { PageSectionTitle } from "@algion-co/react-ui-library";
+import { PlusIcon } from "@algion-co/react-ui-library";
 import { useTranslations } from "next-intl";
 import React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";

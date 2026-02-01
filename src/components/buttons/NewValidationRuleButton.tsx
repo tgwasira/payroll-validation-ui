@@ -2,7 +2,7 @@
 // import { useTranslations } from "next-intl";
 // import React from "react";
 
-// import Button from "@algion-co/react-ui-library/components/buttons/button/Button";
+// import Button from "@algion-co/react-ui-library";
 
 //// We don't need this yet. Only when we need to create new validation rules with same button in different commponents
 // export default function NewValidationRuleButton({ onClick }) {

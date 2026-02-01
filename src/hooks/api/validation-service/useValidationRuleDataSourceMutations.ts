@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { useApi } from "@algion-co/react-ui-library/hooks/useApi";
-import { useMultipartFileUpload } from "@algion-co/react-ui-library/hooks/useMultipartFileUpload";
+import { useApi } from "@algion-co/react-ui-library";
+import { useMultipartFileUpload } from "@algion-co/react-ui-library";
 import React, { useCallback } from "react";
 
 import { validationServiceApi } from "../../../../apiConfig";

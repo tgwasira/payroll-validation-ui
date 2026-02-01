@@ -1,30 +1,36 @@
 // @ts-nocheck
 import Button, {
+  FormPageSectionTitle,
   IconButton,
-} from "@algion-co/react-ui-library/components/buttons/button/Button";
+  PageSection,
+  PageSectionDisclosureButton,
+  PageSectionDisclosurePanel,
+  PageSectionHeader,
+  PageSectionTitle,
+} from "@algion-co/react-ui-library";
 import {
   PageSubsubsection,
   PageSubsubsectionDisclosureButton,
-} from "@algion-co/react-ui-library/components/containers/page-subsubsection/PageSubsubsection";
-import { DialogPaddingLR } from "@algion-co/react-ui-library/components/dialogs/Dialog";
+} from "@algion-co/react-ui-library";
+import { DialogPaddingLR } from "@algion-co/react-ui-library";
 import {
   ThumbnailFileItem,
   ThumbnailFileUpload,
   ThumbnailFileUploadsContainer,
-} from "@algion-co/react-ui-library/components/file-upload/thumbnail-file-upload/ThumbnailFileUpload";
-import { InputFieldWrapper } from "@algion-co/react-ui-library/components/forms/form-fields/InputFieldWrapper";
-import { TextAreaField } from "@algion-co/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
+} from "@algion-co/react-ui-library";
+import { InputFieldWrapper } from "@algion-co/react-ui-library";
+import { TextAreaField } from "@algion-co/react-ui-library";
 import {
   FormSection,
   FormSectionSubtitle,
   FormSectionTitle,
   FormVerticalSpacing,
-} from "@algion-co/react-ui-library/components/forms/Forms";
-import { TextArea } from "@algion-co/react-ui-library/components/forms/inputs/text-area/TextArea";
-import { CircularProgress } from "@algion-co/react-ui-library/components/progress-bars/circular-progress-bar/CircularProgressBar";
-import { useSSE } from "@algion-co/react-ui-library/contexts/SSEContext";
-import { DropdownIcon } from "@algion-co/react-ui-library/icons/dropdown-icon/DropdownIcon";
-import { SparklesIcon } from "@algion-co/react-ui-library/icons/SparklesIcon";
+} from "@algion-co/react-ui-library";
+import { TextArea } from "@algion-co/react-ui-library";
+import { CircularProgress } from "@algion-co/react-ui-library";
+import { useSSE } from "@algion-co/react-ui-library";
+import { DropdownIcon } from "@algion-co/react-ui-library";
+import { SparklesIcon } from "@algion-co/react-ui-library";
 import { useTranslations } from "next-intl";
 import React, { useCallback, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -174,7 +180,9 @@ export default function PromptBasedValidationRuleFormContent() {
     <>
       <FormSection>
         <DialogPaddingLR>
-          {/* <InputFieldWrapper
+          <FormVerticalSpacing>
+            <div>
+              {/* <InputFieldWrapper
               label={t("validation_rules.new.attachments_field_label")}
               supportingText={t(
                 "validation_rules.new.attachments_field_supporting_text"
@@ -182,73 +190,87 @@ export default function PromptBasedValidationRuleFormContent() {
               displayOptional={false}
               // labelMarginBottom="medium"
             > */}
-          <FormSectionTitle>
-            {t("validation_rules.new.attachments_section_title")}
-          </FormSectionTitle>
-          <FormSectionSubtitle>
-            {t("validation_rules.new.attachments_section_subtitle")}
-          </FormSectionSubtitle>
-          <ul
-            className={
-              validationRulesDialogFormStyles.ThumbnailFileUploadsContainer
-            }
-          >
-            {selectedFiles.map((fileItem) => (
-              <ThumbnailFileItem
-                as="li"
-                key={fileItem.file.name}
-                file={fileItem.file}
-                isValid={fileItem.isValid}
-                isLoading={fileItem.isLoading}
-                progress={fileItem.progress}
-                error={fileItem.error}
-              />
-            ))}
-            <ThumbnailFileUpload
-              as="li"
-              setSelectedFiles={setSelectedFiles}
-              validateFile={() => true}
-              onFileValid={handleFileUpload}
-              className={styles.ThumbnailFileUploadItem}
-            />
-          </ul>
-          {/* </InputFieldWrapper> */}
+              <FormSectionTitle>
+                {t("validation_rules.new.attachments_section_title")}
+              </FormSectionTitle>
+              <FormSectionSubtitle>
+                {t("validation_rules.new.attachments_section_subtitle")}
+              </FormSectionSubtitle>
+              <ul
+                className={
+                  validationRulesDialogFormStyles.ThumbnailFileUploadsContainer
+                }
+              >
+                {selectedFiles.map((fileItem) => (
+                  <ThumbnailFileItem
+                    as="li"
+                    key={fileItem.file.name}
+                    file={fileItem.file}
+                    isValid={fileItem.isValid}
+                    isLoading={fileItem.isLoading}
+                    progress={fileItem.progress}
+                    error={fileItem.error}
+                  />
+                ))}
+                <ThumbnailFileUpload
+                  as="li"
+                  setSelectedFiles={setSelectedFiles}
+                  validateFile={() => true}
+                  onFileValid={handleFileUpload}
+                  className={styles.ThumbnailFileUploadItem}
+                />
+              </ul>
+              {/* </InputFieldWrapper> */}
+            </div>
+
+            <PageSection
+              padding="none"
+              paddingSize="dialog"
+              collapsible={true}
+              defaultOpen={false}
+              unmount={false}
+            >
+              {({ open }) => (
+                <>
+                  <PageSectionHeader
+                    as={PageSectionDisclosureButton}
+                    padding="all"
+                    paddingSize="dialog"
+                    dividerBottom={open}
+                    // marginBottom="none"
+                  >
+                    {/* TODO: Can also consider a form subsection or formpagesection title */}
+                    <FormPageSectionTitle>
+                      {t(
+                        "validation_rules.new.context_pagesubsubsection_title",
+                      )}
+                    </FormPageSectionTitle>
+                    <DropdownIcon direction={open ? "up" : "down"} />
+                  </PageSectionHeader>
+
+                  <PageSectionDisclosurePanel>
+                    <TextArea
+                      // placeholder={placeholder}
+                      // renderTextAreaToolbar={renderTextAreaToolbar}
+                      reactHookForm={{
+                        name: "prompt_based_validation_rule.context",
+                        formMethods: formMethods,
+                      }}
+                      plain={true}
+                      // className={`${
+                      //   borderRadiusClasses[
+                      //     borderRadius as keyof typeof borderRadiusClasses
+                      //   ] || ""
+                      // } ${textAreaClassName}`}
+                      // style={textAreaStyle}
+                    />
+                  </PageSectionDisclosurePanel>
+                </>
+              )}
+            </PageSection>
+          </FormVerticalSpacing>
         </DialogPaddingLR>
       </FormSection>
-
-      <PageSubsubsection
-        renderTitleBar={() => (
-          <div className={styles.ContextTitleBar}>
-            <div className={styles.ContextTitle}>
-              {t("validation_rules.new.context_pagesubsubsection_title")}
-            </div>
-            <div className={styles.ContextTitleBarButtonGroup}>
-              <IconButton variant="secondary" onClick={handleGenerateContext}>
-                <SparklesIcon className={`icon-large`} />
-                {t("validation_rules.new.generate_context_button_label")}
-              </IconButton>
-              <PageSubsubsectionDisclosureButton>
-                <DropdownIcon />
-              </PageSubsubsectionDisclosureButton>
-            </div>
-          </div>
-        )}
-      >
-        <TextArea
-          // placeholder={placeholder}
-          // renderTextAreaToolbar={renderTextAreaToolbar}
-          reactHookForm={{
-            name: "prompt_based_validation_rule.context",
-            formMethods: formMethods,
-          }}
-          // className={`${
-          //   borderRadiusClasses[
-          //     borderRadius as keyof typeof borderRadiusClasses
-          //   ] || ""
-          // } ${textAreaClassName}`}
-          // style={textAreaStyle}
-        />
-      </PageSubsubsection>
 
       <div></div>
       {/* <TextAreaField

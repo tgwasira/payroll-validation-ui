@@ -1,9 +1,9 @@
 // @ts-nocheck
-import { Tag } from "@algion-co/react-ui-library/components/tags/tag/Tag";
+import { Tag } from "@algion-co/react-ui-library";
 import { StackIcon } from "@phosphor-icons/react";
 import React from "react";
 
-// import FunctionIcon from "@algion-co/react-ui-library/icons/FunctionIcon";
+// import FunctionIcon from "@algion-co/react-ui-library";
 import styles from "./ValidationRuleTag.module.css";
 //
 export function ValidationRuleTag({

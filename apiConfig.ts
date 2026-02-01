@@ -2,8 +2,9 @@
 import { ApiClient } from "@algion-co/react-ui-library";
 
 export const validationServiceApi = new ApiClient({
-  baseURL: "http://127.0.0.1:8000",
-  webSocketURL: "ws://127.0.0.1:8000/ws/01K8G9R4S6MKRVJT4EEYW73JQD",
+  baseURL:
+    process.env.NEXT_PUBLIC_VALIDATION_SERVICE_URL || "http://127.0.0.1:8000",
+  webSocketURL: `ws://${process.env.NEXT_PUBLIC_VALIDATION_SERVICE_URL || "127.0.0.1:8000"}/ws/01K8G9R4S6MKRVJT4EEYW73JQD`,
   headers: {}, // Do not define Content-Type here because for multipart, the browser sets it including boundary
   interceptors: {
     // request: async (options) => {

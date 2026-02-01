@@ -1,7 +1,7 @@
 // @ts-nocheck
 "use client";
 
-import { useSSE } from "@algion-co/react-ui-library/contexts/SSEContext";
+import { useSSE } from "@algion-co/react-ui-library";
 import {
   createContext,
   ReactNode,

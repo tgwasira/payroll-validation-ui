@@ -2,19 +2,19 @@
 import {
   PageSection,
   PageSectionSpacing,
-} from "@algion-co/react-ui-library/components/containers/page-section/PageSection";
-import { PageSectionHeader } from "@algion-co/react-ui-library/components/containers/page-section/PageSectionHeader";
+} from "@algion-co/react-ui-library";
+import { PageSectionHeader } from "@algion-co/react-ui-library";
 import {
   Dd,
   Dl,
   Dt,
-} from "@algion-co/react-ui-library/components/description-list/DescriptionList";
-import { FileCard } from "@algion-co/react-ui-library/components/files/file-card/FileCard";";
+} from "@algion-co/react-ui-library";
+import { FileCard } from "@algion-co/react-ui-library";";
 import { useTranslations } from "next-intl";
 import React from "react";
 
 import { ValidationRulesList, ValidationRulesListPaddingLR } from "@/components/validation-rules-list/ValidationRulesList";
-import { PageSectionTitle } from "@algion-co/react-ui-library/components/text/page-section-title/PageSectionTitle";
+import { PageSectionTitle } from "@algion-co/react-ui-library";
 
 import { validationServiceApi } from "../../../../../apiConfig";
 import styles from "./ValidationJobDetailsSection.module.css";

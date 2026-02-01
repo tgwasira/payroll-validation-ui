@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { Button } from "@algion-co/react-ui-library/components/buttons/button/Button";
-import { ButtonGroup } from "@algion-co/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
+import { Button } from "@algion-co/react-ui-library";
+import { ButtonGroup } from "@algion-co/react-ui-library";
 import {
   Dialog,
   DialogBody,
@@ -10,22 +10,22 @@ import {
   DialogPaddingLR,
   DialogPanel,
   DialogTitle,
-} from "@algion-co/react-ui-library/components/dialogs/Dialog";
-import { DialogFooterButtonGroup } from "@algion-co/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
-import { FileUpload } from "@algion-co/react-ui-library/components/file-upload/file-upload/FileUpload_";
-import { SelectInputField } from "@algion-co/react-ui-library/components/forms/form-fields/select-input-field/SelectInputField";
-import { TextAreaField } from "@algion-co/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
-import { TextInputField } from "@algion-co/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
-import { Form } from "@algion-co/react-ui-library/components/forms/Forms";
-import { ControlledSelectInput } from "@algion-co/react-ui-library/components/forms/inputs/select-inputs/ControlledSelectInput";
-import { Tab1 } from "@algion-co/react-ui-library/components/tabs/Tab1/Tab1";
+} from "@algion-co/react-ui-library";
+import { DialogFooterButtonGroup } from "@algion-co/react-ui-library";
+import { FileUpload } from "@algion-co/react-ui-library";
+import { SelectInputField } from "@algion-co/react-ui-library";
+import { TextAreaField } from "@algion-co/react-ui-library";
+import { TextInputField } from "@algion-co/react-ui-library";
+import { Form } from "@algion-co/react-ui-library";
+import { ControlledSelectInput } from "@algion-co/react-ui-library";
+import { Tab1 } from "@algion-co/react-ui-library";
 import {
   Tab,
   TabGroup,
   TabList,
   TabPanel,
   TabPanels,
-} from "@algion-co/react-ui-library/components/tabs/Tabs";
+} from "@algion-co/react-ui-library";
 import { Portal } from "@headlessui/react";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";

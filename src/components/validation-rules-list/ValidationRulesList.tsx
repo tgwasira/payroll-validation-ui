@@ -1,11 +1,8 @@
 // @ts-nocheck
-import { IconOnlyButton } from "@algion-co/react-ui-library/components/buttons/icon-only-button/IconOnlyButton";
-import {
-  List,
-  ListItem,
-} from "@algion-co/react-ui-library/components/lists/List";
-import { Tag } from "@algion-co/react-ui-library/components/tags/tag/Tag";
-import { DropdownIcon } from "@algion-co/react-ui-library/icons/dropdown-icon/DropdownIcon";
+import { IconOnlyButton } from "@algion-co/react-ui-library";
+import { List, ListItem } from "@algion-co/react-ui-library";
+import { Tag } from "@algion-co/react-ui-library";
+import { DropdownIcon } from "@algion-co/react-ui-library";
 import {
   Disclosure,
   DisclosureButton,

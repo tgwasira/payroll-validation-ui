@@ -1,8 +1,8 @@
 // @ts-nocheck
 // TODO: Exports in components should just be react-ui-library
-import { Button } from "@algion-co/react-ui-library/components/buttons/button/Button";
-import { ButtonGroup } from "@algion-co/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
-import { ScrollContainer } from "@algion-co/react-ui-library/components/containers/scroll-container/ScrollContainer";
+import { Button } from "@algion-co/react-ui-library";
+import { ButtonGroup } from "@algion-co/react-ui-library";
+import { ScrollContainer } from "@algion-co/react-ui-library";
 import {
   Dialog,
   DialogBody,
@@ -14,26 +14,23 @@ import {
   DialogPanel,
   DialogTabList,
   DialogTitle,
-} from "@algion-co/react-ui-library/components/dialogs/Dialog";
-import { DialogFooterButtonGroup } from "@algion-co/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
-import { FileUpload } from "@algion-co/react-ui-library/components/file-upload/file-upload/FileUpload";
-import FileList from "@algion-co/react-ui-library/components/files/file-list/FileList";
-// import FileUpload from "@algion-co/react-ui-library/components/file-upload/FileUpload_";
-import { Form } from "@algion-co/react-ui-library/components/forms/Forms";
-import {
-  List,
-  ListItem,
-} from "@algion-co/react-ui-library/components/lists/List";
-import { Tab1 } from "@algion-co/react-ui-library/components/tabs/Tab1/Tab1";
+} from "@algion-co/react-ui-library";
+import { DialogFooterButtonGroup } from "@algion-co/react-ui-library";
+import { FileUpload } from "@algion-co/react-ui-library";
+import { FileList } from "@algion-co/react-ui-library";
+// import FileUpload from "@algion-co/react-ui-library";
+import { Form } from "@algion-co/react-ui-library";
+import { List, ListItem } from "@algion-co/react-ui-library";
+import { Tab1 } from "@algion-co/react-ui-library";
 import {
   Tab,
   TabGroup,
   TabList,
   TabPanel,
   TabPanels,
-} from "@algion-co/react-ui-library/components/tabs/Tabs";
-import { Tab3 } from "@algion-co/react-ui-library/components/tabs/tabs3/Tabs3";
-// import MSExcelIcon from "@algion-co/react-ui-library/icons/MSExcelIcon";
+} from "@algion-co/react-ui-library";
+import { Tab3 } from "@algion-co/react-ui-library";
+// import MSExcelIcon from "@algion-co/react-ui-library";
 import { useTranslations } from "next-intl";
 import React, { useCallback, useState } from "react";
 import { set, useFieldArray, useFormContext } from "react-hook-form";

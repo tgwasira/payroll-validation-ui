@@ -1,35 +1,35 @@
 // @ts-nocheck
 "use client";
 
-import { Button } from "@algion-co/react-ui-library/components/buttons/button/Button";
-import { ButtonGroup } from "@algion-co/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
-import { PageContent } from "@algion-co/react-ui-library/components/containers/page-content/PageContent";
+import { Button } from "@algion-co/react-ui-library";
+import { ButtonGroup } from "@algion-co/react-ui-library";
+import { PageContent } from "@algion-co/react-ui-library";
 import {
   PageSection,
   PageSectionSpacing,
   // PageSectionSpacing,
   PageSectionSpacingLR,
   PageSectionSpacingTB,
-} from "@algion-co/react-ui-library/components/containers/page-section/PageSection";
-import { PageSectionHeader } from "@algion-co/react-ui-library/components/containers/page-section/PageSectionHeader";
-import { PageSubsection } from "@algion-co/react-ui-library/components/containers/page-subsection/PageSubsection";
-import { RightAlignedContent } from "@algion-co/react-ui-library/components/containers/right-aligned-content/RightAlignedContent";
-import { TextAreaField } from "@algion-co/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
-import { TextInputField } from "@algion-co/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
-import { Form } from "@algion-co/react-ui-library/components/forms/Forms";
-import { Menu } from "@algion-co/react-ui-library/components/menu/Menu";
-import { MenuButton } from "@algion-co/react-ui-library/components/menu/MenuButton";
-import { MenuDropdown } from "@algion-co/react-ui-library/components/menu/MenuDropdown";
-import { MenuItemsList } from "@algion-co/react-ui-library/components/menu/MenuItemsList";
-import { PageHeader } from "@algion-co/react-ui-library/components/page-elements/page-header/PageHeader";
-import { Table } from "@algion-co/react-ui-library/components/tables/table/Table";
-import { getCheckboxColumn } from "@algion-co/react-ui-library/components/tables/utils/getCheckboxColumn";
-import { PageSectionTitle } from "@algion-co/react-ui-library/components/text/page-section-title/PageSectionTitle";
-import { PageTitle } from "@algion-co/react-ui-library/components/text/page-title/PageTitle";
-import { PageTitleAndBackButton } from "@algion-co/react-ui-library/components/text/page-title-and-back-button/PageTitleAndBackButton";
-import { useSSE } from "@algion-co/react-ui-library/contexts/SSEContext";
-// import MSExcelIcon from "@algion-co/react-ui-library/icons/MSExcelIcon";
-import { PlusIcon } from "@algion-co/react-ui-library/icons/PlusIcon";
+} from "@algion-co/react-ui-library";
+import { PageSectionHeader } from "@algion-co/react-ui-library";
+import { PageSubsection } from "@algion-co/react-ui-library";
+import { RightAlignedContent } from "@algion-co/react-ui-library";
+import { TextAreaField } from "@algion-co/react-ui-library";
+import { TextInputField } from "@algion-co/react-ui-library";
+import { Form } from "@algion-co/react-ui-library";
+import { Menu } from "@algion-co/react-ui-library";
+import { MenuButton } from "@algion-co/react-ui-library";
+import { MenuDropdown } from "@algion-co/react-ui-library";
+import { MenuItemsList } from "@algion-co/react-ui-library";
+import { PageHeader } from "@algion-co/react-ui-library";
+import { Table } from "@algion-co/react-ui-library";
+import { getCheckboxColumn } from "@algion-co/react-ui-library";
+import { PageSectionTitle } from "@algion-co/react-ui-library";
+import { PageTitle } from "@algion-co/react-ui-library";
+import { PageTitleAndBackButton } from "@algion-co/react-ui-library";
+import { useSSE } from "@algion-co/react-ui-library";
+// import MSExcelIcon from "@algion-co/react-ui-library";
+import { PlusIcon } from "@algion-co/react-ui-library";
 import { ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr";
 import { createColumnHelper } from "@tanstack/react-table";
 import { redirect } from "next/navigation";

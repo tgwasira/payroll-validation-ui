@@ -1,15 +1,15 @@
 // @ts-nocheck
-import { Button } from "@algion-co/react-ui-library/components/buttons/button/Button";
-import { PageSection } from "@algion-co/react-ui-library/components/containers/page-section/PageSection";
-import { PageSectionHeader } from "@algion-co/react-ui-library/components/containers/page-section/PageSectionHeader";
-import { PageSubsection } from "@algion-co/react-ui-library/components/containers/page-subsection/PageSubsection";
-import { EmptyState1 } from "@algion-co/react-ui-library/components/empty-states/EmptyState1";
-import { FileCard } from "@algion-co/react-ui-library/components/files/file-card/FileCard";
-import { List } from "@algion-co/react-ui-library/components/lists/List";
-import { Table } from "@algion-co/react-ui-library/components/tables/table/Table";
-import { getCheckboxColumn } from "@algion-co/react-ui-library/components/tables/utils/getCheckboxColumn";
-import { PageSectionTitle } from "@algion-co/react-ui-library/components/text/page-section-title/PageSectionTitle";
-// import MSExcelIcon from "@algion-co/react-ui-library/icons/MSExcelIcon";
+import { Button } from "@algion-co/react-ui-library";
+import { PageSection } from "@algion-co/react-ui-library";
+import { PageSectionHeader } from "@algion-co/react-ui-library";
+import { PageSubsection } from "@algion-co/react-ui-library";
+import { EmptyState1 } from "@algion-co/react-ui-library";
+import { FileCard } from "@algion-co/react-ui-library";
+import { List } from "@algion-co/react-ui-library";
+import { Table } from "@algion-co/react-ui-library";
+import { getCheckboxColumn } from "@algion-co/react-ui-library";
+import { PageSectionTitle } from "@algion-co/react-ui-library";
+// import MSExcelIcon from "@algion-co/react-ui-library";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";

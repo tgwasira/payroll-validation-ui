@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { Button } from "@algion-co/react-ui-library/components/buttons/button/Button";
-import { ButtonGroup } from "@algion-co/react-ui-library/components/buttons/button-group/ButtonGroupContainer";
-import { ScrollContainer } from "@algion-co/react-ui-library/components/containers/scroll-container/ScrollContainer";
+import { Button } from "@algion-co/react-ui-library";
+import { ButtonGroup } from "@algion-co/react-ui-library";
+import { ScrollContainer } from "@algion-co/react-ui-library";
 import {
   Dialog,
   DialogBody,
@@ -13,36 +13,33 @@ import {
   DialogTabGroup,
   DialogTabList,
   DialogTitle,
-} from "@algion-co/react-ui-library/components/dialogs/Dialog";
-import { DialogFooterButtonGroup } from "@algion-co/react-ui-library/components/dialogs/dialog-footer-button-group/DialogFooterButtonGroup";
-import { FileUpload } from "@algion-co/react-ui-library/components/file-upload/file-upload/FileUpload_";
-import { ThumbnailFileUpload } from "@algion-co/react-ui-library/components/file-upload/thumbnail-file-upload/ThumbnailFileUpload";
-import { HorizontalFormFieldGroup } from "@algion-co/react-ui-library/components/forms/form-fields/form-field-groups/FormFieldGroups";
-import { NumericInputField } from "@algion-co/react-ui-library/components/forms/form-fields/numeric-input-field/NumericInputField";
-import { SelectInputField } from "@algion-co/react-ui-library/components/forms/form-fields/select-input-field/SelectInputField";
-import { TextAreaField } from "@algion-co/react-ui-library/components/forms/form-fields/text-area-field/TextAreaField";
-import { TextInputField } from "@algion-co/react-ui-library/components/forms/form-fields/text-input-field/TextInputField";
+} from "@algion-co/react-ui-library";
+import { DialogFooterButtonGroup } from "@algion-co/react-ui-library";
+import { FileUpload } from "@algion-co/react-ui-library";
+import { ThumbnailFileUpload } from "@algion-co/react-ui-library";
+import { HorizontalFormFieldGroup } from "@algion-co/react-ui-library";
+import { NumericInputField } from "@algion-co/react-ui-library";
+import { SelectInputField } from "@algion-co/react-ui-library";
+import { TextAreaField } from "@algion-co/react-ui-library";
+import { TextInputField } from "@algion-co/react-ui-library";
 import {
   Form,
   FormSection,
   FormVerticalSpacing,
-} from "@algion-co/react-ui-library/components/forms/Forms";
-import { ControlledSelectInput } from "@algion-co/react-ui-library/components/forms/inputs/select-inputs/ControlledSelectInput";
-import { SelectInput } from "@algion-co/react-ui-library/components/forms/inputs/select-inputs/SelectInput";
-import { Tab1 } from "@algion-co/react-ui-library/components/tabs/Tab1/Tab1";
+} from "@algion-co/react-ui-library";
+import { ControlledSelectInput } from "@algion-co/react-ui-library";
+import { SelectInput } from "@algion-co/react-ui-library";
+import { Tab1 } from "@algion-co/react-ui-library";
 import {
   Tab,
   TabGroup,
   TabList,
   TabPanel,
   TabPanels,
-} from "@algion-co/react-ui-library/components/tabs/Tabs";
-import {
-  Tab3,
-  TabList3,
-} from "@algion-co/react-ui-library/components/tabs/tabs3/Tabs3";
-import { CalendarIcon } from "@algion-co/react-ui-library/icons/CalendarIcon";
-import { TypeIcon } from "@algion-co/react-ui-library/icons/TypeIcon";
+} from "@algion-co/react-ui-library";
+import { Tab3, TabList3 } from "@algion-co/react-ui-library";
+import { CalendarIcon } from "@algion-co/react-ui-library";
+import { TypeIcon } from "@algion-co/react-ui-library";
 import {
   // CalendarIcon,
   HashIcon,

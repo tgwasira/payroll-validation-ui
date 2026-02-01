@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useSSE } from "@algion-co/react-ui-library/contexts/SSEContext";
+import { useSSE } from "@algion-co/react-ui-library";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export function useStreamingText(jobId?: string) {
