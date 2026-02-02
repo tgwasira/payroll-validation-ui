@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@algion-co/react-ui-library": "^0.1.1",
     "@atlaskit/pragmatic-drag-and-drop": "^1.7.7",
     "@floating-ui/react": "^0.27.15",
     "@headlessui/react": "^2.2.7",
