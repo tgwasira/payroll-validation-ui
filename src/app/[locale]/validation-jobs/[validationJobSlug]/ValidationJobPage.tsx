@@ -1,19 +1,19 @@
 // @ts-nocheck
 "use client";
 
-import PageContent from "@algion-co/react-ui-library";
-import PageSection from "@algion-co/react-ui-library";
-import PageHeader from "@algion-co/react-ui-library";
+import { PageContent } from "@algion-co/react-ui-library";
+import { PageSection } from "@algion-co/react-ui-library";
+import { PageHeader } from "@algion-co/react-ui-library";
 import { PageTabGroup, PageTabList } from "@algion-co/react-ui-library";
-import Table from "@algion-co/react-ui-library";
-import Tab2 from "@algion-co/react-ui-library";
+import { Table } from "@algion-co/react-ui-library";
+import { Tab2 } from "@algion-co/react-ui-library";
 import {
   TabGroup,
   TabList,
   TabPanel,
   TabPanels,
 } from "@algion-co/react-ui-library";
-import PageTitleAndBackButton from "@algion-co/react-ui-library";
+import { PageTitleAndBackButton } from "@algion-co/react-ui-library";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 
