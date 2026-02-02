@@ -3,6 +3,7 @@ import { PageSection, PageSectionSpacing } from "@algion-co/react-ui-library";
 import { PageSectionHeader } from "@algion-co/react-ui-library";
 import { Dd, Dl, Dt } from "@algion-co/react-ui-library";
 import { FileCard } from "@algion-co/react-ui-library";
+import { PageSectionTitle } from "@algion-co/react-ui-library";
 import { useTranslations } from "next-intl";
 import React from "react";
 
@@ -10,8 +11,6 @@ import {
   ValidationRulesList,
   ValidationRulesListPaddingLR,
 } from "@/components/validation-rules-list/ValidationRulesList";
-import { PageSectionTitle } from "@algion-co/react-ui-library";
-import { PageSectionTitle } from "@algion-co/react-ui-library";
 
 import { validationServiceApi } from "../../../../../apiConfig";
 import styles from "./ValidationJobDetailsSection.module.css";
