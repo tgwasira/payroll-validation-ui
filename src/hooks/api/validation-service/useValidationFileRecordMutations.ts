@@ -2,7 +2,7 @@
 import { useApi } from "@algion-co/react-ui-library";
 import React, { useCallback } from "react";
 
-import { validationServiceApi } from "../../../../apiConfig";
+import { validationServiceApi } from "../../../apiConfig";
 
 export function useValidationJobFileMutations() {
   const api = useApi(

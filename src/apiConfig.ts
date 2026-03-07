@@ -40,6 +40,8 @@ export const validationServiceApi = new ApiClient({
     validationFileRecords: "/validation-file-records", // no longer using this directly
     validationRuleDataSources: "/validation-rule-data-sources",
     downloadFile: "/files/download",
+    signUp: "/auth/signup",
+    signIn: "/auth/login",
   },
 });
 

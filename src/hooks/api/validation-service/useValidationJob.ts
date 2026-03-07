@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { ValidationJob } from "@/types/validationServiceTypes";
 
-import { validationServiceApi } from "../../../../apiConfig";
+import { validationServiceApi } from "../../../apiConfig";
 
 /**
  * A hook to manage and fetch a validation job from the validation service API.

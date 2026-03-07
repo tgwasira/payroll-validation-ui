@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import type { ValidationRuleGroup } from "@/types/validationServiceTypes";
 
-import { validationServiceApi } from "../../../../apiConfig";
+import { validationServiceApi } from "../../../apiConfig";
 
 interface UseValidationRuleGroupsOptions {
   page?: number;

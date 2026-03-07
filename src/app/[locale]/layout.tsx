@@ -6,8 +6,6 @@ import "./globals.css";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import { SearchInput } from "@algion-co/react-ui-library";
-import { Toaster } from "@algion-co/react-ui-library";
-import { Topbar } from "@algion-co/react-ui-library";
 import { SSEProvider } from "@algion-co/react-ui-library";
 import { WebSocketProvider } from "@algion-co/react-ui-library";
 import type { Metadata } from "next";
@@ -18,11 +16,7 @@ import { ThemeProvider } from "next-themes";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { Bounce } from "react-toastify";
 
-import AppSidebar from "@/app/[locale]/AppSidebar";
 import { routing } from "@/i18n/routing";
-
-import AppTopbar from "./AppTopbar";
-import { ValidationProgressProvider } from "./validation-jobs/ValidationProgressContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -48,25 +42,16 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
         <SSEProvider>
-          <ValidationProgressProvider>
-            <NextIntlClientProvider>
-              <ThemeProvider>
-                <SkeletonTheme
-                  baseColor="var(--color-skeleton-base)"
-                  highlightColor="var(--color-skeleton-highlight)"
-                >
-                  <div className="body-wrapper">
-                    <AppTopbar />
-                    <div className="page-wrapper">
-                      <AppSidebar />
-                      <div className="page-content">{children}</div>
-                      <Toaster />
-                    </div>
-                  </div>
-                </SkeletonTheme>
-              </ThemeProvider>
-            </NextIntlClientProvider>
-          </ValidationProgressProvider>
+          <NextIntlClientProvider>
+            <ThemeProvider>
+              <SkeletonTheme
+                baseColor="var(--color-skeleton-base)"
+                highlightColor="var(--color-skeleton-highlight)"
+              >
+                {children}
+              </SkeletonTheme>
+            </ThemeProvider>
+          </NextIntlClientProvider>
         </SSEProvider>
       </body>
     </html>

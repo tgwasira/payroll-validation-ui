@@ -7,7 +7,7 @@ import {
   ValidationJob,
 } from "@/types/validationServiceTypes";
 
-import { validationServiceApi } from "../../../../apiConfig";
+import { validationServiceApi } from "../../../apiConfig";
 
 interface UseValidationJobsOptions {
   page?: number;

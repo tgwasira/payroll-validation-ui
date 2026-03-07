@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 import type { ValidationRule } from "@/types/validationServiceTypes";
 
-import { validationServiceApi } from "../../../../apiConfig";
+import { validationServiceApi } from "../../../apiConfig";
 
 interface UseValidationRulesOptions {
   page?: number;

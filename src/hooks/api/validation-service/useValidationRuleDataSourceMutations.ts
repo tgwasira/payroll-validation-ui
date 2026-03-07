@@ -3,7 +3,7 @@ import { useApi } from "@algion-co/react-ui-library";
 import { useMultipartFileUpload } from "@algion-co/react-ui-library";
 import React, { useCallback } from "react";
 
-import { validationServiceApi } from "../../../../apiConfig";
+import { validationServiceApi } from "../../../apiConfig";
 
 export function useValidationRuleDataSourceMutations() {
   const { uploadFile, data, loading, error } = useMultipartFileUpload({

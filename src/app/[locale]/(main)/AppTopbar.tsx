@@ -16,7 +16,8 @@ import { Topbar, TopbarMainContent } from "@algion-co/react-ui-library";
 import { useTranslations } from "next-intl";
 import React from "react";
 
-import logogram from "../../../public/logogram.png";
+// TODO: Fix this
+import logogram from "../../../../public/logogram.png";
 import styles from "./AppTopbar.module.css";
 
 export default function AppTopbar() {

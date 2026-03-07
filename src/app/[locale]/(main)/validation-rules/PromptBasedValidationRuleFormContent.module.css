@@ -22,3 +22,10 @@
 .ThumbnailFileUploadItem {
   aspect-ratio: 1 / 0.96;
 }
+
+.ThumbnailFileUploadsSection {
+  padding-top: 16px;
+  padding-bottom: 17px;
+  padding-left: 15px;
+  padding-right: 15px;
+}

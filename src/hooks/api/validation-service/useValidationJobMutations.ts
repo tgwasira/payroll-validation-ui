@@ -3,7 +3,7 @@ import { useApi } from "@algion-co/react-ui-library";
 import { useCallback } from "react";
 import { toast } from "sonner";
 
-import { validationServiceApi } from "../../../../apiConfig";
+import { validationServiceApi } from "../../../apiConfig";
 
 export function useValidationJobMutations() {
   const api = useApi(validationServiceApi, "/validation-jobs");

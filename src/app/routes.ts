@@ -1,5 +1,7 @@
+import { sign } from "crypto";
+
 // @ts-nocheck
-function makeRoutes(base, extra = {}) {
+function makeRoutesObject(base, extra = {}) {
   return {
     base,
     list: base,
@@ -10,15 +12,18 @@ function makeRoutes(base, extra = {}) {
 }
 
 const routes = {
-  validationJobs: makeRoutes("/en/validation-jobs", {
+  validationJobs: makeRoutesObject("/en/validation-jobs", {
     new: "/new",
   }),
-  validationRuleGroups: makeRoutes("/en/validation-rule-groups", {
+  validationRuleGroups: makeRoutesObject("/en/validation-rule-groups", {
     new: "/new",
   }),
-  validationRules: makeRoutes("/en/validation-rules", {
+  validationRules: makeRoutesObject("/en/validation-rules", {
     new: "/new",
   }),
+  signup: "/en/signup",
+  completeSignup: "/en/complete-signup",
+  signin: "/en/signin",
 };
 
 export default routes;

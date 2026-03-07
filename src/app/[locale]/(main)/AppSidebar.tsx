@@ -11,7 +11,7 @@ import React from "react";
 
 import { BrandingLight } from "@/components/BrandingLight";
 
-import routes from "../routes";
+import routes from "../../routes";
 import styles from "./AppSidebar.module.css";
 
 /**

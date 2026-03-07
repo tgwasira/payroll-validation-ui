@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Button } from "@algion-co/react-ui-library";
+import { Button, DialogBodyPadding } from "@algion-co/react-ui-library";
 import { ButtonGroup } from "@algion-co/react-ui-library";
 import { ScrollContainer } from "@algion-co/react-ui-library";
 import {
@@ -53,9 +53,7 @@ import { useValidationRuleMutations } from "@/hooks/api/validation-service/useVa
 
 import NumberFields from "./data-type-specific-fields/NumberFields";
 import FormulaBasedValidationRuleFormContent from "./FormulaBasedValidationRuleFormContent";
-import PromptBasedValidationRuleFormContent, {
-  PromptFormField,
-} from "./PromptBasedValidationRuleFormContent";
+import PromptBasedValidationRuleFormContent from "./PromptBasedValidationRuleFormContent";
 import styles from "./ValidationRulesDialogForm.module.css";
 
 export default function ValidationRulesDialogForm({
@@ -192,24 +190,28 @@ export default function ValidationRulesDialogForm({
 
             <TabPanels>
               <TabPanel>
-                <FormSection borderBottom={false}>
-                  <DialogPaddingLR>
+                <FormSection
+                  borderBottom={false}
+                  paddingTop="none"
+                  paddingBottom="none"
+                >
+                  <DialogBodyPadding padding="all">
                     <FormVerticalSpacing>
                       {renderCommonFormContentTop()}
                       <FormulaBasedValidationRuleFormContent />
                       {renderCommonFormContentBottom()}
                     </FormVerticalSpacing>
-                  </DialogPaddingLR>
+                  </DialogBodyPadding>
                 </FormSection>
               </TabPanel>
               <TabPanel>
-                <FormSection>
-                  <DialogPaddingLR>
+                <FormSection paddingTop="none">
+                  <DialogBodyPadding padding="top right left">
                     <FormVerticalSpacing>
                       {renderCommonFormContentTop()}
-                      <PromptFormField />
+                      {/* <PromptFormField /> */}
                     </FormVerticalSpacing>
-                  </DialogPaddingLR>
+                  </DialogBodyPadding>
                 </FormSection>
                 <PromptBasedValidationRuleFormContent />
                 {/* <FormSection borderBottom={false}>

@@ -2,7 +2,7 @@
 import { useApi } from "@algion-co/react-ui-library";
 import React, { useCallback } from "react";
 
-import { ragServiceApi } from "../../../../apiConfig";
+import { ragServiceApi } from "../../../apiConfig";
 
 export function useGenerateContext() {
   const api = useApi(ragServiceApi, ragServiceApi.endpoints.generateContext);
