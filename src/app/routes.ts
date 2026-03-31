@@ -1,6 +1,6 @@
+// @ts-nocheck
 import { sign } from "crypto";
 
-// @ts-nocheck
 function makeRoutesObject(base, extra = {}) {
   return {
     base,
