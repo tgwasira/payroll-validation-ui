@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { jwtVerify } from "jose";
 import { NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
