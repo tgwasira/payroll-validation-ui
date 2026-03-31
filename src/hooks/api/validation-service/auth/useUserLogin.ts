@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";

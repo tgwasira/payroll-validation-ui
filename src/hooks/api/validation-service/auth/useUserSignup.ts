@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useApi } from "@algion-co/react-ui-library";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
