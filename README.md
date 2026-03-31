@@ -1,3 +1,5 @@
+JWT_SECRET=your-super-secret-jwt-token-with-at-least-32-characters-long
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

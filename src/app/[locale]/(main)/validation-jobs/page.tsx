@@ -37,7 +37,7 @@ import { useEffect, useState } from "react";
 
 import routes from "@/app/routes";
 import { ValidationRuleTag } from "@/components/validation-rule-tag/ValidationRuleTag";
-import { LOADING_ROWS } from "@/constants";
+import { LOADING_ROWS } from "@/constants/constants";
 import { useValidationJobs } from "@/hooks/api/validation-service/useValidationJobs";
 
 import { getValidationSummary } from "./getValidationSummary";

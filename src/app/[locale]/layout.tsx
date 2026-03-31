@@ -1,22 +1,24 @@
 // @ts-nocheck
 import "@algion-co/react-ui-library/global.css";
-import "@algion-co/react-ui-library/index.d.css";
+import "@algion-co/react-ui-library/index.client.d.css";
 import "./globals.css";
 // Required to show loading skeletons
 import "react-loading-skeleton/dist/skeleton.css";
 
-import { SearchInput } from "@algion-co/react-ui-library";
-import { SSEProvider } from "@algion-co/react-ui-library";
-import { WebSocketProvider } from "@algion-co/react-ui-library";
+// import { SearchInput } from "@algion-co/react-ui-library";
+// import { SSEProvider } from "@algion-co/react-ui-library";
+// import { WebSocketProvider } from "@algion-co/react-ui-library";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { ThemeProvider } from "next-themes";
-import { SkeletonTheme } from "react-loading-skeleton";
-import { Bounce } from "react-toastify";
 
+// import { ThemeProvider } from "next-themes";
+// import { SkeletonTheme } from "react-loading-skeleton";
+// import { Bounce } from "react-toastify";
 import { routing } from "@/i18n/routing";
+
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -41,18 +43,12 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
-        <SSEProvider>
-          <NextIntlClientProvider>
-            <ThemeProvider>
-              <SkeletonTheme
-                baseColor="var(--color-skeleton-base)"
-                highlightColor="var(--color-skeleton-highlight)"
-              >
-                {children}
-              </SkeletonTheme>
-            </ThemeProvider>
-          </NextIntlClientProvider>
-        </SSEProvider>
+        {/* Keep NextIntlClientProvider here beause it's a little more complex in
+        its usage. We don't need to pull it out anyways because it is not a
+        client component and doesn't cause layout to become client component. */}
+        <NextIntlClientProvider>
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -2,16 +2,17 @@
 import { useApi } from "@algion-co/react-ui-library";
 import React, { useCallback } from "react";
 
-import { ragServiceApi } from "../../../apiConfig";
+import { validationServiceApi } from "../../../apiConfig";
 
 export function useIndexFile() {
-  const api = useApi(ragServiceApi, ragServiceApi.endpoints.indexFile);
+  const api = useApi(
+    validationServiceApi,
+    validationServiceApi.endpoints.indexFile,
+  );
 
   const indexFile = useCallback(
     async (data) => {
       const result = await api.post(data);
-
-      console.log("Index file result:", result);
 
       return result;
     },

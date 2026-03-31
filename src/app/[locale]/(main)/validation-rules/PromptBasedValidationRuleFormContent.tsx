@@ -1,5 +1,7 @@
 // @ts-nocheck
-import Button, {
+import {
+  Button,
+  ButtonGroup,
   DialogBodyPadding,
   FormPageSectionSubtitle,
   FormPageSectionTitle,
@@ -39,6 +41,7 @@ import { useTranslations } from "next-intl";
 import React, { useCallback, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 
+import { validationServiceApi } from "@/apiConfig";
 import { useGenerateContext } from "@/hooks/api/rag-service/useGenerateContext";
 import { useIndexFile } from "@/hooks/api/rag-service/useIndexFile";
 import { useValidationRuleDataSourceMutations } from "@/hooks/api/validation-service/useValidationRuleDataSourceMutations";
@@ -90,7 +93,9 @@ export default function PromptBasedValidationRuleFormContent() {
   // Connect to SSE on mount
   useEffect(() => {
     // TODO: Make the URL configurable
-    connect("http://localhost:8001/events/rag");
+    connect(
+      `${validationServiceApi.baseURL}${validationServiceApi.endpoints.sseRag}`,
+    );
   }, []);
 
   useEffect(() => {
@@ -362,13 +367,27 @@ export default function PromptBasedValidationRuleFormContent() {
                   padding="all"
                   paddingSize="dialog"
                   dividerBottom={open}
+                  className={styles.ContextGenerationSectionHeader}
                   // marginBottom="none"
                 >
                   {/* TODO: Can also consider a form subsection or formpagesection title */}
                   <FormPageSectionTitle>
                     {t("validation_rules.new.context_pagesubsubsection_title")}
                   </FormPageSectionTitle>
-                  <DropdownIcon direction={open ? "up" : "down"} />
+                  <ButtonGroup>
+                    <Button
+                      as="div"
+                      role="button"
+                      variant="tertiary"
+                      paddingLeftSize={"icon-normal"}
+                      onClick={handleGenerateContext}
+                      disabled={isStreaming}
+                    >
+                      <SparklesIcon className={`icon-large`} />
+                      {t("validation_rules.new.generate_context_button_label")}
+                    </Button>
+                    <DropdownIcon direction={open ? "up" : "down"} />
+                  </ButtonGroup>
                 </PageSectionHeader>
 
                 <PageSectionDisclosurePanel>

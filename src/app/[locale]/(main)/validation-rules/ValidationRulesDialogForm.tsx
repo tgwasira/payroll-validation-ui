@@ -1,4 +1,5 @@
 // @ts-nocheck
+"use client"; // TODO: Remove
 import { Button, DialogBodyPadding } from "@algion-co/react-ui-library";
 import { ButtonGroup } from "@algion-co/react-ui-library";
 import { ScrollContainer } from "@algion-co/react-ui-library";
@@ -107,7 +108,7 @@ export default function ValidationRulesDialogForm({
       />
 
       <SelectInputField
-        as={ControlledSelectInput}
+        inputAs={ControlledSelectInput}
         name="level"
         label={t("validation_rules.new.level_field_label")}
         options={[

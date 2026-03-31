@@ -34,7 +34,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import routes from "@/app/routes";
 import NewValidationRuleButton from "@/components/buttons/NewValidationRuleButton";
-import { LOADING_ROWS } from "@/constants";
+import { LOADING_ROWS } from "@/constants/constants";
 import { useValidationRules } from "@/hooks/api/validation-service/useValidationRules";
 import type { ValidationRule } from "@/types/validationServiceTypes";
 

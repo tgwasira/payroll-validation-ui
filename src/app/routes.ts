@@ -23,7 +23,14 @@ const routes = {
   }),
   signup: "/en/signup",
   completeSignup: "/en/complete-signup",
-  signin: "/en/signin",
+  login: "/en/login",
+
+  nextServer: {
+    ...makeRoutesObject("/api"),
+    auth: makeRoutesObject("/api/auth", {
+      login: "/login",
+    }),
+  },
 };
 
 export default routes;

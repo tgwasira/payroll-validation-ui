@@ -1,4 +1,5 @@
 // @ts-nocheck
+"use client"; // Really consider whether we need client in this.
 import { Sidebar } from "@algion-co/react-ui-library";
 import { SidebarBranding } from "@algion-co/react-ui-library";
 import { SidebarTabGroup } from "@algion-co/react-ui-library";

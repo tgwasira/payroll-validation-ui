@@ -11,6 +11,7 @@ import {
   useState,
 } from "react";
 
+import { validationServiceApi } from "@/apiConfig";
 import { useValidationJobs } from "@/hooks/api/validation-service/useValidationJob";
 
 interface ValidationProgress {
@@ -49,7 +50,9 @@ export function ValidationProgressProvider({
   // Connect to SSE on mount
   useEffect(() => {
     // TODO: Make the URL configurable
-    connect("http://localhost:8000/events/validation");
+    connect(
+      `${validationServiceApi.baseURL}${validationServiceApi.endpoints.sseValidation}`,
+    );
   }, []);
 
   const loadInitialProgresses = useCallback(async () => {

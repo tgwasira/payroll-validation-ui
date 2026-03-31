@@ -167,7 +167,7 @@ export default function FormulaBasedValidationRuleFormContent() {
     <>
       {/* We are registering then so that we can get validation from react-hook-form. We'll compute the formula on submit and then delete these fields. */}
       <SelectInputField
-        as={ControlledSelectInput}
+        inputAs={ControlledSelectInput}
         name="data_type"
         label={t("validation_rules.new.data_type_field_label")}
         options={[
@@ -224,7 +224,7 @@ export default function FormulaBasedValidationRuleFormContent() {
       />
 
       <SelectInputField
-        as={ControlledSelectInput}
+        inputAs={ControlledSelectInput}
         name="criteria"
         isSearchable={true}
         label={t("validation_rules.new.criteria_field_label")}

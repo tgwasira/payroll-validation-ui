@@ -16,6 +16,7 @@ export function useUserSignup() {
   const createUser = useCallback(
     async (data: Partial<User>) => {
       const promise = api.post(data);
+      console.log(data);
 
       toast.promise(promise, {
         error: (err) => {

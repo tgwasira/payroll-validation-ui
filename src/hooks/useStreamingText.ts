@@ -2,6 +2,8 @@
 import { useSSE } from "@algion-co/react-ui-library";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { validationServiceApi } from "@/apiConfig";
+
 export function useStreamingText(jobId?: string) {
   const { connect, subscribe } = useSSE();
   const [text, setText] = useState("");
@@ -16,13 +18,13 @@ export function useStreamingText(jobId?: string) {
     setError(null);
 
     // TODO: Make URL configurable
-    connect("http://localhost:8001/events/rag");
+    connect(
+      `${validationServiceApi.baseURL}${validationServiceApi.endpoints.sseRag}`,
+    );
 
     const unsubscribeToken = subscribe("token", (data) => {
       if (!streamingRef.current) return;
-      console.log(data.payload);
       if (!jobId || data.payload.jobId === jobId) {
-        console.log("Received token:", data.payload.content);
         setIsStreaming(true);
         setText((prev) => prev + (data.payload.content || ""));
       }

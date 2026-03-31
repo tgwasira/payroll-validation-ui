@@ -82,8 +82,8 @@ export function useValidationRuleMutations() {
   const createValidationRule = useCallback(
     async (ruleData: Partial<ValidationRule>) => {
       const promise = api.post(ruleData);
-      console.log("Creating validation rule with data:", ruleData);
 
+      // TODO: Do toast properly
       const result = await toast.promise(promise, {
         loading: "Do translation: Creating validation rule...",
         success: (data) =>
