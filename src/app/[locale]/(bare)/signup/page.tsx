@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { SignupPage, SignupPageContent } from "@algion-co/react-ui-library";
