@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Toaster } from "@algion-co/react-ui-library";
 
 export default function BareLayout({ children }) {

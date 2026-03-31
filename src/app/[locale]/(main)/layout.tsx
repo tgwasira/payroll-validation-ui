@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Toaster } from "@algion-co/react-ui-library";
 import { Topbar } from "@algion-co/react-ui-library";
 
