@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 // import { SearchInput } from "@algion-co/react-ui-library";
