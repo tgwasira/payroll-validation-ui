@@ -139,8 +139,8 @@ export default function PromptBasedValidationRuleFormContent() {
 
           indexFile({
             fileUuid: validationRuleDataSource.validationRuleFileRecord.uuid,
-            filePath:
-              validationRuleDataSource.validationRuleFileRecord.filePath,
+            storagePath:
+              validationRuleDataSource.validationRuleFileRecord.storagePath,
             validationRuleUuid: getValues("uuid"),
           });
         }

@@ -24,8 +24,9 @@ export default function Login() {
         onSubmit={async (data) => {
           try {
             await loginUser(data);
-            router.push(routes.validationJobs);
+            router.replace(routes.validationJobs.base);
           } catch (err) {
+            console.error("Login failed:", err);
             // No need to do anything.
           }
         }}

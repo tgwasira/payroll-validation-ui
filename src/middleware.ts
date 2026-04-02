@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { jwtVerify } from "jose";
+import { createRemoteJWKSet, jwtVerify } from "jose";
 import { NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
 
@@ -9,16 +9,19 @@ import { PERMISSION_ROUTES, PUBLIC_ROUTES } from "@/constants/routeProtection";
 import { routing } from "./i18n/routing";
 
 const intlMiddleware = createMiddleware(routing);
-const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+const PROJECT_JWKS = createRemoteJWKSet(
+  new URL(`${process.env.SUPABASE_URL}/auth/v1/.well-known/jwks.json`),
+);
 
 interface UserPayload {
   roles?: string[];
   [key: string]: unknown;
 }
 
+// TODO: Consider using Supabase client
 async function verifyToken(token: string): Promise<UserPayload | null> {
   try {
-    const { payload } = await jwtVerify(token, secret);
+    const { payload } = await jwtVerify(token, PROJECT_JWKS);
     return payload as UserPayload;
   } catch (err) {
     console.error("Token verification failed:", err);
@@ -161,7 +164,7 @@ export const config = {
 // import { routing } from "./i18n/routing";
 // const intlMiddleware = createMiddleware(routing);
 
-// const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+// const secret = new TextEncoder().encode(process.env.SUPABASE_JWT_SECRET);
 
 // export async function verifyToken(token: string) {
 //   try {
